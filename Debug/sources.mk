@@ -111,5 +111,8 @@ PDE_DEPS__QUOTED :=
 
 # Every subdirectory with source files must be described here
 SUBDIRS := \
-. \
+user/src \
+user_lib/asm \
+user_lib/cmd \
+user_lib/src \
 
