@@ -8,22 +8,4 @@ SHELL = cmd.exe
 CMD_SRCS += \
 ../28335_RAM_lnk.cmd 
 
-C_SRCS += \
-../main.c 
-
-C_DEPS += \
-./main.d 
-
-OBJS += \
-./main.obj 
-
-OBJS__QUOTED += \
-"main.obj" 
-
-C_DEPS__QUOTED += \
-"main.d" 
-
-C_SRCS__QUOTED += \
-"../main.c" 
-
 
