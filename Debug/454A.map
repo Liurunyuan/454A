@@ -1,10 +1,10 @@
 ******************************************************************************
              TMS320C2000 Linker PC v18.12.1                    
 ******************************************************************************
->> Linked Mon Jan 13 20:59:40 2020
+>> Linked Mon Jan 13 21:37:12 2020
 
 OUTPUT FILE NAME:   <454A.out>
-ENTRY POINT SYMBOL: "_c_int00"  address: 000084c7
+ENTRY POINT SYMBOL: "_c_int00"  address: 000089c3
 
 
 MEMORY CONFIGURATION
@@ -16,7 +16,7 @@ PAGE 0:
   BOOT_RSVD             00000002   0000004e  00000000  0000004e  RWIX
   RAMM0                 00000050   000003b0  00000000  000003b0  RWIX
   RAML0                 00008000   00000130  0000001e  00000112  RWIX
-  RAML1                 00008130   00003ed0  00000486  00003a4a  RWIX
+  RAML1                 00008130   00003ed0  000009dc  000034f4  RWIX
   RAML2                 0000c000   00000100  00000000  00000100  RWIX
   RAML3                 0000c100   00001000  00000000  00001000  RWIX
   ZONE7A                00200000   0000fc00  00000000  0000fc00  RWIX
@@ -106,18 +106,25 @@ codestart
 ramfuncs   0    0000801a    00000004     
                   0000801a    00000004     DSP2833x_usDelay.obj (ramfuncs)
 
-.text      0    00008130    00000486     
+.text      0    00008130    000009dc     
                   00008130    00000397     DSP2833x_DefaultIsr.obj (.text:retain)
-                  000084c7    00000056     rts2800_fpu32.lib : boot28.asm.obj (.text)
-                  0000851d    00000029                       : exit.c.obj (.text)
-                  00008546    00000024                       : cpy_tbl.c.obj (.text)
-                  0000856a    0000001d                       : memcpy.c.obj (.text)
-                  00008587    00000019                       : args_main.c.obj (.text)
-                  000085a0    00000009                       : _lock.c.obj (.text)
-                  000085a9    00000008     DSP2833x_CodeStartBranch.obj (.text)
-                  000085b1    00000002     main.obj (.text)
-                  000085b3    00000002     rts2800_fpu32.lib : pre_init.c.obj (.text)
-                  000085b5    00000001                       : startup.c.obj (.text)
+                  000084c7    000001d8     DSP2833x_EPwm.obj (.text)
+                  0000869f    000000fa     DSP2833x_SysCtrl.obj (.text)
+                  00008799    0000009f     DSP2833x_Xintf.obj (.text)
+                  00008838    00000099     DSP2833x_Sci.obj (.text)
+                  000088d1    00000097     DSP2833x_Gpio.obj (.text)
+                  00008968    0000005b     DSP2833x_Adc.obj (.text)
+                  000089c3    00000056     rts2800_fpu32.lib : boot28.asm.obj (.text)
+                  00008a19    0000004c     DSP2833x_Spi.obj (.text)
+                  00008a65    00000029     rts2800_fpu32.lib : exit.c.obj (.text)
+                  00008a8e    00000024                       : cpy_tbl.c.obj (.text)
+                  00008ab2    0000001d                       : memcpy.c.obj (.text)
+                  00008acf    00000019                       : args_main.c.obj (.text)
+                  00008ae8    00000010     main.obj (.text)
+                  00008af8    00000009     rts2800_fpu32.lib : _lock.c.obj (.text)
+                  00008b01    00000008     DSP2833x_CodeStartBranch.obj (.text)
+                  00008b09    00000002     rts2800_fpu32.lib : pre_init.c.obj (.text)
+                  00008b0b    00000001                       : startup.c.obj (.text)
 
 .pinit     0    00008000    00000000     UNINITIALIZED
 
@@ -347,9 +354,9 @@ MODULE SUMMARY
        Module                            code   initialized data   uninitialized data
        ------                            ----   ----------------   ------------------
     .\user\src\
-       main.obj                          2      0                  0                 
+       main.obj                          16     0                  0                 
     +--+---------------------------------+------+------------------+--------------------+
-       Total:                            2      0                  0                 
+       Total:                            16     0                  0                 
                                                                                      
     .\user_lib\asm\
        DSP2833x_CodeStartBranch.obj      10     0                  0                 
@@ -361,10 +368,17 @@ MODULE SUMMARY
     .\user_lib\src\
        DSP2833x_GlobalVariableDefs.obj   0      0                  2679              
        DSP2833x_DefaultIsr.obj           919    0                  0                 
+       DSP2833x_EPwm.obj                 472    0                  0                 
+       DSP2833x_SysCtrl.obj              250    0                  0                 
+       DSP2833x_Xintf.obj                159    0                  0                 
+       DSP2833x_Sci.obj                  153    0                  0                 
+       DSP2833x_Gpio.obj                 151    0                  0                 
+       DSP2833x_Adc.obj                  91     0                  0                 
+       DSP2833x_Spi.obj                  76     0                  0                 
        DSP2833x_CpuTimers.obj            0      0                  24                
        DSP2833x_DMA.obj                  0      0                  4                 
     +--+---------------------------------+------+------------------+--------------------+
-       Total:                            919    0                  2707              
+       Total:                            2271   0                  2707              
                                                                                      
     C:\ti\ccs900\ccs\tools\compiler\ti-cgt-c2000_18.12.1.LTS\lib\rts2800_fpu32.lib
        boot28.asm.obj                    86     0                  0                 
@@ -380,7 +394,7 @@ MODULE SUMMARY
                                                                                      
        Stack:                            0      0                  768               
     +--+---------------------------------+------+------------------+--------------------+
-       Grand Total:                      1171   24                 3485              
+       Grand Total:                      2537   24                 3485              
 
 
 GLOBAL DATA SYMBOLS: SORTED BY DATA PAGE
@@ -496,8 +510,9 @@ GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name
 page  address   name                            
 ----  -------   ----                            
 0     00008130  .text                           
-0     0000851d  C$$EXIT                         
+0     00008a65  C$$EXIT                         
 0     0000822a  _ADCINT_ISR                     
+0     0000897e  _ADC_Config                     
 0     00380080  _ADC_cal                        
 1     00000b00  _AdcMirror                      
 1     00007100  _AdcRegs                        
@@ -509,6 +524,7 @@ page  address   name
 1     00000c10  _CpuTimer2Regs                  
 1     0033fff8  _CsmPwl                         
 1     00000ae0  _CsmRegs                        
+0     00008768  _CsmUnlock                      
 0     00008158  _DATALOG_ISR                    
 0     00008392  _DINTCH1_ISR                    
 0     0000839c  _DINTCH2_ISR                    
@@ -520,6 +536,7 @@ page  address   name
 1     0000c020  _DMASource                      
 0     0000801a  _DSP28x_usDelay                 
 1     00000880  _DevEmuRegs                     
+0     000086b5  _DisableDog                     
 1     00001000  _DmaRegs                        
 0     00008445  _ECAN0INTA_ISR                  
 0     00008459  _ECAN0INTB_ISR                  
@@ -580,6 +597,44 @@ page  address   name
 0     00008180  _ILLEGAL_ISR                    
 0     00008141  _INT13_ISR                      
 0     0000814e  _INT14_ISR                      
+0     00008968  _InitAdc                        
+0     000084c7  _InitEPwm                       
+0     00008534  _InitEPwm1                      
+0     000084d1  _InitEPwm1Gpio                  
+0     00008592  _InitEPwm2                      
+0     000084e3  _InitEPwm2Gpio                  
+0     000085e4  _InitEPwm3                      
+0     000084f5  _InitEPwm3Gpio                  
+0     00008636  _InitEPwm4                      
+0     00008509  _InitEPwm4Gpio                  
+0     00008637  _InitEPwm5                      
+0     00008516  _InitEPwm5Gpio                  
+0     00008522  _InitEPwm6Gpio                  
+0     000084ca  _InitEPwmGpio                   
+0     00008638  _InitEPwmSyncGpio               
+0     000088d1  _InitGpio                       
+0     00008930  _InitInputPin                   
+0     000088e8  _InitOutputPin                  
+0     0000870e  _InitPeripheralClocks           
+0     000086bd  _InitPll                        
+0     00008838  _InitSci                        
+0     00008839  _InitSciGpio                    
+0     0000883e  _InitSciaGpio                   
+0     00008854  _InitScibGpio                   
+0     00008864  _InitScicGpio                   
+0     00008a19  _InitSpi                        
+0     00008a1a  _InitSpiGpio                    
+0     00008a1d  _InitSpiaGpio                   
+0     0000869f  _InitSysCtrl_M                  
+0     0000864c  _InitTzGpio                     
+0     00008799  _InitXintf                      
+0     000087ef  _InitXintf16Gpio                
+0     000089be  _Init_ADC                       
+0     00008963  _Init_GPIO                      
+0     00008682  _Init_PWM                       
+0     000088c6  _Init_SCI                       
+0     00008a60  _Init_SPI                       
+0     00008833  _Init_XINTF                     
 0     000084a9  _LUF_ISR                        
 0     0000849f  _LVF_ISR                        
 0     0000837e  _MRINTA_ISR                     
@@ -604,9 +659,11 @@ page  address   name
 0     0000820c  _SEQ2INT_ISR                    
 0     00008356  _SPIRXINTA_ISR                  
 0     00008360  _SPITXINTA_ISR                  
+0     00008a45  _SPI_Config                     
 1     00007050  _SciaRegs                       
 1     00007750  _ScibRegs                       
 1     00007770  _ScicRegs                       
+0     000086ab  _ServiceDog                     
 1     00007040  _SpiaRegs                       
 1     00007010  _SysCtrlRegs                    
 0     00008130  _TINT0_ISR                      
@@ -643,29 +700,34 @@ abs   ffffffff  ___TI_prof_data_start
 abs   ffffffff  ___binit__                      
 abs   ffffffff  ___c_args__                     
 0     00008000  ___cinit__                      
-0     000085b6  ___etext__                      
+0     00008b0c  ___etext__                      
 abs   ffffffff  ___pinit__                      
 0     00008130  ___text__                       
-0     00008587  __args_main                     
+0     00008acf  __args_main                     
 1     0000c022  __lock                          
-0     000085a8  __nop                           
-0     000085a4  __register_lock                 
-0     000085a0  __register_unlock               
+0     00008b00  __nop                           
+0     00008afc  __register_lock                 
+0     00008af8  __register_unlock               
 1     00000400  __stack                         
-0     000085b5  __system_post_cinit             
-0     000085b3  __system_pre_init               
+0     00008b0b  __system_post_cinit             
+0     00008b09  __system_pre_init               
 1     0000c024  __unlock                        
-0     0000851d  _abort                          
-0     000084c7  _c_int00                        
-0     00008546  _copy_in                        
-0     0000851f  _exit                           
-0     000085b1  _main                           
-0     0000856a  _memcpy                         
+0     00008a65  _abort                          
+0     000089c3  _c_int00                        
+0     00008a8e  _copy_in                        
+0     00008a67  _exit                           
+0     000086aa  _if_flash_init                  
+0     00008ae8  _main                           
+0     00008ab2  _memcpy                         
 0     000084bd  _rsvd_ISR                       
+0     0000888e  _scib_fifo_init                 
+0     0000887a  _scib_loopback_init             
+0     000088b4  _scic_fifo_init                 
+0     000088a0  _scic_loopback_init             
 abs   ffffffff  binit                           
 0     00008000  cinit                           
 0     00000000  code_start                      
-0     000085b6  etext                           
+0     00008b0c  etext                           
 abs   ffffffff  pinit                           
 
 
@@ -758,21 +820,69 @@ page  address   name
 0     000084a9  _LUF_ISR                        
 0     000084b3  _PIE_RESERVED                   
 0     000084bd  _rsvd_ISR                       
-0     000084c7  _c_int00                        
-0     0000851d  C$$EXIT                         
-0     0000851d  _abort                          
-0     0000851f  _exit                           
-0     00008546  _copy_in                        
-0     0000856a  _memcpy                         
-0     00008587  __args_main                     
-0     000085a0  __register_unlock               
-0     000085a4  __register_lock                 
-0     000085a8  __nop                           
-0     000085b1  _main                           
-0     000085b3  __system_pre_init               
-0     000085b5  __system_post_cinit             
-0     000085b6  ___etext__                      
-0     000085b6  etext                           
+0     000084c7  _InitEPwm                       
+0     000084ca  _InitEPwmGpio                   
+0     000084d1  _InitEPwm1Gpio                  
+0     000084e3  _InitEPwm2Gpio                  
+0     000084f5  _InitEPwm3Gpio                  
+0     00008509  _InitEPwm4Gpio                  
+0     00008516  _InitEPwm5Gpio                  
+0     00008522  _InitEPwm6Gpio                  
+0     00008534  _InitEPwm1                      
+0     00008592  _InitEPwm2                      
+0     000085e4  _InitEPwm3                      
+0     00008636  _InitEPwm4                      
+0     00008637  _InitEPwm5                      
+0     00008638  _InitEPwmSyncGpio               
+0     0000864c  _InitTzGpio                     
+0     00008682  _Init_PWM                       
+0     0000869f  _InitSysCtrl_M                  
+0     000086aa  _if_flash_init                  
+0     000086ab  _ServiceDog                     
+0     000086b5  _DisableDog                     
+0     000086bd  _InitPll                        
+0     0000870e  _InitPeripheralClocks           
+0     00008768  _CsmUnlock                      
+0     00008799  _InitXintf                      
+0     000087ef  _InitXintf16Gpio                
+0     00008833  _Init_XINTF                     
+0     00008838  _InitSci                        
+0     00008839  _InitSciGpio                    
+0     0000883e  _InitSciaGpio                   
+0     00008854  _InitScibGpio                   
+0     00008864  _InitScicGpio                   
+0     0000887a  _scib_loopback_init             
+0     0000888e  _scib_fifo_init                 
+0     000088a0  _scic_loopback_init             
+0     000088b4  _scic_fifo_init                 
+0     000088c6  _Init_SCI                       
+0     000088d1  _InitGpio                       
+0     000088e8  _InitOutputPin                  
+0     00008930  _InitInputPin                   
+0     00008963  _Init_GPIO                      
+0     00008968  _InitAdc                        
+0     0000897e  _ADC_Config                     
+0     000089be  _Init_ADC                       
+0     000089c3  _c_int00                        
+0     00008a19  _InitSpi                        
+0     00008a1a  _InitSpiGpio                    
+0     00008a1d  _InitSpiaGpio                   
+0     00008a45  _SPI_Config                     
+0     00008a60  _Init_SPI                       
+0     00008a65  C$$EXIT                         
+0     00008a65  _abort                          
+0     00008a67  _exit                           
+0     00008a8e  _copy_in                        
+0     00008ab2  _memcpy                         
+0     00008acf  __args_main                     
+0     00008ae8  _main                           
+0     00008af8  __register_unlock               
+0     00008afc  __register_lock                 
+0     00008b00  __nop                           
+0     00008b09  __system_pre_init               
+0     00008b0b  __system_post_cinit             
+0     00008b0c  ___etext__                      
+0     00008b0c  etext                           
 0     00380080  _ADC_cal                        
 1     00000400  __stack                         
 1     00000700  __STACK_END                     
@@ -846,4 +956,4 @@ abs   ffffffff  ___pinit__
 abs   ffffffff  binit                           
 abs   ffffffff  pinit                           
 
-[172 symbols]
+[220 symbols]

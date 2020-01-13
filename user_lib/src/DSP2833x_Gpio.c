@@ -14,7 +14,7 @@
 #include "DSP2833x_Device.h"     // DSP2833x Headerfile Include File
 #include "DSP2833x_Examples.h"   // DSP2833x Examples Include File
 
-#define GPIO 1
+#define GPIO 0
 #define INPUT 0
 #define OUTPUT 1
 
@@ -171,7 +171,7 @@ void InitOutputPin(void)
 	/*
 	 *GPIO84
 	 *Pin index:			169
-	 *Name in circuit:		GPIO84, just for test£¬GPIO84-------->CNV_AD;
+	 *Name in circuit:		GPIO84, just for testï¿½ï¿½GPIO84-------->CNV_AD;
 	 */
 	GpioCtrlRegs.GPCMUX2.bit.GPIO84	= GPIO;
 	GpioCtrlRegs.GPCDIR.bit.GPIO84	= OUTPUT;

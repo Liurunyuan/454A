@@ -10,6 +10,14 @@ GEN_OPTS__FLAG :=
 GEN_CMDS__FLAG := 
 
 ORDERED_OBJS += \
+"./bsp/src/adc.obj" \
+"./bsp/src/arinc429.obj" \
+"./bsp/src/gpio.obj" \
+"./bsp/src/pwm.obj" \
+"./bsp/src/rvdt.obj" \
+"./bsp/src/sci.obj" \
+"./bsp/src/spi.obj" \
+"./bsp/src/xintf.obj" \
 "./user/src/main.obj" \
 "./user_lib/asm/DSP2833x_ADC_cal.obj" \
 "./user_lib/asm/DSP2833x_CodeStartBranch.obj" \
@@ -45,10 +53,12 @@ RMDIR := RMDIR /S/Q
 
 # All of the sources participating in the build are defined here
 -include sources.mk
+-include bsp/src/subdir_vars.mk
 -include user/src/subdir_vars.mk
 -include user_lib/asm/subdir_vars.mk
 -include user_lib/cmd/subdir_vars.mk
 -include user_lib/src/subdir_vars.mk
+-include bsp/src/subdir_rules.mk
 -include user/src/subdir_rules.mk
 -include user_lib/asm/subdir_rules.mk
 -include user_lib/cmd/subdir_rules.mk
@@ -183,8 +193,8 @@ all: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "user\src\main.obj" "user_lib\asm\DSP2833x_ADC_cal.obj" "user_lib\asm\DSP2833x_CodeStartBranch.obj" "user_lib\asm\DSP2833x_usDelay.obj" "user_lib\src\DSP2833x_Adc.obj" "user_lib\src\DSP2833x_CpuTimers.obj" "user_lib\src\DSP2833x_DMA.obj" "user_lib\src\DSP2833x_DefaultIsr.obj" "user_lib\src\DSP2833x_ECan.obj" "user_lib\src\DSP2833x_ECap.obj" "user_lib\src\DSP2833x_EPwm.obj" "user_lib\src\DSP2833x_EQep.obj" "user_lib\src\DSP2833x_GlobalVariableDefs.obj" "user_lib\src\DSP2833x_Gpio.obj" "user_lib\src\DSP2833x_I2C.obj" "user_lib\src\DSP2833x_Mcbsp.obj" "user_lib\src\DSP2833x_MemCopy.obj" "user_lib\src\DSP2833x_PieCtrl.obj" "user_lib\src\DSP2833x_PieVect.obj" "user_lib\src\DSP2833x_Sci.obj" "user_lib\src\DSP2833x_Spi.obj" "user_lib\src\DSP2833x_SysCtrl.obj" "user_lib\src\DSP2833x_Xintf.obj" 
-	-$(RM) "user\src\main.d" "user_lib\src\DSP2833x_Adc.d" "user_lib\src\DSP2833x_CpuTimers.d" "user_lib\src\DSP2833x_DMA.d" "user_lib\src\DSP2833x_DefaultIsr.d" "user_lib\src\DSP2833x_ECan.d" "user_lib\src\DSP2833x_ECap.d" "user_lib\src\DSP2833x_EPwm.d" "user_lib\src\DSP2833x_EQep.d" "user_lib\src\DSP2833x_GlobalVariableDefs.d" "user_lib\src\DSP2833x_Gpio.d" "user_lib\src\DSP2833x_I2C.d" "user_lib\src\DSP2833x_Mcbsp.d" "user_lib\src\DSP2833x_MemCopy.d" "user_lib\src\DSP2833x_PieCtrl.d" "user_lib\src\DSP2833x_PieVect.d" "user_lib\src\DSP2833x_Sci.d" "user_lib\src\DSP2833x_Spi.d" "user_lib\src\DSP2833x_SysCtrl.d" "user_lib\src\DSP2833x_Xintf.d" 
+	-$(RM) "bsp\src\adc.obj" "bsp\src\arinc429.obj" "bsp\src\gpio.obj" "bsp\src\pwm.obj" "bsp\src\rvdt.obj" "bsp\src\sci.obj" "bsp\src\spi.obj" "bsp\src\xintf.obj" "user\src\main.obj" "user_lib\asm\DSP2833x_ADC_cal.obj" "user_lib\asm\DSP2833x_CodeStartBranch.obj" "user_lib\asm\DSP2833x_usDelay.obj" "user_lib\src\DSP2833x_Adc.obj" "user_lib\src\DSP2833x_CpuTimers.obj" "user_lib\src\DSP2833x_DMA.obj" "user_lib\src\DSP2833x_DefaultIsr.obj" "user_lib\src\DSP2833x_ECan.obj" "user_lib\src\DSP2833x_ECap.obj" "user_lib\src\DSP2833x_EPwm.obj" "user_lib\src\DSP2833x_EQep.obj" "user_lib\src\DSP2833x_GlobalVariableDefs.obj" "user_lib\src\DSP2833x_Gpio.obj" "user_lib\src\DSP2833x_I2C.obj" "user_lib\src\DSP2833x_Mcbsp.obj" "user_lib\src\DSP2833x_MemCopy.obj" "user_lib\src\DSP2833x_PieCtrl.obj" "user_lib\src\DSP2833x_PieVect.obj" "user_lib\src\DSP2833x_Sci.obj" "user_lib\src\DSP2833x_Spi.obj" "user_lib\src\DSP2833x_SysCtrl.obj" "user_lib\src\DSP2833x_Xintf.obj" 
+	-$(RM) "bsp\src\adc.d" "bsp\src\arinc429.d" "bsp\src\gpio.d" "bsp\src\pwm.d" "bsp\src\rvdt.d" "bsp\src\sci.d" "bsp\src\spi.d" "bsp\src\xintf.d" "user\src\main.d" "user_lib\src\DSP2833x_Adc.d" "user_lib\src\DSP2833x_CpuTimers.d" "user_lib\src\DSP2833x_DMA.d" "user_lib\src\DSP2833x_DefaultIsr.d" "user_lib\src\DSP2833x_ECan.d" "user_lib\src\DSP2833x_ECap.d" "user_lib\src\DSP2833x_EPwm.d" "user_lib\src\DSP2833x_EQep.d" "user_lib\src\DSP2833x_GlobalVariableDefs.d" "user_lib\src\DSP2833x_Gpio.d" "user_lib\src\DSP2833x_I2C.d" "user_lib\src\DSP2833x_Mcbsp.d" "user_lib\src\DSP2833x_MemCopy.d" "user_lib\src\DSP2833x_PieCtrl.d" "user_lib\src\DSP2833x_PieVect.d" "user_lib\src\DSP2833x_Sci.d" "user_lib\src\DSP2833x_Spi.d" "user_lib\src\DSP2833x_SysCtrl.d" "user_lib\src\DSP2833x_Xintf.d" 
 	-$(RM) "user_lib\asm\DSP2833x_ADC_cal.d" "user_lib\asm\DSP2833x_CodeStartBranch.d" "user_lib\asm\DSP2833x_usDelay.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
