@@ -4,22 +4,25 @@
 /**
  * main.c
  */
-int main(void)
+int gtest = 0;
+
+void main(void)
 {
-	InitSysCtrl_M();
+	InitSysCtrl();
+	int i = 0;
 
     //TODO init globalvar
 
 	Init_GPIO();
-
-	Init_ADC();
-
-	Init_XINTF();
-
-	Init_SCI();
-
-	Init_SPI();
-	
+//
+//	Init_ADC();
+//
+//	Init_XINTF();
+//
+//	Init_SCI();
+//
+//	Init_SPI();
+//
 	Init_PWM();
 
 	//init timer
@@ -28,5 +31,13 @@ int main(void)
 
 	//main loop
 
-	return 0;
+
+	while(1)
+	{
+	    ++i;
+	    if(i > 1000){
+	        gtest++;
+	        i = 0;
+	    }
+	}
 }

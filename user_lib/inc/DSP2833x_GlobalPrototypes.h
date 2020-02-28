@@ -154,7 +154,7 @@ extern void InitScicGpio(void);
 extern void InitSpi(void);
 extern void InitSpiGpio(void);
 extern void InitSpiaGpio(void);
-extern void InitSysCtrl_M(void);//Ôö¼Ó2016.6.11yjs
+extern void InitSysCtrl(void);//ï¿½ï¿½ï¿½ï¿½2016.6.11yjs
 extern void InitTzGpio(void);
 extern void InitXIntrupt(void);
 extern void XintfInit(void);
@@ -166,13 +166,13 @@ extern void EnableInterrupts(void);
 extern void DSP28x_usDelay(Uint32 Count);
 extern void ADC_cal (void);
 
-extern void adc_init(void);//Ôö¼Ó2016.6.11yjs
-extern void InitXintf(void);//Ôö¼Ó2016.6.11yjs
-extern void InitEPwm1(void);//Ôö¼Ó2016.6.11yjs
-extern void InitEPwm2(void);//Ôö¼Ó2016.6.11yjs
+extern void adc_init(void);//ï¿½ï¿½ï¿½ï¿½2016.6.11yjs
+extern void InitXintf(void);//ï¿½ï¿½ï¿½ï¿½2016.6.11yjs
+extern void InitEPwm1(void);//ï¿½ï¿½ï¿½ï¿½2016.6.11yjs
+extern void InitEPwm2(void);//ï¿½ï¿½ï¿½ï¿½2016.6.11yjs
 extern void InitEPwm3(void);
-extern void scib_loopback_init(void);//Ôö¼Ó2016.6.11yjs
-extern void scib_fifo_init(void);//Ôö¼Ó2016.6.11yjs
+extern void scib_loopback_init(void);//ï¿½ï¿½ï¿½ï¿½2016.6.11yjs
+extern void scib_fifo_init(void);//ï¿½ï¿½ï¿½ï¿½2016.6.11yjs
 
 
 #define KickDog ServiceDog     // For compatiblity with previous versions
