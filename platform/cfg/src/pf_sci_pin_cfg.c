@@ -7,6 +7,7 @@ const CFG_SCI_TBL CFG_SCI_INFO[] =
  {SCIC, 62,63},
 };
 
+
 void CFG_SCI_A(int rxNum, int txNum)
 {
     EALLOW;
