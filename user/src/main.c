@@ -13,7 +13,6 @@ void main(void)
 
     //TODO init globalvar
 
-	Init_GPIO();
 //
 //	Init_ADC();
 //
