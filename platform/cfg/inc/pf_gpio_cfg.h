@@ -1,5 +1,5 @@
-#ifndef PF_GPIO_PIN_CFG_H_
-#define PF_GPIO_PIN_CFG_H_
+#ifndef PF_GPIO_CFG_H_
+#define PF_GPIO_CFG_H_
 
 // #include "DSP2833x_Gpio.h"
 #include "DSP2833x_Device.h"     // DSP2833x Headerfile Include File

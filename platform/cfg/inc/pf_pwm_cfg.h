@@ -1,5 +1,5 @@
-#ifndef PF_PWM_PIN_CFG_H_
-#define PF_PWM_PIN_CFG_H_
+#ifndef PF_PWM_CFG_H_
+#define PF_PWM_CFG_H_
 
 // #include "DSP2833x_Gpio.h"
 #include "DSP2833x_Device.h"     // DSP2833x Headerfile Include File
@@ -21,14 +21,24 @@ typedef enum
     PWM5B,
     PWM6A,
     PWM6B
-}PWM_ENABLE;
+}PWM_MODULE;
 
 typedef struct
 {
-    PWM_ENABLE pwmModule;
+    PWM_MODULE pwmModule;
+}CFG_PWM_MODULE;
+
+typedef struct
+{
+    int Frequency;
+}CFG_PWM_PARAM;
+typedef struct
+{
+    CFG_PWM_MODULE cfgPwmModule;
+    CFG_PWM_PARAM cfgPwmParam;
 }CFG_PWM_TBL;
 
-typedef void (*CFG_PWM_HDL_TBL)(void);
+typedef void (*CFG_PWM_HDL_TBL)(CFG_PWM_TBL cfgPwmTblElement);
 
 void Init_PWM_CFG(CFG_PWM_TBL* cfgPwmTbl);
 

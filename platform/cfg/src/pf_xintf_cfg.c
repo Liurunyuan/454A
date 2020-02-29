@@ -1,4 +1,4 @@
-#include "pf_xintf_pin_cfg.h"
+#include "pf_xintf_cfg.h"
 
 const CFG_XINTF_TBL CfgXintfTbl[] =
 {

@@ -1,8 +1,8 @@
-#include "pf_gpio_pin_cfg.h"
+#include "pf_gpio_cfg.h"
 
 const CFG_GPIO_TBL CfgGpioTbl[] =
 {
- {3, GPIO_OUTPUT},
+ {3, GPIO_OUTPUT},			//{gpio number, gpio direction}
  {3, GPIO_OUTPUT},
  {3, GPIO_OUTPUT},
  {3, GPIO_OUTPUT},

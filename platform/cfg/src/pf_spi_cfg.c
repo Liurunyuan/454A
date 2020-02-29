@@ -1,4 +1,4 @@
-#include "pf_spi_pin_cfg.h"
+#include "pf_spi_cfg.h"
 
 const CFG_SPI_TBL CfgSpiTbl[] =
 {

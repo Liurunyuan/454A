@@ -1,10 +1,37 @@
-#include "pf_sci_pin_cfg.h"
+#include "pf_sci_cfg.h"
 
 const CFG_SCI_TBL CFG_SCI_INFO[] =
 {
- {SCIA, 28,29},
- {SCIB, 11,9},
- {SCIC, 62,63},
+    {
+        {
+            SCIA,       //sci moudule, A, B, C
+            28,         //sci rx gpio index
+            29          //sci tx gpio index
+        },
+        {
+            BAUD_RATE_115200    //sci baud rate
+        }
+    },
+    {
+        {
+            SCIB, 
+            11,
+            9
+        },
+        {
+            BAUD_RATE_115200
+        }
+    },
+    {
+        {
+            SCIC, 
+            62,
+            63
+        },
+        {
+            BAUD_RATE_115200
+        }
+    }
 };
 
 
@@ -23,7 +50,7 @@ void CFG_SCI_A(CFG_SCI_TBL cfgSciTblElement)
 void CFG_SCI_B(CFG_SCI_TBL cfgSciTblElement)
 {
     EALLOW;
-    switch(cfgSciTblElement.rxNum)
+    switch(cfgSciTblElement.cfgSciGpio.rxNum)
     {
         case 11:
             GpioCtrlRegs.GPAPUD.bit.GPIO11 = 0;
@@ -52,7 +79,7 @@ void CFG_SCI_B(CFG_SCI_TBL cfgSciTblElement)
             break;
     }
 
-    switch(cfgSciTblElement.txNum)
+    switch(cfgSciTblElement.cfgSciGpio.txNum)
     {
         case 9:
             GpioCtrlRegs.GPAPUD.bit.GPIO9 = 0;
@@ -104,7 +131,7 @@ void Init_SCI_CFG(CFG_SCI_TBL* cfgSciTbl)
     EALLOW;
     for(i = 0; i < sizeof(cfgSciTbl)/sizeof(cfgSciTbl[0]); ++i)
     {
-        SDB_CfgSCIHdlTbl[cfgSciTbl[i].sciModule](cfgSciTbl[i]);
+        SDB_CfgSCIHdlTbl[cfgSciTbl[i].cfgSciGpio.sciModule](cfgSciTbl[i]);
     }
     EDIS;
 }
