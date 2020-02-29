@@ -37,6 +37,7 @@ const CFG_SCI_TBL CFG_SCI_INFO[] =
 
 void CFG_SCI_A(CFG_SCI_TBL cfgSciTblElement)
 {
+    Uint16 baudrate = 0;
     EALLOW;
     GpioCtrlRegs.GPAPUD.bit.GPIO28 = 0;    // Enable pull-up for GPIO28 (SCIRXDA)
     GpioCtrlRegs.GPAPUD.bit.GPIO29 = 0;    // Enable pull-up for GPIO29 (SCITXDA)
@@ -45,6 +46,22 @@ void CFG_SCI_A(CFG_SCI_TBL cfgSciTblElement)
 
     GpioCtrlRegs.GPAMUX2.bit.GPIO28 = 1;   // Configure GPIO28 for SCIRXDA operation
     GpioCtrlRegs.GPAMUX2.bit.GPIO29 = 1;   // Configure GPIO29 for SCITXDA operation
+
+
+
+    switch(cfgSciTblElement.cfgSciParam.sciBaudRate)
+    {
+        case BAUD_RATE_115200:
+            baudrate = (Uint16)((30000000/115200/8) - 1);
+            SciaRegs.SCIHBAUD = (baudrate & 0xff00) >> 8;
+            SciaRegs.SCILBAUD = baudrate & 0x00ff;
+            break;
+        case BAUD_RATE_9600:
+            baudrate = (Uint16)((30000000/9600/8) - 1);
+            SciaRegs.SCIHBAUD = (baudrate & 0xff00) >> 8;
+            SciaRegs.SCILBAUD = baudrate & 0x00ff;
+            break;
+    }
     EDIS;
 }
 void CFG_SCI_B(CFG_SCI_TBL cfgSciTblElement)
