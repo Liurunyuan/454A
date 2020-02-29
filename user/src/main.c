@@ -13,6 +13,11 @@ void main(void)
 
 
 	Init_GPIO_CFG(CfgGpioTbl_User);
+	Init_PWM_CFG(CfgPwmTbl_User);
+	Init_SCI_CFG(CfgSciTbl_User);
+	Init_SPI_CFG(CfgSpiTbl_User);
+	Init_XINTF_CFG(CfgXintfTbl_User);
+
 
     //TODO init globalvar
 

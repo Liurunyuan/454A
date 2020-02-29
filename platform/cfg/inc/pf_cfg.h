@@ -11,19 +11,24 @@
 
 CFG_GPIO_TBL CfgGpioTbl_User[] =
 {
-    {3, GPIO_OUTPUT},			//{gpio number, gpio direction}
-    {3, GPIO_OUTPUT},
-    {3, GPIO_OUTPUT},
-    {3, GPIO_OUTPUT},
-    {3, GPIO_OUTPUT},
-    {3, GPIO_OUTPUT},
-    {3, GPIO_OUTPUT},
-    {3, GPIO_OUTPUT},
-    {3, GPIO_OUTPUT},
-    {3, GPIO_OUTPUT},
-    {3, GPIO_OUTPUT}
+    {86, GPIO_OUTPUT},			//{gpio number, gpio direction}
+    {87, GPIO_OUTPUT},
+    {39, GPIO_OUTPUT},
+    {60, GPIO_OUTPUT},
+    {61, GPIO_OUTPUT},
+    {85, GPIO_OUTPUT},
+    {16, GPIO_OUTPUT},
+    {84, GPIO_OUTPUT},
+    {51, GPIO_OUTPUT},
+    {59, GPIO_INTPUT},
+    {35, GPIO_INTPUT},
+    {12, GPIO_INTPUT},
+    {40, GPIO_INTPUT},
+    {42, GPIO_INTPUT},
+    {47, GPIO_INTPUT}
 };
 
+#define EPWM_PERIOD_K 40
 CFG_PWM_TBL CfgPwmTbl_User[] =
 {
    {
@@ -31,7 +36,7 @@ CFG_PWM_TBL CfgPwmTbl_User[] =
            PWM1A
        },
        {
-           40
+           EPWM_PERIOD_K
        }
    },
    {
@@ -39,7 +44,7 @@ CFG_PWM_TBL CfgPwmTbl_User[] =
            PWM1B
        },
        {
-           40
+           EPWM_PERIOD_K
        }
    },
    {
@@ -47,7 +52,7 @@ CFG_PWM_TBL CfgPwmTbl_User[] =
            PWM2A
        },
        {
-           40
+           EPWM_PERIOD_K
        }
    },
    {
@@ -55,7 +60,7 @@ CFG_PWM_TBL CfgPwmTbl_User[] =
            PWM2B
        },
        {
-           40
+           EPWM_PERIOD_K
        }
    },
    {
@@ -63,7 +68,7 @@ CFG_PWM_TBL CfgPwmTbl_User[] =
            PWM3A
        },
        {
-           40
+           EPWM_PERIOD_K
        }
    },
    {
@@ -71,7 +76,7 @@ CFG_PWM_TBL CfgPwmTbl_User[] =
            PWM3B
        },
        {
-           40
+           EPWM_PERIOD_K
        }
    },
    {
@@ -79,7 +84,7 @@ CFG_PWM_TBL CfgPwmTbl_User[] =
            PWM4A
        },
        {
-           40
+           EPWM_PERIOD_K
        }
    },
    {
@@ -87,7 +92,7 @@ CFG_PWM_TBL CfgPwmTbl_User[] =
            PWM4B
        },
        {
-           40
+           EPWM_PERIOD_K
        }
    },
    {
@@ -95,7 +100,7 @@ CFG_PWM_TBL CfgPwmTbl_User[] =
            PWM5A
        },
        {
-           40
+           EPWM_PERIOD_K
        }
    },
    {
@@ -103,7 +108,7 @@ CFG_PWM_TBL CfgPwmTbl_User[] =
            PWM5B
        },
        {
-           40
+           EPWM_PERIOD_K
        }
    },
    {
@@ -111,7 +116,7 @@ CFG_PWM_TBL CfgPwmTbl_User[] =
            PWM6A
        },
        {
-           40
+           EPWM_PERIOD_K
        }
    },
    {
@@ -119,28 +124,28 @@ CFG_PWM_TBL CfgPwmTbl_User[] =
            PWM6B
        },
        {
-           40
+           EPWM_PERIOD_K
        }
    }
 };
 
 CFG_SCI_TBL CfgSciTbl_User[] =
 {
-    {
-        {
-            SCIA,       //sci moudule, A, B, C
-            28,         //sci rx gpio index
-            29          //sci tx gpio index
-        },
-        {
-            BAUD_RATE_115200    //sci baud rate
-        }
-    },
+    // {
+    //     {
+    //         SCIA,       //sci moudule, A, B, C
+    //         28,         //sci rx gpio index
+    //         29          //sci tx gpio index
+    //     },
+    //     {
+    //         BAUD_RATE_115200    //sci baud rate
+    //     }
+    // },
     {
         {
             SCIB, 
-            11,
-            9
+            23,
+            22
         },
         {
             BAUD_RATE_115200
