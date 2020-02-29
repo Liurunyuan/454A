@@ -8,7 +8,7 @@ const CFG_SCI_TBL CFG_SCI_INFO[] =
 };
 
 
-void CFG_SCI_A(int rxNum, int txNum)
+void CFG_SCI_A(CFG_SCI_TBL cfgSciTblElement)
 {
     EALLOW;
     GpioCtrlRegs.GPAPUD.bit.GPIO28 = 0;    // Enable pull-up for GPIO28 (SCIRXDA)
@@ -20,10 +20,10 @@ void CFG_SCI_A(int rxNum, int txNum)
     GpioCtrlRegs.GPAMUX2.bit.GPIO29 = 1;   // Configure GPIO29 for SCITXDA operation
     EDIS;
 }
-void CFG_SCI_B(int rxNum, int txNum)
+void CFG_SCI_B(CFG_SCI_TBL cfgSciTblElement)
 {
     EALLOW;
-    switch(rxNum)
+    switch(cfgSciTblElement.rxNum)
     {
         case 11:
             GpioCtrlRegs.GPAPUD.bit.GPIO11 = 0;
@@ -52,7 +52,7 @@ void CFG_SCI_B(int rxNum, int txNum)
             break;
     }
 
-    switch(txNum)
+    switch(cfgSciTblElement.txNum)
     {
         case 9:
             GpioCtrlRegs.GPAPUD.bit.GPIO9 = 0;
@@ -77,7 +77,7 @@ void CFG_SCI_B(int rxNum, int txNum)
 
     EDIS;
 }
-void CFG_SCI_C(int rxNum, int txNum)
+void CFG_SCI_C(CFG_SCI_TBL cfgSciTblElement)
 {
     EALLOW;
     GpioCtrlRegs.GPBPUD.bit.GPIO62 = 0;    // Enable pull-up for GPIO62 (SCIRXDC)
@@ -104,7 +104,7 @@ void Init_SCI_CFG(CFG_SCI_TBL* cfgSciTbl)
     EALLOW;
     for(i = 0; i < sizeof(cfgSciTbl)/sizeof(cfgSciTbl[0]); ++i)
     {
-        SDB_CfgSCIHdlTbl[cfgSciTbl[i].sciModule](cfgSciTbl[i].rxNum, cfgSciTbl[i].txNum);
+        SDB_CfgSCIHdlTbl[cfgSciTbl[i].sciModule](cfgSciTbl[i]);
     }
     EDIS;
 }

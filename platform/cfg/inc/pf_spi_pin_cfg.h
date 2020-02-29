@@ -15,7 +15,7 @@ typedef struct
     int spiSTEAPin;
 }CFG_SPI_TBL;
 
-typedef void (*CFG_SPI_HDL_TBL)(int p1, int p2, int p3, int p4);
+typedef void (*CFG_SPI_HDL_TBL)(CFG_SPI_TBL cfgSpiTblElement);
 
 void Init_SPI_CFG(CFG_SPI_TBL* cfgSpiTbl);
 

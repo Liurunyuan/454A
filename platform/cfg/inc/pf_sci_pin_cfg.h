@@ -21,7 +21,7 @@ typedef struct
     int txNum;
 }CFG_SCI_TBL;
 
-typedef void (*CFG_SCI_HDL_TBL)(int rxNum, int txNum);
+typedef void (*CFG_SCI_HDL_TBL)(CFG_SCI_TBL cfgSciTblElement);
 
 void Init_SCI_CFG(CFG_SCI_TBL* cfgSciTbl);
 

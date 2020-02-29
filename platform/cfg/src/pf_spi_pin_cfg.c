@@ -5,9 +5,14 @@ const CFG_SPI_TBL CfgSpiTbl[] =
     {54, 55, 56, 57}
 };
 
-void CFG_SPI_A(int p1, int p2, int p3, int p4)
+void CFG_SPI_A(CFG_SPI_TBL cfgSpiTblElement)
 {
-    if((p1 == 54) && (p2 == 55) && (p3 == 56) && (p4 == 57))
+    if(
+        (cfgSpiTblElement.spiSIMOAPin == 54) && 
+        (cfgSpiTblElement.spiSOMIAPin == 55) && 
+        (cfgSpiTblElement.spiCLKAPin == 56) && 
+        (cfgSpiTblElement.spiSTEAPin == 57)
+      )
     {
         EALLOW;
         GpioCtrlRegs.GPBPUD.bit.GPIO54 = 0;   // Enable pull-up on GPIO54 (SPISIMOA)
@@ -26,7 +31,12 @@ void CFG_SPI_A(int p1, int p2, int p3, int p4)
         GpioCtrlRegs.GPBMUX2.bit.GPIO57 = 1; // Configure GPIO57 as SPISTEA
         EDIS;         
     }
-    else if((p1 == 16) && (p2 == 17) && (p3 == 18) && (p4 == 19))
+    else if(
+             (cfgSpiTblElement.spiSIMOAPin == 16) && 
+             (cfgSpiTblElement.spiSOMIAPin == 17) && 
+             (cfgSpiTblElement.spiCLKAPin == 18) && 
+             (cfgSpiTblElement.spiSTEAPin == 19)
+            )
     {
         EALLOW;
         GpioCtrlRegs.GPAPUD.bit.GPIO16 = 0;   // Enable pull-up on GPIO16 (SPISIMOA)
@@ -61,7 +71,7 @@ void Init_SPI_CFG(CFG_SPI_TBL* cfgSpiTbl)
 {
     EALLOW;
 
-    SDB_CfgSpiHdlTbl[0](cfgSpiTbl[0].spiSIMOAPin,cfgSpiTbl[0].spiSOMIAPin,cfgSpiTbl[0].spiCLKAPin,cfgSpiTbl[0].spiSTEAPin);
+    SDB_CfgSpiHdlTbl[0](cfgSpiTbl[0]);
 
     EDIS;
 
