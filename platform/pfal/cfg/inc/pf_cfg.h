@@ -8,6 +8,7 @@
 #include "pf_sci_cfg.h"
 #include "pf_spi_cfg.h"
 #include "pf_xintf_cfg.h"
+#include "pf_timer_cfg.h"
 
 CFG_GPIO_TBL CfgGpioTbl_User[] =
 {
@@ -177,6 +178,20 @@ CFG_XINTF_TBL CfgXintfTbl_User[] =
         ZONE0_DISABLE,          //ZONE0_DISABLE  ZONE0_ENABLE                zone0 enable or not
         ZONE6_ENABLE,           //ZONE6_DISABLE  ZONE6_ENABLE                zone6 enable or not
         ZONE7_DISABLE           //ZONE7_DISABLE  ZONE7_ENABLE                zone7 enable or not
+    }
+};
+
+const CFG_TIMER_TBL CfgTimerTbl_User[] =
+{
+    {
+        TIMER0,       //Timer moudule, timer0 timer1
+        200,         //timer period, unit:us
+        120          //system frequency
+    },
+    {
+        TIMER1, 
+        200,
+        120
     }
 };
 #endif /* MAIN_H_ */

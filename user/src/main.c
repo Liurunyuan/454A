@@ -17,6 +17,7 @@ void main(void)
 	Init_SCI_CFG(CfgSciTbl_User);
 	Init_SPI_CFG(CfgSpiTbl_User);
 	Init_XINTF_CFG(CfgXintfTbl_User);
+	Init_TIMER_CFG(CfgTimerTbl_User);
 
 
     //TODO init globalvar
