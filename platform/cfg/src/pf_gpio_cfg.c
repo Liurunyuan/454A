@@ -1,6 +1,6 @@
 #include "pf_gpio_cfg.h"
 
-const CFG_GPIO_TBL CfgGpioTbl[] =
+const CFG_GPIO_TBL CfgGpioTbl_Default[] =
 {
  {3, GPIO_OUTPUT},			//{gpio number, gpio direction}
  {3, GPIO_OUTPUT},

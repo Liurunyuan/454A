@@ -11,6 +11,9 @@ void main(void)
 	InitSysCtrl();
 	int i = 0;
 
+
+	Init_GPIO_CFG(CfgGpioTbl_User);
+
     //TODO init globalvar
 
 //
@@ -22,7 +25,7 @@ void main(void)
 //
 //	Init_SPI();
 //
-	Init_PWM();
+//	Init_PWM();
 
 	//init timer
 

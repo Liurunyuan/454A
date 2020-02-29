@@ -30,7 +30,7 @@ typedef struct
 
 typedef struct
 {
-    int Frequency;
+    Uint16 Frequency;
 }CFG_PWM_PARAM;
 typedef struct
 {
