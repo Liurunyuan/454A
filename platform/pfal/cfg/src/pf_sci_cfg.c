@@ -223,11 +223,11 @@ const CFG_SCI_HDL_TBL SDB_CfgSCIHdlTbl[TOTAL_SCI] =
 };
 
 
-void Init_SCI_CFG(CFG_SCI_TBL* cfgSciTbl)
+void Init_SCI_CFG(CFG_SCI_TBL* cfgSciTbl, int len)
 {
     int i = 0;
     EALLOW;
-    for(i = 0; i < sizeof(cfgSciTbl)/sizeof(cfgSciTbl[0]); ++i)
+    for(i = 0; i < len; ++i)
     {
         SDB_CfgSCIHdlTbl[cfgSciTbl[i].cfgSciGpio.sciModule](cfgSciTbl[i]);
     }

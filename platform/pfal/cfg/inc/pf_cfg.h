@@ -9,6 +9,7 @@
 #include "pf_spi_cfg.h"
 #include "pf_xintf_cfg.h"
 #include "pf_timer_cfg.h"
+#include "pf_interrupt_cfg.h"
 
 CFG_GPIO_TBL CfgGpioTbl_User[] =
 {
@@ -181,17 +182,23 @@ CFG_XINTF_TBL CfgXintfTbl_User[] =
     }
 };
 
-const CFG_TIMER_TBL CfgTimerTbl_User[] =
+CFG_TIMER_TBL CfgTimerTbl_User[] =
 {
     {
         TIMER0,       //Timer moudule, timer0 timer1
-        200,         //timer period, unit:us
+        2000,         //timer period, unit:us
         120          //system frequency
     },
     {
         TIMER1, 
-        200,
+        20000,
         120
     }
+};
+
+
+CFG_INTERRUPT_TBL CfgInterruptTbl_User[] = 
+{
+    TIMER0_ISR
 };
 #endif /* MAIN_H_ */

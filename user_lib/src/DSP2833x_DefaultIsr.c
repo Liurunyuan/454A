@@ -23,11 +23,11 @@
 
 #include "DSP2833x_Device.h"     // DSP2833x Headerfile Include File
 #include "DSP2833x_Examples.h"   // DSP2833x Examples Include File
+#include "pf_isr.h"
 
 interrupt void  TINT0_ISR(void)
 {
-
-
+  Timer0_ISR();
 	PieCtrlRegs.PIEACK.all = PIEACK_GROUP1;
 	//CpuTimer0Regs.TCR.bit.TIF = 1;
 	//CpuTimer0Regs.TCR.bit.TRB = 1;

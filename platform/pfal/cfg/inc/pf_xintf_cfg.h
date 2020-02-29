@@ -48,6 +48,6 @@ typedef struct
 
 typedef void (*CFG_XINTF_HDL_TBL)(CFG_XINTF_TBL dataMode);
 
-void Init_XINTF_CFG(CFG_XINTF_TBL* cfgXintfTbl);
+void Init_XINTF_CFG(CFG_XINTF_TBL* cfgXintfTbl, int len);
 
 #endif

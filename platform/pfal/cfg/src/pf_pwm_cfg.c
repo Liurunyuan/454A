@@ -159,11 +159,11 @@ const CFG_PWM_HDL_TBL SDB_CfgPwmHdlTbl[TOTAL_PWM] =
 };
 
 
-void Init_PWM_CFG(CFG_PWM_TBL* cfgPwmTbl)
+void Init_PWM_CFG(CFG_PWM_TBL* cfgPwmTbl, int len)
 {
     int i = 0;
     EALLOW;
-    for(i = 0; i < sizeof(cfgPwmTbl)/sizeof(cfgPwmTbl[0]); ++i)
+    for(i = 0; i < len; ++i)
     {
         SDB_CfgPwmHdlTbl[cfgPwmTbl[i].cfgPwmModule.pwmModule](cfgPwmTbl[i]);
     }

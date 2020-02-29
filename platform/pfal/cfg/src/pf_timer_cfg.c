@@ -38,12 +38,13 @@ const CFG_TIMER_HDL_TBL SDB_CfgTimerHdlTbl[TOTAL_TIMER] =
      CFG_TIMER1
 };
 
-void Init_TIMER_CFG(CFG_TIMER_TBL* cfgTimerTbl)
+void Init_TIMER_CFG(CFG_TIMER_TBL* cfgTimerTbl, int len)
 {
     int i;
     InitCpuTimers();
     EALLOW;
-    for(i = 0; i < sizeof(cfgTimerTbl)/sizeof(cfgTimerTbl[0]); ++i)
+
+    for(i = 0; i < len; ++i)
     {
         SDB_CfgTimerHdlTbl[cfgTimerTbl[i].timerEnable](cfgTimerTbl[i]);
     }

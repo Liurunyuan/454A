@@ -42,6 +42,6 @@ typedef struct
 
 typedef void (*CFG_SCI_HDL_TBL)(CFG_SCI_TBL cfgSciTblElement);
 
-void Init_SCI_CFG(CFG_SCI_TBL* cfgSciTbl);
+void Init_SCI_CFG(CFG_SCI_TBL* cfgSciTbl, int len);
 
 #endif

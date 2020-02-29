@@ -21,5 +21,5 @@ typedef struct
 
 typedef void (*CFG_TIMER_HDL_TBL)(CFG_TIMER_TBL cfgSciTblElement);
 
-void Init_TIMER_CFG(CFG_TIMER_TBL* cfgTimerTbl);
+void Init_TIMER_CFG(CFG_TIMER_TBL* cfgTimerTbl, int len);
 #endif

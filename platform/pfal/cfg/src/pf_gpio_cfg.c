@@ -550,13 +550,12 @@ const CFG_GPIO_HDL_TBL SDB_CfgGPIOHdlTbl[TOTAL_GPIO] =
 	CFG_GPIO_87
 };
 
-
-void Init_GPIO_CFG(CFG_GPIO_TBL* cfgGpioTbl)
+void Init_GPIO_CFG(CFG_GPIO_TBL* cfgGpioTbl, int len)
 {
 	int i = 0;
 
 	EALLOW;
-	for(i = 0; i < sizeof(cfgGpioTbl)/sizeof(cfgGpioTbl[0]); ++i)
+	for(i = 0; i < len; ++i)
 	{
 	    SDB_CfgGPIOHdlTbl[cfgGpioTbl[i].gpioIndex](cfgGpioTbl[i].direction);
 	}
