@@ -21,22 +21,7 @@ void main(void)
 
     //TODO init globalvar
 
-//
-//	Init_ADC();
-//
-//	Init_XINTF();
-//
-//	Init_SCI();
-//
-//	Init_SPI();
-//
-//	Init_PWM();
 
-	//init timer
-
-	//init interrupt
-
-	//main loop
 
 
 	while(1)
