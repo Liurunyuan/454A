@@ -428,7 +428,7 @@ interrupt void EPWM6_TZINT_ISR(void)   // EPWM-6
 // INT 3.1
 interrupt void EPWM1_INT_ISR(void)     // EPWM-1
 {
-
+  PFAL_PWM_ISR();
 	EPwm1Regs.ETCLR.bit.INT = 1;
 	PieCtrlRegs.PIEACK.all = PIEACK_GROUP3;
 

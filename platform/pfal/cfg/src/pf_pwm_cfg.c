@@ -347,9 +347,13 @@ void Init_PWM_CFG(CFG_PWM_TBL* cfgPwmTbl, int len)
 {
     int i = 0;
     EALLOW;
+	SysCtrlRegs.PCLKCR0.bit.TBCLKSYNC = 0;
+	EDIS;
     for(i = 0; i < len; ++i)
     {
         SDB_CfgPwmHdlTbl[cfgPwmTbl[i].cfgPwmModule.pwmModule](cfgPwmTbl[i]);
     }
-    EDIS;
+    EALLOW;
+	SysCtrlRegs.PCLKCR0.bit.TBCLKSYNC = 1;
+	EDIS;
 }

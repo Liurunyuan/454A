@@ -45,7 +45,7 @@ void CFG_INTERRUPT(CFG_ISR_ENABLE isrEnable)
         break;
     case SCICTX:
         /* code */
-        PieCtrlRegs.PIEIER8.bit.INTx6 = 1
+        PieCtrlRegs.PIEIER8.bit.INTx6 = 1;
         break;
     default:
         break;
@@ -85,6 +85,10 @@ void Init_INTERRUPT_CFG(CFG_INTERRUPT_TBL* cfgInterruptTbl, int len)
 
     EINT;   // Enable Global interrupt INTM
     ERTM;
-
+    EALLOW;
+    EPwm1Regs.TZCLR.bit.CBC=1;
+    EPwm1Regs.TZCLR.bit.INT=1;
+    EDIS;
+    EPwm1Regs.ETCLR.bit.INT = 1;
 }
 
