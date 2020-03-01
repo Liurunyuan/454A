@@ -40,6 +40,7 @@ const CFG_TIMER_HDL_TBL SDB_CfgTimerHdlTbl[TOTAL_TIMER] =
 
 void PFAL_TIMER_CFG(CFG_TIMER_TBL* cfgTimerTbl, int len)
 {
+#if(PF_TIMER == INCLUDE_FEATURE)
     int i;
     InitCpuTimers();
     EALLOW;
@@ -49,6 +50,7 @@ void PFAL_TIMER_CFG(CFG_TIMER_TBL* cfgTimerTbl, int len)
         SDB_CfgTimerHdlTbl[cfgTimerTbl[i].timerEnable](cfgTimerTbl[i]);
     }
     EDIS;
+#endif
 }
 
 

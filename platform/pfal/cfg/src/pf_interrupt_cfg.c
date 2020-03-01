@@ -61,6 +61,7 @@ const CFG_INTERRUPT_HDL_TBL SDB_CfgInterruptHdlTbl[TOTAL_INTERRUPT] =
 
 void PFAL_INTERRUPT_CFG(CFG_INTERRUPT_TBL* cfgInterruptTbl, int len)
 {
+#if(PF_ISR == INCLUDE_FEATURE)
     int i;
     DINT;
     InitPieCtrl();
@@ -89,5 +90,6 @@ void PFAL_INTERRUPT_CFG(CFG_INTERRUPT_TBL* cfgInterruptTbl, int len)
     ScicRegs.SCIFFTX.bit.TXFFINTCLR = 1;
     ScibRegs.SCIFFRX.bit.RXFFINTCLR = 1;
     ScibRegs.SCIFFTX.bit.TXFFINTCLR = 1;
+#endif
 }
 

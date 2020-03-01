@@ -13,6 +13,7 @@ const CFG_XINTF_TBL CfgXintfTbl[] =
 
 void CFG_XINTF(CFG_XINTF_TBL cfgTbleElement)
 {
+    InitXintf();
     EALLOW;
     if(cfgTbleElement.xintfDataMode == DATA_MODE_16BIT)
     {
@@ -125,7 +126,9 @@ const CFG_XINTF_HDL_TBL SDB_CfgXintfHdlTbl[TOTAL_XINTF] =
 
 void PFAL_XINTF_CFG(CFG_XINTF_TBL* cfgXintfTbl, int len)
 {
+#if(PF_XINTF == INCLUDE_FEATURE)
     EALLOW;
     SDB_CfgXintfHdlTbl[0](cfgXintfTbl[0]);
     EDIS;
+#endif
 }

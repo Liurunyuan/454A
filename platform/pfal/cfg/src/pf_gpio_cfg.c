@@ -552,6 +552,7 @@ const CFG_GPIO_HDL_TBL SDB_CfgGPIOHdlTbl[TOTAL_GPIO] =
 
 void PFAL_GPIO_CFG(CFG_GPIO_TBL* cfgGpioTbl, int len)
 {
+#if(PF_GPIO == INCLUDE_FEATURE)
 	int i = 0;
 
 	EALLOW;
@@ -560,4 +561,5 @@ void PFAL_GPIO_CFG(CFG_GPIO_TBL* cfgGpioTbl, int len)
 	    SDB_CfgGPIOHdlTbl[cfgGpioTbl[i].gpioIndex](cfgGpioTbl[i].direction);
 	}
     EDIS;
+#endif
 }

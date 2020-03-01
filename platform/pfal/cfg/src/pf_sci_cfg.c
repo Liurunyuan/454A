@@ -225,6 +225,7 @@ const CFG_SCI_HDL_TBL SDB_CfgSCIHdlTbl[TOTAL_SCI] =
 
 void PFAL_SCI_CFG(CFG_SCI_TBL* cfgSciTbl, int len)
 {
+#if(PF_SCI == INCLUDE_FEATURE)
     int i = 0;
     EALLOW;
     for(i = 0; i < len; ++i)
@@ -232,4 +233,5 @@ void PFAL_SCI_CFG(CFG_SCI_TBL* cfgSciTbl, int len)
         SDB_CfgSCIHdlTbl[cfgSciTbl[i].cfgSciGpio.sciModule](cfgSciTbl[i]);
     }
     EDIS;
+#endif
 }

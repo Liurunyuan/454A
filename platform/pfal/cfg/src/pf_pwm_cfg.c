@@ -345,6 +345,7 @@ const CFG_PWM_HDL_TBL SDB_CfgPwmHdlTbl[TOTAL_PWM] =
 
 void PFAL_PWM_CFG(CFG_PWM_TBL* cfgPwmTbl, int len)
 {
+#if(PF_PWM == INCLUDE_FEATURE)
     int i = 0;
     EALLOW;
 	SysCtrlRegs.PCLKCR0.bit.TBCLKSYNC = 0;
@@ -356,4 +357,6 @@ void PFAL_PWM_CFG(CFG_PWM_TBL* cfgPwmTbl, int len)
     EALLOW;
 	SysCtrlRegs.PCLKCR0.bit.TBCLKSYNC = 1;
 	EDIS;
+#endif
 }
+

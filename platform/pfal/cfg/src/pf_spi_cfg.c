@@ -69,10 +69,11 @@ const CFG_SPI_HDL_TBL SDB_CfgSpiHdlTbl[TOTAL_SPI] =
 
 void PFAL_SPI_CFG(CFG_SPI_TBL* cfgSpiTbl, int len)
 {
+#if(PF_SPI == INCLUDE_FEATURE)
     EALLOW;
 
     SDB_CfgSpiHdlTbl[0](cfgSpiTbl[0]);
 
     EDIS;
-
+#endif
 }

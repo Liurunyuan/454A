@@ -10,6 +10,7 @@
 #include "pf_xintf_cfg.h"
 #include "pf_timer_cfg.h"
 #include "pf_interrupt_cfg.h"
+#include "prod.h"
 
 CFG_GPIO_TBL CfgGpioTbl_User[] =
 {

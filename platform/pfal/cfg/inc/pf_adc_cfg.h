@@ -4,8 +4,12 @@
 // #include "DSP2833x_Gpio.h"
 #include "DSP2833x_Device.h"     // DSP2833x Headerfile Include File
 #include "DSP2833x_Examples.h"   // DSP2833x Examples Include File
+#include "prod.h"
 
-
-
+typedef struct
+{
+    int i;
+}CFG_ADC_TBL;
+void PFAL_ADC_CFG(CFG_ADC_TBL* cfgAdcTbl, int len);
 #endif /* MAIN_H_ */
 
