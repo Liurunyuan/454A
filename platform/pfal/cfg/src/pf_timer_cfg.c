@@ -38,7 +38,7 @@ const CFG_TIMER_HDL_TBL SDB_CfgTimerHdlTbl[TOTAL_TIMER] =
      CFG_TIMER1
 };
 
-void Init_TIMER_CFG(CFG_TIMER_TBL* cfgTimerTbl, int len)
+void PFAL_TIMER_CFG(CFG_TIMER_TBL* cfgTimerTbl, int len)
 {
     int i;
     InitCpuTimers();

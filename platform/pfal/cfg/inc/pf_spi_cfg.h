@@ -17,6 +17,6 @@ typedef struct
 
 typedef void (*CFG_SPI_HDL_TBL)(CFG_SPI_TBL cfgSpiTblElement);
 
-void Init_SPI_CFG(CFG_SPI_TBL* cfgSpiTbl, int len);
+void PFAL_SPI_CFG(CFG_SPI_TBL* cfgSpiTbl, int len);
 
 #endif

@@ -37,7 +37,7 @@ interrupt void  TINT0_ISR(void)
 // ISR can be used by the user.
 interrupt void INT13_ISR(void)     // INT13 or CPU-Timer1
 {
-
+  PFAL_Timer1_ISR();
 }
 
 // Note CPU-Timer2 is reserved for TI use.
@@ -864,7 +864,7 @@ interrupt void I2CINT2A_ISR(void)     // I2C-A
 // INT8.5
 interrupt void SCIRXINTC_ISR(void)     // SCI-C
 {
-
+  PFAL_SCIC_RX_ISR();
   ScicRegs.SCIFFRX.bit.RXFFINTCLR = 1;
   PieCtrlRegs.PIEACK.all = PIEACK_GROUP8;
 
@@ -873,7 +873,9 @@ interrupt void SCIRXINTC_ISR(void)     // SCI-C
 // INT8.6
 interrupt void SCITXINTC_ISR(void)     // SCI-C
 {
-
+  PFAL_SCIC_TX_ISR();
+  ScicRegs.SCIFFTX.bit.TXFFINTCLR = 1;
+	PieCtrlRegs.PIEACK.all = PIEACK_GROUP8;
 }
 
 // INT8.7 - Reserved
@@ -919,7 +921,7 @@ interrupt void SCITXINTA_ISR(void)     // SCI-A
 // INT9.3
 interrupt void SCIRXINTB_ISR(void)
 {
-
+  PFAL_SCIB_RX_ISR();
 	ScibRegs.SCIFFRX.bit.RXFFINTCLR = 1;
 	PieCtrlRegs.PIEACK.all = PIEACK_GROUP9;
 }
@@ -928,7 +930,7 @@ interrupt void SCIRXINTB_ISR(void)
 // INT9.4
 interrupt void SCITXINTB_ISR(void)     // SCI-B
 {
-
+  PFAL_SCIB_TX_ISR();
 	ScibRegs.SCIFFTX.bit.TXFFINTCLR = 1;
 	PieCtrlRegs.PIEACK.all = PIEACK_GROUP9;
 }

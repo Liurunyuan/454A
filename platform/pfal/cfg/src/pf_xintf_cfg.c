@@ -123,7 +123,7 @@ const CFG_XINTF_HDL_TBL SDB_CfgXintfHdlTbl[TOTAL_XINTF] =
      CFG_XINTF
 };
 
-void Init_XINTF_CFG(CFG_XINTF_TBL* cfgXintfTbl, int len)
+void PFAL_XINTF_CFG(CFG_XINTF_TBL* cfgXintfTbl, int len)
 {
     EALLOW;
     SDB_CfgXintfHdlTbl[0](cfgXintfTbl[0]);

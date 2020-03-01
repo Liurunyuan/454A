@@ -343,7 +343,7 @@ const CFG_PWM_HDL_TBL SDB_CfgPwmHdlTbl[TOTAL_PWM] =
 };
 
 
-void Init_PWM_CFG(CFG_PWM_TBL* cfgPwmTbl, int len)
+void PFAL_PWM_CFG(CFG_PWM_TBL* cfgPwmTbl, int len)
 {
     int i = 0;
     EALLOW;

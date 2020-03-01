@@ -40,7 +40,7 @@ typedef struct
 
 typedef void (*CFG_PWM_HDL_TBL)(CFG_PWM_TBL cfgPwmTblElement);
 
-void Init_PWM_CFG(CFG_PWM_TBL* cfgPwmTbl, int len);
+void PFAL_PWM_CFG(CFG_PWM_TBL* cfgPwmTbl, int len);
 
 #endif /* MAIN_H_ */
 

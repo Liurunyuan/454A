@@ -59,7 +59,7 @@ const CFG_INTERRUPT_HDL_TBL SDB_CfgInterruptHdlTbl[TOTAL_INTERRUPT] =
 };
 
 
-void Init_INTERRUPT_CFG(CFG_INTERRUPT_TBL* cfgInterruptTbl, int len)
+void PFAL_INTERRUPT_CFG(CFG_INTERRUPT_TBL* cfgInterruptTbl, int len)
 {
     int i;
     DINT;
@@ -85,5 +85,9 @@ void Init_INTERRUPT_CFG(CFG_INTERRUPT_TBL* cfgInterruptTbl, int len)
 
     EINT;   // Enable Global interrupt INTM
     ERTM;
+    ScicRegs.SCIFFRX.bit.RXFFINTCLR = 1;
+    ScicRegs.SCIFFTX.bit.TXFFINTCLR = 1;
+    ScibRegs.SCIFFRX.bit.RXFFINTCLR = 1;
+    ScibRegs.SCIFFTX.bit.TXFFINTCLR = 1;
 }
 

@@ -67,7 +67,7 @@ const CFG_SPI_HDL_TBL SDB_CfgSpiHdlTbl[TOTAL_SPI] =
      CFG_SPI_A
 };
 
-void Init_SPI_CFG(CFG_SPI_TBL* cfgSpiTbl, int len)
+void PFAL_SPI_CFG(CFG_SPI_TBL* cfgSpiTbl, int len)
 {
     EALLOW;
 

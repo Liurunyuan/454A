@@ -71,7 +71,7 @@ void CFG_SCI_A(CFG_SCI_TBL cfgSciTblElement)
     SciaRegs.SCIFFTX.bit.TXFIFOXRESET   = 0;
     SciaRegs.SCIFFRX.bit.RXFIFORESET    = 0;
     SciaRegs.SCIFFTX.all                = 0xE028;
-    SciaRegs.SCIFFTX.bit.TXFFIENA       = 0;
+    SciaRegs.SCIFFTX.bit.TXFFIENA       = 1;
 
     SciaRegs.SCIFFTX.bit.TXFFINTCLR     = 1;
     SciaRegs.SCIFFRX.all                = 0x2028;
@@ -160,7 +160,7 @@ void CFG_SCI_B(CFG_SCI_TBL cfgSciTblElement)
     ScibRegs.SCIFFTX.bit.TXFIFOXRESET   = 0;
     ScibRegs.SCIFFRX.bit.RXFIFORESET    = 0;
     ScibRegs.SCIFFTX.all                = 0xE028;
-    ScibRegs.SCIFFTX.bit.TXFFIENA       = 0;
+    ScibRegs.SCIFFTX.bit.TXFFIENA       = 1;
 
     ScibRegs.SCIFFTX.bit.TXFFINTCLR     = 1;
     ScibRegs.SCIFFRX.all                = 0x2028;
@@ -223,7 +223,7 @@ const CFG_SCI_HDL_TBL SDB_CfgSCIHdlTbl[TOTAL_SCI] =
 };
 
 
-void Init_SCI_CFG(CFG_SCI_TBL* cfgSciTbl, int len)
+void PFAL_SCI_CFG(CFG_SCI_TBL* cfgSciTbl, int len)
 {
     int i = 0;
     EALLOW;

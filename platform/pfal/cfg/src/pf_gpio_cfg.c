@@ -550,7 +550,7 @@ const CFG_GPIO_HDL_TBL SDB_CfgGPIOHdlTbl[TOTAL_GPIO] =
 	CFG_GPIO_87
 };
 
-void Init_GPIO_CFG(CFG_GPIO_TBL* cfgGpioTbl, int len)
+void PFAL_GPIO_CFG(CFG_GPIO_TBL* cfgGpioTbl, int len)
 {
 	int i = 0;
 

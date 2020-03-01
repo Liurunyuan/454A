@@ -186,7 +186,7 @@ CFG_TIMER_TBL CfgTimerTbl_User[] =
 {
     {
         TIMER0,       //Timer moudule, timer0 timer1
-        2000,         //timer period, unit:us
+        20000,         //timer period, unit:us
         120          //system frequency
     },
     {
@@ -200,11 +200,11 @@ CFG_TIMER_TBL CfgTimerTbl_User[] =
 CFG_INTERRUPT_TBL CfgInterruptTbl_User[] = 
 {
     TIMER0_ISR,
-    // TIMER1_ISR,
+    TIMER1_ISR,
     EPWM1,
-    // SCIBRX,
+    SCIBRX,
     // SCIBTX,
-    // SCIBRX,
+    SCICRX,
     // SCICTX
 };
 #endif /* MAIN_H_ */

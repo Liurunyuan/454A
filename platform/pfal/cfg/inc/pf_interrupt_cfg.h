@@ -31,5 +31,5 @@ typedef struct
 
 typedef void (*CFG_INTERRUPT_HDL_TBL)(CFG_ISR_ENABLE isrEnable);
 
-void Init_INTERRUPT_CFG(CFG_INTERRUPT_TBL* cfgInterruptTbl, int len);
+void PFAL_INTERRUPT_CFG(CFG_INTERRUPT_TBL* cfgInterruptTbl, int len);
 #endif

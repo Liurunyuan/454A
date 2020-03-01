@@ -22,7 +22,7 @@ typedef struct
 typedef void (*CFG_GPIO_HDL_TBL)(GPIO_DIRECTION direction);
 
 
-void Init_GPIO_CFG(CFG_GPIO_TBL* cfgGpioTbl, int len);
+void PFAL_GPIO_CFG(CFG_GPIO_TBL* cfgGpioTbl, int len);
 
 #endif /* MAIN_H_ */
 
