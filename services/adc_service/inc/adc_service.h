@@ -30,6 +30,7 @@ enum MULTI_ANAL_IDX
 	BIT1_AN_COM = 0,		//0  X_IAB_3V3AN
     TOTAL_MULTI_ANAL_CHS
 };
+//multi ADC sub channel
 enum MULTI_ANAL_SUB_IDX
 {
 	X_T1_3V3AN = 0,		//0  X_IAB_3V3AN
