@@ -122,5 +122,39 @@ void SCI_C_Transmit(SCITXQUE* RS422TxQue){
 }
 
 
+void ClearSciaRxOverFlow(void) {
+	if (SciaRegs.SCIFFRX.bit.RXFFOVF == 1) {
+		// printf(">>>>>>scib rx fifo over flow\r\n");
+		SciaRegs.SCIFFRX.bit.RXFFOVRCLR = 1;
+		SciaRegs.SCIFFRX.bit.RXFIFORESET = 1;
+		if (SciaRegs.SCIFFRX.bit.RXFFOVF == 0) {
+//			printf(">>scib clear fifo over flow flag\r\n");
+		}
+	}
+}
+
+void ClearScibRxOverFlow(void) {
+	if (ScibRegs.SCIFFRX.bit.RXFFOVF == 1) {
+		// printf(">>>>>>scib rx fifo over flow\r\n");
+		ScibRegs.SCIFFRX.bit.RXFFOVRCLR = 1;
+		ScibRegs.SCIFFRX.bit.RXFIFORESET = 1;
+		if (ScibRegs.SCIFFRX.bit.RXFFOVF == 0) {
+//			printf(">>scib clear fifo over flow flag\r\n");
+		}
+	}
+}
+
+void ClearScicRxOverFlow(void) {
+	if (ScicRegs.SCIFFRX.bit.RXFFOVF == 1) {
+		// printf(">>>>>>scib rx fifo over flow\r\n");
+		ScicRegs.SCIFFRX.bit.RXFFOVRCLR = 1;
+		ScicRegs.SCIFFRX.bit.RXFIFORESET = 1;
+		if (ScicRegs.SCIFFRX.bit.RXFFOVF == 0) {
+//			printf(">>scib clear fifo over flow flag\r\n");
+		}
+	}
+}
+
+
 
 

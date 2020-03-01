@@ -38,6 +38,9 @@ typedef struct _SCITXVAR{
 	UpdateTxVal updateValue;
 }SCITXVAR;
 
+
+void ProcessSciRxPacket(SCIRXQUE *RS422RxQue);
+void PackSciTxPacket(SCITXQUE *RS422TxQue, SCITXVAR* sciTxVar);
 #endif
 
 

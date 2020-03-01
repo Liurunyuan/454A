@@ -22,9 +22,12 @@ typedef struct _RS422TXQUE{
 
 int SciRxEnQueue(int e, SCIRXQUE *RS422RxQue);
 int SciTxEnQueue(char e, SCITXQUE *RS422TxQue);
+
 int SciRxDeQueue(SCIRXQUE *RS422RxQue);
 int SciTxDeQueue(SCITXQUE *RS422TxQue);
+
 int IsSciRxQueueEmpty(SCIRXQUE *RS422RxQue);
+
 int GetSciRxQueLength(SCIRXQUE *RS422RxQue);
 int GetSciTxQueLength(SCITXQUE *RS422TxQue);
 #endif

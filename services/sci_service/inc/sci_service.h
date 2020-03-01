@@ -7,6 +7,16 @@
 #include "sci_queue.h"
 
 
+void Sci_A_Receive(SCIRXQUE* RS422RxQue);
+void Sci_B_Receive(SCIRXQUE* RS422RxQue);
+void Sci_C_Receive(SCIRXQUE* RS422RxQue);
 
+void SCI_A_Transmit(SCITXQUE* RS422TxQue);
+void SCI_B_Transmit(SCITXQUE* RS422TxQue);
+void SCI_C_Transmit(SCITXQUE* RS422TxQue);
+
+void ClearSciaRxOverFlow(void);
+void ClearScibRxOverFlow(void);
+void ClearScicRxOverFlow(void);
 #endif
 
