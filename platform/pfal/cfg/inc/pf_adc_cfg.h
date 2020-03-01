@@ -10,6 +10,8 @@ typedef struct
 {
     int i;
 }CFG_ADC_TBL;
+
+typedef void (*CFG_ADC_HDL_TBL)(CFG_ADC_TBL cfgAdcTblElement);
 void PFAL_ADC_CFG(CFG_ADC_TBL* cfgAdcTbl, int len);
 #endif /* MAIN_H_ */
 

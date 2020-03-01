@@ -208,4 +208,9 @@ CFG_INTERRUPT_TBL CfgInterruptTbl_User[] =
     SCICRX,
     // SCICTX
 };
+
+CFG_ADC_TBL CfgAdcTbl_User[] = 
+{
+    8
+};
 #endif /* MAIN_H_ */
