@@ -55,6 +55,8 @@ const CFG_PWM_TBL CfgPwmTbl[] =
 
 void CFG_PWM_1A(CFG_PWM_TBL cfgPwmTblElement)
 {
+	Uint16 epwmPeriod;
+	epwmPeriod = (Uint16)(120000/cfgPwmTblElement.cfgPwmParam.Frequency/2);
     EALLOW;
     GpioCtrlRegs.GPAPUD.bit.GPIO0 = 0;    // Enable pull-up on GPIO0 (EPWM1A)
     GpioCtrlRegs.GPAMUX1.bit.GPIO0 = 1;   // Configure GPIO0 as EPWM1A
@@ -62,10 +64,10 @@ void CFG_PWM_1A(CFG_PWM_TBL cfgPwmTblElement)
     EALLOW;
 	SysCtrlRegs.PCLKCR0.bit.TBCLKSYNC = 0;
 	EDIS;
-    EPwm1Regs.TBPRD = cfgPwmTblElement.cfgPwmParam.Frequency;
+    EPwm1Regs.TBPRD = epwmPeriod;
 	EPwm1Regs.TBPHS.half.TBPHS = 0x0000;
 	EPwm1Regs.TBCTR = 0x0000;
-	EPwm1Regs.CMPA.half.CMPA = 1000;
+	EPwm1Regs.CMPA.half.CMPA = epwmPeriod/2;
 	//EPwm1Regs.CMPB = EPWM2_TIMER_HALF_TBPRD;
 	EPwm1Regs.TBCTL.bit.CTRMODE = TB_COUNT_UPDOWN;
 	EPwm1Regs.TBCTL.bit.PHSEN = TB_DISABLE;
@@ -104,14 +106,16 @@ void CFG_PWM_1B(CFG_PWM_TBL cfgPwmTblElement)
 }
 void CFG_PWM_2A(CFG_PWM_TBL cfgPwmTblElement)
 {
+	Uint16 epwmPeriod;
+	epwmPeriod = (Uint16)(120000/cfgPwmTblElement.cfgPwmParam.Frequency/2);
     EALLOW;
     GpioCtrlRegs.GPAPUD.bit.GPIO2 = 0;    // Enable pull-up on GPIO2 (EPWM2A)
     GpioCtrlRegs.GPAMUX1.bit.GPIO2 = 1;   // Configure GPIO2 as EPWM2A
     EDIS;
-	EPwm2Regs.TBPRD = 30000;
+	EPwm2Regs.TBPRD = epwmPeriod;
 	EPwm2Regs.TBPHS.half.TBPHS = 0x0000;
 	EPwm2Regs.TBCTR = 0x0000;
-	EPwm2Regs.CMPA.half.CMPA =10000;
+	EPwm2Regs.CMPA.half.CMPA =epwmPeriod/2;
 	//EPwm2Regs.CMPB = EPWM1_TIMER_HALF_TBPRD;
 	EPwm2Regs.TBCTL.bit.CTRMODE = TB_COUNT_UPDOWN;
 	EPwm2Regs.TBCTL.bit.PHSEN = TB_DISABLE;
@@ -146,14 +150,16 @@ void CFG_PWM_2B(CFG_PWM_TBL cfgPwmTblElement)
 }
 void CFG_PWM_3A(CFG_PWM_TBL cfgPwmTblElement)
 {
+	Uint16 epwmPeriod;
+	epwmPeriod = (Uint16)(120000/cfgPwmTblElement.cfgPwmParam.Frequency/2);
     EALLOW;
     GpioCtrlRegs.GPAPUD.bit.GPIO4 = 0;    // Enable pull-up on GPIO4 (EPWM3A)
     GpioCtrlRegs.GPAMUX1.bit.GPIO4 = 1;   // Configure GPIO4 as EPWM3A
     EDIS;
-    EPwm3Regs.TBPRD = 2000;
+    EPwm3Regs.TBPRD = epwmPeriod;
 	EPwm3Regs.TBPHS.half.TBPHS = 0x0000;
 	EPwm3Regs.TBCTR = 0x0000;
-	EPwm3Regs.CMPA.half.CMPA =1000;
+	EPwm3Regs.CMPA.half.CMPA =epwmPeriod/2;
 	//EPwm3Regs.CMPB = EPWM1_TIMER_HALF_TBPRD;
 	EPwm3Regs.TBCTL.bit.CTRMODE = TB_COUNT_UPDOWN;
 	EPwm3Regs.TBCTL.bit.PHSEN = TB_DISABLE;
@@ -188,14 +194,16 @@ void CFG_PWM_3B(CFG_PWM_TBL cfgPwmTblElement)
 }
 void CFG_PWM_4A(CFG_PWM_TBL cfgPwmTblElement)
 {
+	Uint16 epwmPeriod;
+	epwmPeriod = (Uint16)(120000/cfgPwmTblElement.cfgPwmParam.Frequency/2);
     EALLOW;
     GpioCtrlRegs.GPAPUD.bit.GPIO6 = 0;    // Enable pull-up on GPIO6 (EPWM4A)
     GpioCtrlRegs.GPAMUX1.bit.GPIO6 = 1;   // Configure GPIO6 as EPWM4A
     EDIS;
-    EPwm4Regs.TBPRD = 2000;
+    EPwm4Regs.TBPRD = epwmPeriod;
 	EPwm4Regs.TBPHS.half.TBPHS = 0x0000;
 	EPwm4Regs.TBCTR = 0x0000;
-	EPwm4Regs.CMPA.half.CMPA =1000;
+	EPwm4Regs.CMPA.half.CMPA = epwmPeriod/2;
 	//EPwm3Regs.CMPB = EPWM1_TIMER_HALF_TBPRD;
 	EPwm4Regs.TBCTL.bit.CTRMODE = TB_COUNT_UPDOWN;
 	EPwm4Regs.TBCTL.bit.PHSEN = TB_DISABLE;
@@ -230,14 +238,16 @@ void CFG_PWM_4B(CFG_PWM_TBL cfgPwmTblElement)
 }
 void CFG_PWM_5A(CFG_PWM_TBL cfgPwmTblElement)
 {
+	Uint16 epwmPeriod;
+	epwmPeriod = (Uint16)(120000/cfgPwmTblElement.cfgPwmParam.Frequency/2);
     EALLOW;
     GpioCtrlRegs.GPAPUD.bit.GPIO8 = 0;    // Enable pull-up on GPIO8 (EPWM5A)
     GpioCtrlRegs.GPAMUX1.bit.GPIO8 = 1;   // Configure GPIO8 as EPWM5A
     EDIS;
-    EPwm5Regs.TBPRD = 2000;
+    EPwm5Regs.TBPRD = epwmPeriod;
 	EPwm5Regs.TBPHS.half.TBPHS = 0x0000;
 	EPwm5Regs.TBCTR = 0x0000;
-	EPwm5Regs.CMPA.half.CMPA =1000;
+	EPwm5Regs.CMPA.half.CMPA = epwmPeriod/2;
 	//EPwm3Regs.CMPB = EPWM1_TIMER_HALF_TBPRD;
 	EPwm5Regs.TBCTL.bit.CTRMODE = TB_COUNT_UPDOWN;
 	EPwm5Regs.TBCTL.bit.PHSEN = TB_DISABLE;
@@ -272,14 +282,16 @@ void CFG_PWM_5B(CFG_PWM_TBL cfgPwmTblElement)
 }
 void CFG_PWM_6A(CFG_PWM_TBL cfgPwmTblElement)
 {
+	Uint16 epwmPeriod;
+	epwmPeriod = (Uint16)(120000/cfgPwmTblElement.cfgPwmParam.Frequency/2);
     EALLOW;
     GpioCtrlRegs.GPAPUD.bit.GPIO10 = 0;    // Enable pull-up on GPIO10 (EPWM6A)
     GpioCtrlRegs.GPAMUX1.bit.GPIO10 = 1;   // Configure GPIO10 as EPWM6A
     EDIS;
-    EPwm6Regs.TBPRD = 2000;
+    EPwm6Regs.TBPRD = epwmPeriod;
 	EPwm6Regs.TBPHS.half.TBPHS = 0x0000;
 	EPwm6Regs.TBCTR = 0x0000;
-	EPwm6Regs.CMPA.half.CMPA =1000;
+	EPwm6Regs.CMPA.half.CMPA = epwmPeriod/2;
 	//EPwm3Regs.CMPB = EPWM1_TIMER_HALF_TBPRD;
 	EPwm6Regs.TBCTL.bit.CTRMODE = TB_COUNT_UPDOWN;
 	EPwm6Regs.TBCTL.bit.PHSEN = TB_DISABLE;

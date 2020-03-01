@@ -3,7 +3,7 @@
 
 
 
-void Timer1_ISR(void)
+void PFAL_Timer1_ISR(void)
 {
 
 }

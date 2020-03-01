@@ -4,5 +4,5 @@
 #include "DSP2833x_Device.h"     // DSP2833x Headerfile Include File
 #include "DSP2833x_Examples.h"   // DSP2833x Examples Include File
 
-void Timer0_ISR(void);
+void PFAL_Timer0_ISR(void);
 #endif

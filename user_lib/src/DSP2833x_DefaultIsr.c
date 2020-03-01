@@ -27,7 +27,7 @@
 
 interrupt void  TINT0_ISR(void)
 {
-  Timer0_ISR();
+  PFAL_Timer0_ISR();
 	PieCtrlRegs.PIEACK.all = PIEACK_GROUP1;
 	//CpuTimer0Regs.TCR.bit.TIF = 1;
 	//CpuTimer0Regs.TCR.bit.TRB = 1;

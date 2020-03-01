@@ -20,6 +20,7 @@ void CFG_INTERRUPT(CFG_ISR_ENABLE isrEnable)
         break;
     case EPWM1:
         /* code */
+        PieCtrlRegs.PIEIER3.bit.INTx1 = 1;
         break;
     case ECAP1:
         /* code */
@@ -30,7 +31,22 @@ void CFG_INTERRUPT(CFG_ISR_ENABLE isrEnable)
     case SCIATX:
         /* code */
         break;
-    
+    case SCIBRX:
+        /* code */
+        PieCtrlRegs.PIEIER9.bit.INTx3 = 1;
+        break;
+    case SCIBTX:
+        /* code */
+        PieCtrlRegs.PIEIER9.bit.INTx4 = 1;
+        break;
+    case SCICRX:
+        /* code */
+        PieCtrlRegs.PIEIER8.bit.INTx5 = 1;
+        break;
+    case SCICTX:
+        /* code */
+        PieCtrlRegs.PIEIER8.bit.INTx6 = 1
+        break;
     default:
         break;
     }
