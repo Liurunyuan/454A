@@ -13,6 +13,6 @@
 #define PF_SPI          INCLUDE_FEATURE
 #define PF_XINTF        INCLUDE_FEATURE
 
-
+#define SYS_DEBUG       INCLUDE_FEATURE
 
 #endif

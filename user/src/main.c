@@ -18,9 +18,9 @@ void setCtlReg(void)
     }
     data = 0x0010;
     SpiaRegs.SPITXBUF = (data)<< 8;
-    data = 0x1234;
+    data = 0x00c0;
     SpiaRegs.SPITXBUF = (data << 8);
-    data = 0x4312;
+    data = 0x0000;
     SpiaRegs.SPITXBUF = (data << 8);
 
     while(SpiaRegs.SPIFFRX.bit.RXFFST < 3);
@@ -84,15 +84,17 @@ void readCtlReg(void)
     arinc429[5] = SpiaRegs.SPIRXBUF;
     arinc429[6] = SpiaRegs.SPIRXBUF;
     arinc429[7] = SpiaRegs.SPIRXBUF;
-	arinc429[8] = SpiaRegs.SPIRXBUF;
+//	arinc429[8] = SpiaRegs.SPIRXBUF;
     GpioDataRegs.GPBDAT.bit.GPIO61 = 1;
     for(i = 0; i < 20000; ++i){
         asm (" NOP");
     }
 
 }
-int gpio60state = -1;
-int gpio61state = -1;
+
+int gpio59state = -1;
+int gpio35state = -1;
+
 void main(void)
 {
 	int i = 0;
@@ -113,23 +115,17 @@ void main(void)
     }
 	GpioDataRegs.GPBDAT.bit.GPIO60 = 0;
 
-
     setCtlReg();
-    readStatusReg();
-    readCtlReg();
-
-
-
-
-
+//    readStatusReg();
+//    readCtlReg();
 
 	while(1)
 	{
 	    ++i;
-	    if(i > 1000){
-	        gpio60state = GpioDataRegs.GPBDAT.bit.GPIO60;
-	        gpio61state = GpioDataRegs.GPBDAT.bit.GPIO61;
-
+	    if(i > 1000)
+        {
+	        gpio59state = GpioDataRegs.GPBDAT.bit.GPIO59;
+	        gpio35state = GpioDataRegs.GPBDAT.bit.GPIO35;
 	        gtest++;
 	        i = 0;
 	    }
