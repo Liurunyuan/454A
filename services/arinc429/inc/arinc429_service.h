@@ -117,5 +117,11 @@ typedef union
 #define IsArincTxFlagDefination(a)				(a & ArincTxFlagDefinationMask)
 #define IsArincRxFlagDefination(a)				(a & ArincRxFlagDefinationMask)
 
+
+#define EnableArincLableRecognition(a)			(a | ArincEnlLalRecgnMask)
+
+void SetArinc429CtlReg(ARINC429_CTL_REG ctlRegVal);
+Uint16 ReadArinc429StatusReg(void);
+Uint16 ReadArinc429CtlReg(void);
 #endif
 
