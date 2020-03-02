@@ -24,29 +24,29 @@ static void FindSinTbl(int16 ct,int16 *psinvalue)
     }
 }
 
-void Cal_Three_Phase_Duty(SPWM_PARA* spwmPara)
+void Calculate_Three_Phase_Duty(SPWM_PARA* spwmPara)
 {
-	   long ful;/*å� ç©ºæ¯”ç �å€¼ä¸Žæ—‹å�˜å€¼ä¹˜ç§¯ï¼Œå�ˆæ³•èŒƒå›´0~4095ï¼Œåˆ�å§‹å€¼ä¸º0ï¼Œå¼•ç”¨å‡½æ•°SPWMï¼Œæ”¹å�˜å‡½æ•°SPWM*/
+	   long ful;
        int16 ct = spwmPara->Rvdt_Pos;
-	   int16 pa,pb;/*è¯»å�–çš„æ­£å¼¦å€¼ï¼Œå�ˆæ³•èŒƒå›´0~32000ï¼Œåˆ�å§‹å€¼æ— ï¼Œå¼•ç”¨å‡½æ•°SPWMï¼Œæ”¹å�˜å‡½æ•°SPWM*/
+	   int16 pa,pb;
 
-	   FindSinTbl(ct,&pa);  /*Aç›¸æŸ¥æ­£å¼¦è¡¨*/
-	   ct += 1365;  /* 4096/3=>1365ï¼ŒAç›¸ä¸ŽBç›¸ç›¸ä½�å·®120åº¦*/
+	   FindSinTbl(ct,&pa);
+	   ct += 1365;
 	   if(ct > 4095) ct -= 4096;
-	   FindSinTbl(ct,&pb);	/*Bç›¸æŸ¥æ­£å¼¦è¡¨*/
+	   FindSinTbl(ct,&pb);
 	   ful=(long)pa*(long)spwmPara->Amplitude;
-	   spwmPara->Phase_Duty_U = (int16)(ful/32000);/*è®¡ç®—Aç›¸å� ç©ºæ¯”å€¼*/
+	   spwmPara->Phase_Duty_U = (int16)(ful/32000);
 	   ful=(long)pb*(long)spwmPara->Amplitude;
-	   spwmPara->Phase_Duty_V = (int16)(ful/32000);/*è®¡ç®—Bç›¸å� ç©ºæ¯”å€¼*/
-	   spwmPara->Phase_Duty_W = -(spwmPara->Phase_Duty_U + spwmPara->Phase_Duty_V);	/*Aï¼ŒBï¼ŒCä¸‰ç›¸å� ç©ºæ¯”å’Œä¸º0*/
+	   spwmPara->Phase_Duty_V = (int16)(ful/32000);
+	   spwmPara->Phase_Duty_W = -(spwmPara->Phase_Duty_U + spwmPara->Phase_Duty_V);
 }
 
 
 void SPWM_outA(void)
 {
-	static int16 cta=0;/*ç”¨äºŽæŸ¥æ­£å¼¦è¡¨çš„æ—‹å�˜ç �å€¼ï¼Œå�ˆæ³•èŒƒå›´0~4095ï¼Œåˆ�å§‹å€¼ä¸º0ï¼Œå¼•ç”¨å‡½æ•°SPWM_outAï¼Œæ”¹å�˜å‡½æ•°SPWM_outA*/
-	static int16 rvdt_zero=953;/*æ—‹å�˜ä½�ç½®ç›¸å¯¹ç”µæœºå��ç”µåŠ¿çš„é›¶ä½�å€¼ï¼Œå�ˆæ³•èŒƒå›´0~4095ï¼Œåˆ�å§‹å€¼ä¸º0ï¼Œå¼•ç”¨å‡½æ•°SPWM_outA*/
-	// cta=rvdt_result-rvdt_zero;/*è°ƒæ•´é©±åŠ¨ç”µåŠ¿é›¶ä½�*/
+	static int16 cta=0;
+	static int16 rvdt_zero=953;
+
 	if(cta<0)
 	{
 		cta+=4096;
