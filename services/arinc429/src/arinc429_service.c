@@ -1,18 +1,14 @@
 #include "arinc429_service.h"
 
 
-
+#define Delay_CS    20
 int arinc429[11] = {0};
 void SetArinc429CtlReg(ARINC429_CTL_REG ctlRegVal)
 {
     int i = 0;
     Uint16 opcode = 0x10;
 
-    GpioDataRegs.GPBCLEAR.bit.GPIO61 = 1;
-    while(GpioDataRegs.GPBDAT.bit.GPIO61 != 0);
-    for(i = 0; i < 20; ++i){
-        asm (" NOP");
-    }
+    Assert_CS_Pin();
 
     SpiaRegs.SPITXBUF = (opcode)<< 8;
     SpiaRegs.SPITXBUF = (ctlRegVal.HighLowByte.HighByte << 8);
@@ -23,11 +19,7 @@ void SetArinc429CtlReg(ARINC429_CTL_REG ctlRegVal)
     arinc429[1] = SpiaRegs.SPIRXBUF;
     arinc429[2] = SpiaRegs.SPIRXBUF;
 
-
-    GpioDataRegs.GPBSET.bit.GPIO61 = 1;
-    for(i = 0; i < 20; ++i){
-        asm (" NOP");
-    }
+    Deassert_CS_Pin();
 }
 
 Uint16 ReadArinc429StatusReg(void)
@@ -36,11 +28,7 @@ Uint16 ReadArinc429StatusReg(void)
     int ret;
     Uint16 opcode = 0x0A;
 
-    GpioDataRegs.GPBCLEAR.bit.GPIO61 = 1;
-    while(GpioDataRegs.GPBDAT.bit.GPIO61 != 0);
-    for(i = 0; i < 20; ++i){
-        asm (" NOP");
-    }
+    Assert_CS_Pin();
 
     SpiaRegs.SPITXBUF = (opcode << 8);
     SpiaRegs.SPITXBUF = (0x0000 << 8);
@@ -54,10 +42,7 @@ Uint16 ReadArinc429StatusReg(void)
     ret = ret | arinc429[4];
 
 
-    GpioDataRegs.GPBSET.bit.GPIO61 = 1;
-    for(i = 0; i < 20; ++i){
-        asm (" NOP");
-    }
+    Deassert_CS_Pin();
 
     return ret;
 }
@@ -68,11 +53,7 @@ Uint16 ReadArinc429CtlReg(void)
     Uint16 opcode = 0x0D;
     Uint16 ret;
 
-    GpioDataRegs.GPBCLEAR.bit.GPIO61 = 1;
-    while(GpioDataRegs.GPBDAT.bit.GPIO61 != 0);
-    for(i = 0; i < 20000; ++i){
-        asm (" NOP");
-    }
+    Assert_CS_Pin();
   
     SpiaRegs.SPITXBUF = (opcode << 8);
     SpiaRegs.SPITXBUF = (0x0000 << 8);
@@ -87,10 +68,7 @@ Uint16 ReadArinc429CtlReg(void)
     ret = ret << 8;
     ret = ret | arinc429[7];
 
-    GpioDataRegs.GPBDAT.bit.GPIO61 = 1;
-    for(i = 0; i < 20000; ++i){
-        asm (" NOP");
-    }
+    Deassert_CS_Pin();
 
     return ret;
 }

@@ -105,21 +105,41 @@ typedef union
 #define IsArincEnlLalRecgn(a)						(a & ArincEnlLalRecgnMask)
 #define IsArincTxParityChkEnl(a)					(a & ArincTxParityChkEnlMask)
 #define IsArincRxParityChkEnl(a)					(a & ArincRxParityChkEnlMask)
-#define IsArincSelfTest(a)						(a & ArincSelfTestMask)
-#define IsArincRxDeocder(a)						(a & ArincRxDeocderMask)
-#define IsArincRFU1(a)							(a & ArincRFU1Mask)
-#define IsArincRFU2(a)							(a & ArincRFU2Mask)
+#define IsArincSelfTest(a)							(a & ArincSelfTestMask)
+#define IsArincRxDeocder(a)							(a & ArincRxDeocderMask)
+#define IsArincRFU1(a)								(a & ArincRFU1Mask)
+#define IsArincRFU2(a)								(a & ArincRFU2Mask)
 #define IsArincTxParitySel(a)						(a & ArincTxParitySelMask)
 #define IsArincTxDataRate(a)						(a & ArincTxDataRateMask)
-#define IsArincArincLblBitOrder(a)				(a & ArincArincLblBitOrderMask)
-#define IsArincDisableLineDriver(a)				(a & ArincDisableLineDriverMask)
-#define IsArincTxEnlMode(a)						(a & ArincTxEnlModeMask)
-#define IsArincTxFlagDefination(a)				(a & ArincTxFlagDefinationMask)
-#define IsArincRxFlagDefination(a)				(a & ArincRxFlagDefinationMask)
+#define IsArincArincLblBitOrder(a)					(a & ArincArincLblBitOrderMask)
+#define IsArincDisableLineDriver(a)					(a & ArincDisableLineDriverMask)
+#define IsArincTxEnlMode(a)							(a & ArincTxEnlModeMask)
+#define IsArincTxFlagDefination(a)					(a & ArincTxFlagDefinationMask)
+#define IsArincRxFlagDefination(a)					(a & ArincRxFlagDefinationMask)
 
 
-#define EnableArincLableRecognition(a)			(a | ArincEnlLalRecgnMask)
+#define EnableArincLableRecognition(a)				(a | ArincEnlLalRecgnMask)
 
+
+#define Assert_CS_DELAY    		(20)
+#define Deassert_CS_DELAY    	(20)
+#define Assert_CS_Pin()\
+						{\
+							GpioDataRegs.GPBCLEAR.bit.GPIO61 = 1;\
+							for(i = 0; i < Assert_CS_DELAY; ++i)\
+							{\
+								asm (" NOP");\
+    						}\
+						}
+
+#define Deassert_CS_Pin()\
+						{\
+							GpioDataRegs.GPBSET.bit.GPIO61 = 1;\
+							for(i = 0; i < Deassert_CS_DELAY; ++i)\
+							{\
+								asm (" NOP");\
+    						}\
+						}
 void SetArinc429CtlReg(ARINC429_CTL_REG ctlRegVal);
 Uint16 ReadArinc429StatusReg(void);
 Uint16 ReadArinc429CtlReg(void);
