@@ -4,19 +4,19 @@ static void FindSinTbl(int16 ct,int16 *psinvalue)
 {
 	if(ct < 1024)
 	{
-		*psinvalue=SDC_Sin_Tbl[ct]; 		/* 0--90*/
+		*psinvalue = SDC_Sin_Tbl[ct]; 		/* 0--90*/
 	}
 	else if(ct < 2048)
 	{
-		*psinvalue=SDC_Sin_Tbl[2047-ct]; 	/* 90--180*/
+		*psinvalue = SDC_Sin_Tbl[2047-ct]; 	/* 90--180*/
 	}
 	else if(ct < 3072)
 	{
-		*psinvalue=-SDC_Sin_Tbl[ct-2048];	/* 180--270*/
+		*psinvalue = -SDC_Sin_Tbl[ct-2048];	/* 180--270*/
 	}
 	else if(ct < 4096)
 	{
-		*psinvalue=-SDC_Sin_Tbl[4095-ct]; 	/* 270--360*/
+		*psinvalue =- SDC_Sin_Tbl[4095-ct]; 	/* 270--360*/
 	}
 	else
 	{
@@ -27,36 +27,43 @@ static void FindSinTbl(int16 ct,int16 *psinvalue)
 void Calculate_Three_Phase_Duty(SPWM_PARA* spwmPara)
 {
 	   long ful;
-       int16 ct = spwmPara->Rvdt_Pos;
 	   int16 pa,pb;
+       int16 ct = spwmPara->Rvdt_Pos;
 
 	   FindSinTbl(ct,&pa);
+
 	   ct += 1365;
 	   if(ct > 4095) ct -= 4096;
+
 	   FindSinTbl(ct,&pb);
-	   ful=(long)pa*(long)spwmPara->Amplitude;
+
+	   ful = (long)pa * (long)spwmPara->Duty;
 	   spwmPara->Phase_Duty_U = (int16)(ful/32000);
-	   ful=(long)pb*(long)spwmPara->Amplitude;
+	   ful = (long)pb * (long)spwmPara->Duty;
 	   spwmPara->Phase_Duty_V = (int16)(ful/32000);
 	   spwmPara->Phase_Duty_W = -(spwmPara->Phase_Duty_U + spwmPara->Phase_Duty_V);
 }
 
 
-void SPWM_outA(void)
+void SPWM_OUTPUT(SPWM_PARA* spwmPara)
 {
-	static int16 cta=0;
-	static int16 rvdt_zero=953;
+    spwmPara->Rvdt_Current_Pos = Get_RVDT_Position(SDB_RVDT_Read_Addr);
 
-	if(cta<0)
+    spwmPara->Rvdt_Pos = spwmPara->Rvdt_Current_Pos - spwmPara->Rvdt_Zero;
+
+	if(spwmPara->Rvdt_Pos < 0)
 	{
-		cta+=4096;
+		spwmPara->Rvdt_Pos += 4096;
 	}
-	else if(cta>4095)
+	else if(spwmPara->Rvdt_Pos > 4095)
 	{
-		cta-=4096;
+		spwmPara->Rvdt_Pos -= 4096;
 	}
 	else
-	{;}
+	{
+        //TODO generate alarm
+    }
+    Calculate_Three_Phase_Duty(spwmPara);
 	// SPWM(cta,Duty);
 	// EPwm1Regs.CMPA.half.CMPA = EPWM1_TIMER_HALF_TBPRD+w_pwm;/*Aç›¸å� ç©ºæ¯”è¾“å‡º*/
 	// EPwm2Regs.CMPA.half.CMPA = EPWM1_TIMER_HALF_TBPRD+v_pwm;/*Bç›¸å� ç©ºæ¯”è¾“å‡º*/
