@@ -45,7 +45,7 @@ void Calculate_Three_Phase_Duty(SPWM_PARA* spwmPara)
 }
 
 
-void SPWM_OUTPUT(SPWM_PARA* spwmPara)
+void Spwm_Output(SPWM_PARA* spwmPara)
 {
     spwmPara->Rvdt_Current_Pos = Get_RVDT_Position(SDB_RVDT_Read_Addr);
 
@@ -64,9 +64,11 @@ void SPWM_OUTPUT(SPWM_PARA* spwmPara)
         //TODO generate alarm
     }
     Calculate_Three_Phase_Duty(spwmPara);
-	// SPWM(cta,Duty);
-	// EPwm1Regs.CMPA.half.CMPA = EPWM1_TIMER_HALF_TBPRD+w_pwm;/*Aç›¸å� ç©ºæ¯”è¾“å‡º*/
-	// EPwm2Regs.CMPA.half.CMPA = EPWM1_TIMER_HALF_TBPRD+v_pwm;/*Bç›¸å� ç©ºæ¯”è¾“å‡º*/
-	// EPwm3Regs.CMPA.half.CMPA = EPWM1_TIMER_HALF_TBPRD+u_pwm;/*Cç›¸å� ç©ºæ¯”è¾“å‡º*/
+	// EPwm1Regs.CMPA.half.CMPA = EPWM1_TIMER_HALF_TBPRD+w_pwm;
+	// EPwm2Regs.CMPA.half.CMPA = EPWM1_TIMER_HALF_TBPRD+v_pwm;
+	// EPwm3Regs.CMPA.half.CMPA = EPWM1_TIMER_HALF_TBPRD+u_pwm;
+    EPMW1_OUTPUT_DUAL_PLOARITY(750, spwmPara->Phase_Duty_W);
+    EPMW2_OUTPUT_DUAL_PLOARITY(750, spwmPara->Phase_Duty_V);
+    EPMW3_OUTPUT_DUAL_PLOARITY(750, spwmPara->Phase_Duty_U);
 }
 

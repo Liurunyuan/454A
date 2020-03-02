@@ -7,6 +7,7 @@
 #include "prod.h"
 #include "sin_table.h"
 #include "rvdt_service.h"
+#include "pwm_hal.h"
 
 
 typedef struct _SPWM_PARA
@@ -21,4 +22,6 @@ typedef struct _SPWM_PARA
     /* data */
 }SPWM_PARA;
 
+
+void Spwm_Output(SPWM_PARA* spwmPara);
 #endif
