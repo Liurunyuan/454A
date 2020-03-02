@@ -4,8 +4,8 @@
 #include "DSP2833x_Device.h"     // DSP2833x Headerfile Include File
 #include "DSP2833x_Examples.h"   // DSP2833x Examples Include File
 
-Uint16 *SDB_RVDT_Read_Addr = (Uint16 *)0x100000;
 
+extern Uint16 *SDB_RVDT_Read_Addr;
 int16 Get_RVDT_Position(Uint16 *Resolver_read);
 
 #endif
