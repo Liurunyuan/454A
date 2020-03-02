@@ -65,7 +65,14 @@ void CFG_SCI_A(CFG_SCI_TBL cfgSciTblElement)
             SciaRegs.SCILBAUD = baudrate & 0x00ff;
             break;
     }
-    SciaRegs.SCICCR.bit.LOOPBKENA       = 0;        // enable loop back
+    if(cfgSciTblElement.cfgSciParam.sciLoopBack == ENABLE_LOOP_BACK)
+    {
+        SciaRegs.SCICCR.bit.LOOPBKENA   = 1; 
+    }
+    else
+    {
+        SciaRegs.SCICCR.bit.LOOPBKENA   = 0; 
+    }
     SciaRegs.SCICTL1.all                = 0x0023;   // Relinquish SCI from Reset
 
 //FIFO
@@ -155,7 +162,14 @@ void CFG_SCI_B(CFG_SCI_TBL cfgSciTblElement)
             ScibRegs.SCILBAUD = baudrate & 0x00ff;
             break;
     }
-    ScibRegs.SCICCR.bit.LOOPBKENA       = 0;        // enable loop back
+    if(cfgSciTblElement.cfgSciParam.sciLoopBack == ENABLE_LOOP_BACK)
+    {
+        ScibRegs.SCICCR.bit.LOOPBKENA   = 1; 
+    }
+    else
+    {
+        ScibRegs.SCICCR.bit.LOOPBKENA   = 0; 
+    }
     ScibRegs.SCICTL1.all                = 0x0023;   // Relinquish SCI from Reset
 //FIFO
     ScibRegs.SCIFFTX.bit.TXFIFOXRESET   = 0;
@@ -200,6 +214,16 @@ void CFG_SCI_C(CFG_SCI_TBL cfgSciTblElement)
             ScicRegs.SCILBAUD = baudrate & 0x00ff;
             break;
     }
+
+    if(cfgSciTblElement.cfgSciParam.sciLoopBack == ENABLE_LOOP_BACK)
+    {
+        ScicRegs.SCICCR.bit.LOOPBKENA   = 1; 
+    }
+    else
+    {
+        ScicRegs.SCICCR.bit.LOOPBKENA   = 0; 
+    }
+    
     ScicRegs.SCICCR.bit.LOOPBKENA       = 0;        // enable loop back
     ScicRegs.SCICTL1.all                = 0x0023;   // Relinquish SCI from Reset
 //FIFO

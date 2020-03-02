@@ -21,6 +21,12 @@ typedef enum
     BAUD_RATE_115200
 }SCI_BAUD_RATE;
 
+typedef enum
+{
+    ENABLE_LOOP_BACK,
+    DISABLE_LOOP_BACK
+}SCI_LOOP_BACK;
+
 typedef struct
 {
     SCI_ENABLE sciModule;
@@ -31,6 +37,7 @@ typedef struct
 typedef struct
 {
     SCI_BAUD_RATE sciBaudRate;
+    SCI_LOOP_BACK sciLoopBack;
 
 }CFG_SCI_PARAM;
 

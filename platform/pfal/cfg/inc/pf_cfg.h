@@ -151,7 +151,8 @@ CFG_SCI_TBL CfgSciTbl_User[] =
             22
         },
         {
-            BAUD_RATE_115200
+            BAUD_RATE_115200,
+            ENABLE_LOOP_BACK
         }
     },
     {
@@ -161,7 +162,8 @@ CFG_SCI_TBL CfgSciTbl_User[] =
             63
         },
         {
-            BAUD_RATE_115200
+            BAUD_RATE_115200,
+            ENABLE_LOOP_BACK
         }
     }
 };
