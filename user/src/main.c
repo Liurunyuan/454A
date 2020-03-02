@@ -11,6 +11,7 @@ void main(void)
 	int i = 0;
 
 	InitSysCtrl();
+    InitgRx422TxVar();
 	PFAL_ADC_CFG(CfgAdcTbl_User,sizeof(CfgAdcTbl_User)/sizeof(CfgAdcTbl_User[0]));		//pass the test
 	PFAL_GPIO_CFG(CfgGpioTbl_User,sizeof(CfgGpioTbl_User)/sizeof(CfgGpioTbl_User[0]));	//pass the test
 	PFAL_PWM_CFG(CfgPwmTbl_User,sizeof(CfgPwmTbl_User)/sizeof(CfgPwmTbl_User[0]));		//pass the test
@@ -22,11 +23,14 @@ void main(void)
 
 	while(1)
 	{
+        ProcessSciRxPacket(&gScibRxQue);
 	    ++i;
 	    if(i > 1000)
         {
 	        gtest++;
 	        i = 0;
+            PackSciTxPacket(&gScibTxQue,gSciTxVar);
 	    }
+        CheckEnableScibTx(&gScibTxQue);
 	}
 }

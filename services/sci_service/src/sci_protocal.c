@@ -1,9 +1,18 @@
 #include "sci_protocal.h"
-
+//#include <stdio.h>
+#include <string.h>
+SCIRXQUE gScibRxQue = {0};
+SCITXQUE gScibTxQue = {0};
+SCITXVAR gSciTxVar[8] = {0};
 char rs422rxPack[100] = {0};
+int gscitest = 0;
+
+static void ShakeHandMsg(VAR16 a, int b, int c) {
+	gscitest = 100;
+}
 const functionMsgCodeUnpack SDB_MsgFuncTbl[] = 
 {
-    0,
+    ShakeHandMsg,
     0,
     0,
     0
@@ -256,3 +265,63 @@ void UpdateSciTxEnableFlag(SCITXVAR* sciTxVar, int len) {
  		}
  	}
  }
+
+
+
+void GetTorqueCurve(int a, int b, int c){
+    gSciTxVar[0].value = 10;
+}
+void GetMotorSpeedCurve(int a, int b, int c){
+
+
+}
+void GetDisplacementCurve(int a, int b, int c){
+    // gRx422TxVar[2].value = (int)(gSysInfo.ob_velocityOpenLoop * 100);
+//    gRx422TxVar[2].value = gSysInfo.JoyStickSpeed * 100;
+}
+void GetMotorCurrentCurve(int a, int b, int c){
+	// gRx422TxVar[3].value = gSysMonitorVar.anolog.single.var[BusCurrentA].value;
+}
+void GetDynamoVoltageCurve(int a, int b, int c){
+	// gRx422TxVar[4].value = 20000;
+}
+void GetDynamoCurrentCurve(int a, int b, int c){
+	// gRx422TxVar[5].value = 5000;
+}
+void GetTemperatureCurve(int a, int b, int c){
+	// gRx422TxVar[6].value = 3000;
+}
+void GetMotorAccelCurve(int a, int b, int c){
+	// gRx422TxVar[7].value = (int)(gKeyValue.motorAccel * 500);
+}
+
+void InitgRx422TxVar(void) {
+
+	int index;
+
+	memset(gSciTxVar, 0, sizeof(gSciTxVar));
+	memset(gScibRxQue.rxBuff, 0, sizeof(gScibRxQue.rxBuff));
+
+	gScibRxQue.front = 0;
+	gScibRxQue.rear = 0;
+	memset(gScibTxQue.txBuf, 0, sizeof(gScibTxQue.txBuf));
+
+	gScibTxQue.front = 0;
+	gScibTxQue.rear = 0;
+
+	for (index = 0; index < 8; ++index) {
+
+		gSciTxVar[index].isTx = 0;
+		gSciTxVar[index].index = index;
+	}
+	gRx422TxEnableFlag[0] = 1;
+	gSciTxVar[0].updateValue = GetTorqueCurve;
+	gSciTxVar[1].updateValue = GetMotorSpeedCurve;
+	gSciTxVar[2].updateValue = GetDisplacementCurve;
+	gSciTxVar[3].updateValue = GetMotorCurrentCurve;
+	gSciTxVar[4].updateValue = GetDynamoVoltageCurve;
+	gSciTxVar[5].updateValue = GetDynamoCurrentCurve;
+	gSciTxVar[6].updateValue = GetTemperatureCurve;
+	gSciTxVar[7].updateValue = GetMotorAccelCurve;
+}
+

@@ -35,3 +35,4 @@ encoding//Debug/user_lib/src/subdir_vars.mk=UTF-8
 encoding//services/algorithm_service/src/spwm_service.c=UTF-8
 encoding//services/sensor_service/inc/rvdt_service.h=UTF-8
 encoding//services/sensor_service/src/rvdt_service.c=UTF-8
+encoding//user/src/main.c=UTF-8

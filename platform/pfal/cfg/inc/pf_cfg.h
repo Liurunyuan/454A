@@ -204,7 +204,7 @@ CFG_INTERRUPT_TBL CfgInterruptTbl_User[] =
     TIMER1_ISR,
     EPWM1,
     SCIBRX,
-    // SCIBTX,
+    SCIBTX,
     SCICRX,
     // SCICTX
 };

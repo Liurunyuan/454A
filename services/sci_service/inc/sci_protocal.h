@@ -41,6 +41,11 @@ typedef struct _SCITXVAR{
 
 void ProcessSciRxPacket(SCIRXQUE *RS422RxQue);
 void PackSciTxPacket(SCITXQUE *RS422TxQue, SCITXVAR* sciTxVar);
+void InitgRx422TxVar(void);
+
+extern SCIRXQUE gScibRxQue;
+extern SCITXQUE gScibTxQue;
+extern SCITXVAR gSciTxVar[8];
 #endif
 
 

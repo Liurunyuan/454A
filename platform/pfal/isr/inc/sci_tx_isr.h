@@ -1,6 +1,6 @@
 #ifndef PF_SCI_TX_ISR_H_
 #define PF_SCI_TX_ISR_H_
-
+#include "sci_service.h"
 #include "DSP2833x_Device.h"     // DSP2833x Headerfile Include File
 #include "DSP2833x_Examples.h"   // DSP2833x Examples Include File
 

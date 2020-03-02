@@ -1,4 +1,5 @@
 #include "pf_sci_cfg.h"
+#include "prod.h"
 
 const CFG_SCI_TBL CFG_SCI_INFO[] =
 {

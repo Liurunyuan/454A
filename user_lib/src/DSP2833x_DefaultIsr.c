@@ -921,7 +921,7 @@ interrupt void SCITXINTA_ISR(void)     // SCI-A
 // INT9.3
 interrupt void SCIRXINTB_ISR(void)
 {
-  PFAL_SCIB_RX_ISR();
+    PFAL_SCIB_RX_ISR();
 	ScibRegs.SCIFFRX.bit.RXFFINTCLR = 1;
 	PieCtrlRegs.PIEACK.all = PIEACK_GROUP9;
 }

@@ -155,6 +155,49 @@ void ClearScicRxOverFlow(void) {
 	}
 }
 
+void EnableSciaTxInterrupt(void){
+	SciaRegs.SCIFFTX.bit.TXFFINTCLR = 1;
+	SciaRegs.SCIFFTX.bit.TXFFIENA = 1;
+}
+
+void EnableScibTxInterrupt(void){
+	ScibRegs.SCIFFTX.bit.TXFFINTCLR = 1;
+	ScibRegs.SCIFFTX.bit.TXFFIENA = 1;
+}
+
+void EnableScicTxInterrupt(void){
+	ScicRegs.SCIFFTX.bit.TXFFINTCLR = 1;
+	ScicRegs.SCIFFTX.bit.TXFFIENA = 1;
+}
+
+void CheckEnableSciaTx(SCITXQUE* RS422TxQue){
+
+	if(RS422TxQue->front != RS422TxQue->rear
+			&& SciaRegs.SCIFFTX.bit.TXFFST == 0){
+
+		 EnableSciaTxInterrupt();
+	}
+}
+
+void CheckEnableScibTx(SCITXQUE* RS422TxQue){
+
+	if(RS422TxQue->front != RS422TxQue->rear
+			&& ScibRegs.SCIFFTX.bit.TXFFST == 0){
+
+		 EnableScibTxInterrupt();
+	}
+}
+
+
+void CheckEnableScicTx(SCITXQUE* RS422TxQue){
+
+	if(RS422TxQue->front != RS422TxQue->rear
+			&& ScicRegs.SCIFFTX.bit.TXFFST == 0){
+
+		 EnableScicTxInterrupt();
+	}
+}
+
 
 
 
