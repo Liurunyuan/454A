@@ -22,5 +22,7 @@ void ClearScicRxOverFlow(void);
 void CheckEnableSciaTx(SCITXQUE* RS422TxQue);
 void CheckEnableScibTx(SCITXQUE* RS422TxQue);
 void CheckEnableScicTx(SCITXQUE* RS422TxQue);
+
+#define Init_Sci_Service()          Init_Sci_Protocol()
 #endif
 

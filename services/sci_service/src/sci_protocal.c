@@ -5,14 +5,19 @@ SCIRXQUE gScibRxQue = {0};
 SCITXQUE gScibTxQue = {0};
 SCITXVAR gSciTxVar[8] = {0};
 char rs422rxPack[100] = {0};
-int gscitest = 0;
 
-static void ShakeHandMsg(VAR16 a, int b, int c) {
-	gscitest = 100;
+#if(SYS_DEBUG == INCLUDE_FEATURE)
+int gscitest = 0;
+#endif
+
+static void DebugTest(VAR16 a, int b, int c) {
+#if(SYS_DEBUG == INCLUDE_FEATURE)
+	    gscitest = 100;
+#endif
 }
 const functionMsgCodeUnpack SDB_MsgFuncTbl[] = 
 {
-    ShakeHandMsg,
+    DebugTest,
     0,
     0,
     0
@@ -269,7 +274,9 @@ void UpdateSciTxEnableFlag(SCITXVAR* sciTxVar, int len) {
 
 
 void GetTorqueCurve(int a, int b, int c){
-    gSciTxVar[0].value = 10;
+#if(SYS_DEBUG == INCLUDE_FEATURE)
+	    gSciTxVar[0].value = 10;
+#endif
 }
 void GetMotorSpeedCurve(int a, int b, int c){
 
@@ -295,7 +302,7 @@ void GetMotorAccelCurve(int a, int b, int c){
 	// gRx422TxVar[7].value = (int)(gKeyValue.motorAccel * 500);
 }
 
-void InitgRx422TxVar(void) {
+void Init_Sci_Protocol(void) {
 
 	int index;
 
@@ -314,7 +321,9 @@ void InitgRx422TxVar(void) {
 		gSciTxVar[index].isTx = 0;
 		gSciTxVar[index].index = index;
 	}
+#if(SYS_DEBUG == INCLUDE_FEATURE)
 	gRx422TxEnableFlag[0] = 1;
+#endif
 	gSciTxVar[0].updateValue = GetTorqueCurve;
 	gSciTxVar[1].updateValue = GetMotorSpeedCurve;
 	gSciTxVar[2].updateValue = GetDisplacementCurve;
