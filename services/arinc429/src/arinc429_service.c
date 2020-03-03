@@ -1,7 +1,5 @@
 #include "arinc429_service.h"
 
-
-#define Delay_CS    20
 int arinc429[11] = {0};
 void SetArinc429CtlReg(ARINC429_CTL_REG ctlRegVal)
 {
