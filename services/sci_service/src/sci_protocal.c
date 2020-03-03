@@ -22,7 +22,8 @@ const functionMsgCodeUnpack SDB_MsgFuncTbl[] =
     0,
     0
 };
-int SciRxCalCrc(int crc, const char *buf, int len){
+int SciRxCalCrc(int crc, const char *buf, int len)
+{
 	int x;
 	int i;
 
@@ -35,60 +36,72 @@ int SciRxCalCrc(int crc, const char *buf, int len){
 	return crc;
 }
 
-int FindRxPacketHead(SCIRXQUE *RS422RxQue){
+int FindRxPacketHead(SCIRXQUE *RS422RxQue)
+{
 
 	char head1;
 	char head2;
 
-	while(1){
-
+	while(1)
+	{
 		head1 = RS422RxQue->rxBuff[RS422RxQue->front];
 		head2 = RS422RxQue->rxBuff[(RS422RxQue->front + 1) % SCI_RX_QUEUE_LEN];
 
-		if(head1 == HEAD1 && head2 == HEAD2){
+		if(head1 == HEAD1 && head2 == HEAD2)
+		{
 			return SUCCESS;
 		}
 
-		if(SciRxDeQueue(RS422RxQue) == 0){
+		if(SciRxDeQueue(RS422RxQue) == 0)
+		{
 			return FAIL;
 		}
 	}
 }
 
-int FindRxPacketTail(int len, SCIRXQUE *RS422RxQue){
+int FindRxPacketTail(int len, SCIRXQUE *RS422RxQue)
+{
 	char tail1;
 	char tail2;
 
 	tail1 = RS422RxQue->rxBuff[(RS422RxQue->front + len - 1) % SCI_RX_QUEUE_LEN];
 	tail2 = RS422RxQue->rxBuff[(RS422RxQue->front + len - 2) % SCI_RX_QUEUE_LEN];
 
-	if(tail1 == TAIL1 && tail2 == TAIL2){
+	if(tail1 == TAIL1 && tail2 == TAIL2)
+	{
 		return SUCCESS;
 	}
-	else{
+	else
+	{
 		return FAIL;
 	}
 }
 
-int CheckRxPacketLength(SCIRXQUE *RS422RxQue){
+int CheckRxPacketLength(SCIRXQUE *RS422RxQue)
+{
 
-	if((RS422RxQue->rxBuff[(RS422RxQue->front + 2) % SCI_RX_QUEUE_LEN] * UNIT_LEN + EXTRA_LEN) <= GetSciRxQueLength(RS422RxQue)){
+	if((RS422RxQue->rxBuff[(RS422RxQue->front + 2) % SCI_RX_QUEUE_LEN] * UNIT_LEN + EXTRA_LEN) <= GetSciRxQueLength(RS422RxQue))
+	{
 		return SUCCESS;
 	}
-	else{
+	else
+	{
 		return FAIL;
 	}
 }
 
-void SaveRxPacketProfile(int len, SCIRXQUE *RS422RxQue){
+void SaveRxPacketProfile(int len, SCIRXQUE *RS422RxQue)
+{
 	int i;
 
-	for(i = 0; i < len; ++i){
+	for(i = 0; i < len; ++i)
+	{
 		rs422rxPack[i] = RS422RxQue->rxBuff[(RS422RxQue->front + i) % SCI_RX_QUEUE_LEN];
 	}
 }
 
-void UnpackRxProfile(int len){
+void UnpackRxProfile(int len)
+{
 	int i;
 	int msgCode;
 	VAR16 var16;
@@ -100,63 +113,79 @@ void UnpackRxProfile(int len){
 		var16.datahl.l = rs422rxPack[OFFSET + UNIT_LEN*i + 2];
 		//var16.value = var16.datahl.l + (var16.datahl.h << 8);
 
-		if(msgCode < (sizeof(SDB_MsgFuncTbl) / sizeof(SDB_MsgFuncTbl[0]))){
+		if(msgCode < (sizeof(SDB_MsgFuncTbl) / sizeof(SDB_MsgFuncTbl[0])))
+		{
 			//printf("msgCode = %d\r\n",msgCode);
-			if(SDB_MsgFuncTbl[msgCode]){
+			if(SDB_MsgFuncTbl[msgCode])
+			{
 				SDB_MsgFuncTbl[msgCode](var16, 0, 0);
 			}
 		}
-		else{
+		else
+		{
 			//printf("unpack msg code is out of range\r\n");
 		}
 	}
 }
 
-void UpdateRxQueueHeadPos(int len, SCIRXQUE *RS422RxQue){
+void UpdateRxQueueHeadPos(int len, SCIRXQUE *RS422RxQue)
+{
 	RS422RxQue->front = (RS422RxQue->front + len) % SCI_RX_QUEUE_LEN;
 }
 
-void ProcessSciRxPacket(SCIRXQUE *RS422RxQue){
+void ProcessSciRxPacket(SCIRXQUE *RS422RxQue)
+{
 	int length;
-	while(GetSciRxQueLength(RS422RxQue) > EXTRA_LEN){
-		if(FindRxPacketHead(RS422RxQue) == FAIL){
+	while(GetSciRxQueLength(RS422RxQue) > EXTRA_LEN)
+	{
+		if(FindRxPacketHead(RS422RxQue) == FAIL)
+		{
 			//printf("find head failed\r\n");
 			return;
 		}
-		else{
+		else
+		{
 			//printf("find head succeed\r\n");
 		}
 
-		if(CheckRxPacketLength(RS422RxQue) == FAIL){
+		if(CheckRxPacketLength(RS422RxQue) == FAIL)
+		{
 			return;
 		}
-		else{
+		else
+		{
 			//printf("Check data length succeed, begin to check tail\r\n");
 		}
 
 		length = RS422RxQue->rxBuff[(RS422RxQue->front + 2) % SCI_RX_QUEUE_LEN] * UNIT_LEN + EXTRA_LEN;
 
-		if(FindRxPacketTail(length,RS422RxQue) == FAIL){
+		if(FindRxPacketTail(length,RS422RxQue) == FAIL)
+		{
 			//printf("find tail failed\r\n");
-			if(SciRxDeQueue(RS422RxQue) == 0){
+			if(SciRxDeQueue(RS422RxQue) == 0)
+			{
 				//printf("RS422 rx queue is empty\r\n");
 			}
 			return;
 		}
-		else{
+		else
+		{
 			//printf("find tail succeed\r\n");
 		}
 
 		SaveRxPacketProfile(length,RS422RxQue);
 
-		if(SciRxCalCrc(0, rs422rxPack + OFFSET, length - EXTRA_LEN + 2) != 0){
-			if(SciRxDeQueue(RS422RxQue) == 0){
+		if(SciRxCalCrc(0, rs422rxPack + OFFSET, length - EXTRA_LEN + 2) != 0)
+		{
+			if(SciRxDeQueue(RS422RxQue) == 0)
+			{
 				//printf("RS422 rx queue is empty\r\n");
 			}
 			//printf("CRC check failed\r\n");
 			return;
 		}
-		else{
+		else
+		{
 			//printf("CRC check succeed\r\n");
 		}
 
@@ -168,11 +197,13 @@ void ProcessSciRxPacket(SCIRXQUE *RS422RxQue){
 
 //////////////////////////////////////////////SCI RX END, SCI TX BEGIN
 
-int SciTxCalCrc(int crc, const char *buf, int len) {
+int SciTxCalCrc(int crc, const char *buf, int len)
+{
 	int x;
 	int i;
 
-	for(i = 0; i < len; ++i){
+	for(i = 0; i < len; ++i)
+	{
 		x = ((crc >> 8) ^ buf[i]) & 0xff;
 		x ^= x >> 4;
 		crc = (crc << 8) ^ (x  << 12) ^ (x << 5) ^ x;
@@ -183,9 +214,11 @@ int SciTxCalCrc(int crc, const char *buf, int len) {
 #define TOTAL_TX_VAR (8)
 #define S 0
 Uint16 gRx422TxEnableFlag[TOTAL_TX_VAR] = {0};
-void UpdateSciTxEnableFlag(SCITXVAR* sciTxVar, int len) {
+void UpdateSciTxEnableFlag(SCITXVAR* sciTxVar, int len)
+{
 	int i;
-	for (i = 0; i < len; ++i) {
+	for (i = 0; i < len; ++i)
+	{
 		sciTxVar[i].isTx = gRx422TxEnableFlag[i];
 	}
 }
@@ -203,69 +236,86 @@ void UpdateSciTxEnableFlag(SCITXVAR* sciTxVar, int len) {
  	Uint16 total =0;
 
 
- 	if(count == 0){
- 		if(SciTxEnQueue(0x5a,RS422TxQue) == 0){
+ 	if(count == 0)
+	{
+ 		if(SciTxEnQueue(0x5a,RS422TxQue) == 0)
+		 {
  			return;
  		}
- 		if(SciTxEnQueue(0x5a,RS422TxQue) == 0){
+ 		if(SciTxEnQueue(0x5a,RS422TxQue) == 0)
+		{
  			return;
  		}
  		lenPosition = RS422TxQue->rear;
- 		if(SciTxEnQueue(0x05,RS422TxQue) == 0){
+ 		if(SciTxEnQueue(0x05,RS422TxQue) == 0)
+		{
  			return;
  		}
- 		if(SciTxEnQueue(0xff,RS422TxQue) == 0){
+ 		if(SciTxEnQueue(0xff,RS422TxQue) == 0)
+		{
  			return;
  		}
- 		if(SciTxEnQueue(0xff,RS422TxQue) == 0){
+ 		if(SciTxEnQueue(0xff,RS422TxQue) == 0)
+		{
  			return;
  		}
  		UpdateSciTxEnableFlag(sciTxVar,TOTAL_TX_VAR);
  	}
 
- 	for(i = 0; i < TOTAL_TX_VAR; ++i){
- 		if(sciTxVar[i].isTx){
+ 	for(i = 0; i < TOTAL_TX_VAR; ++i)
+	{
+ 		if(sciTxVar[i].isTx)
+		{
  			++total;
 
  			sciTxVar[i].updateValue(0,0,0);
  			tmp[0] = sciTxVar[i].index;
  			tmp[1] = sciTxVar[i].value >> 8;
  			tmp[2] = sciTxVar[i].value;
- 			if(SciTxEnQueue(sciTxVar[i].index, RS422TxQue) == 0){
+ 			if(SciTxEnQueue(sciTxVar[i].index, RS422TxQue) == 0)
+			{
  				return;
  			}
- 			if(SciTxEnQueue((sciTxVar[i].value >> 8), RS422TxQue) == 0){
+ 			if(SciTxEnQueue((sciTxVar[i].value >> 8), RS422TxQue) == 0)
+			{
  				return;
  			}
- 			if(SciTxEnQueue(sciTxVar[i].value, RS422TxQue) == 0){
+ 			if(SciTxEnQueue(sciTxVar[i].value, RS422TxQue) == 0)
+			{
  				return;
  			}
  			crc = SciTxCalCrc(crc, tmp, 3);
  		}
  	}
 
- 	if(count == 0){
+ 	if(count == 0)
+	{
  		RS422TxQue->txBuf[lenPosition] = total * (S + 1);//timer0 interrupt isr can not be interrupted by TX, so we can set length value here
  	}
 
  	++count;
 
- 	if(count > S){
+ 	if(count > S)
+	{
 
  		crcl = (char)crc;
  		crch = (char)(crc >> 8);
  		crc = 0;
  		count = 0;
- 		if(SciTxEnQueue(crch, RS422TxQue) == 0){
+ 		if(SciTxEnQueue(crch, RS422TxQue) == 0)
+		{
  			return;
  		}
- 		if(SciTxEnQueue(crcl, RS422TxQue) == 0){
+ 		if(SciTxEnQueue(crcl, RS422TxQue) == 0)
+		{
  			return;
  		}
- 		if(SciTxEnQueue(0xa5, RS422TxQue) == 0){
+ 		if(SciTxEnQueue(0xa5, RS422TxQue) == 0)
+		{
  			return;
  		}
- 		if(SciTxEnQueue(0xa5, RS422TxQue) == 0){
+ 		if(SciTxEnQueue(0xa5, RS422TxQue) == 0)
+		{
  			return;
  		}
  	}
@@ -273,36 +323,44 @@ void UpdateSciTxEnableFlag(SCITXVAR* sciTxVar, int len) {
 
 
 
-void GetTorqueCurve(int a, int b, int c){
+void GetTorqueCurve(int a, int b, int c)
+{
 #if(SYS_DEBUG == INCLUDE_FEATURE)
 	    gSciTxVar[0].value = 10;
 #endif
 }
-void GetMotorSpeedCurve(int a, int b, int c){
+void GetMotorSpeedCurve(int a, int b, int c)
+{
 
 
 }
-void GetDisplacementCurve(int a, int b, int c){
-    // gRx422TxVar[2].value = (int)(gSysInfo.ob_velocityOpenLoop * 100);
-//    gRx422TxVar[2].value = gSysInfo.JoyStickSpeed * 100;
+void GetDisplacementCurve(int a, int b, int c)
+{
+
 }
-void GetMotorCurrentCurve(int a, int b, int c){
-	// gRx422TxVar[3].value = gSysMonitorVar.anolog.single.var[BusCurrentA].value;
+void GetMotorCurrentCurve(int a, int b, int c)
+{
+	
 }
-void GetDynamoVoltageCurve(int a, int b, int c){
-	// gRx422TxVar[4].value = 20000;
+void GetDynamoVoltageCurve(int a, int b, int c)
+{
+	
 }
-void GetDynamoCurrentCurve(int a, int b, int c){
-	// gRx422TxVar[5].value = 5000;
+void GetDynamoCurrentCurve(int a, int b, int c)
+{
+	
 }
-void GetTemperatureCurve(int a, int b, int c){
-	// gRx422TxVar[6].value = 3000;
+void GetTemperatureCurve(int a, int b, int c)
+{
+
 }
-void GetMotorAccelCurve(int a, int b, int c){
-	// gRx422TxVar[7].value = (int)(gKeyValue.motorAccel * 500);
+void GetMotorAccelCurve(int a, int b, int c)
+{
+	
 }
 
-void Init_Sci_Protocol(void) {
+void Init_Sci_Protocol(void)
+{
 
 	int index;
 
@@ -316,8 +374,8 @@ void Init_Sci_Protocol(void) {
 	gScibTxQue.front = 0;
 	gScibTxQue.rear = 0;
 
-	for (index = 0; index < 8; ++index) {
-
+	for (index = 0; index < 8; ++index)
+	{
 		gSciTxVar[index].isTx = 0;
 		gSciTxVar[index].index = index;
 	}

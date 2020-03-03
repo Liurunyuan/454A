@@ -72,5 +72,7 @@ typedef struct _SysAnalogVar{
 	MultiChannelA multi[TOTAL_MULTI_ANAL_CHS];
 }SysAnalogVar;
 
-void Init_SysAnalogVar(SysAnalogVar* sysAnalogVar);
+void Init_Adc_Service_Ptr(SysAnalogVar* sysAnalogVar);
+void Init_Adc_Service(void);
+extern SysAnalogVar gSysAnalogVar;
 #endif

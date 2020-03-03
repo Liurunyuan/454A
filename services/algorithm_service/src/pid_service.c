@@ -1,6 +1,7 @@
 #include "pid_service.h"
 
-double Pid_Process(PID_VAR* pidVar){
+double Pid_Process(PID_VAR* pidVar)
+{
     double pidOutput = 0;
 
     pidVar->currentErr = (pidVar->targetVal - (pidVar->currentVal));
@@ -15,12 +16,15 @@ double Pid_Process(PID_VAR* pidVar){
     {
          pidVar->sumErr = 0;
     }
+    
     pidOutput = (int)(pidVar->currentErr * pidVar->kp) + (int)(pidVar->sumErr * pidVar->ki);
 
-    if(pidOutput > pidVar->outputThreshold){
+    if(pidOutput > pidVar->outputThreshold)
+    {
         pidOutput = pidVar->outputThreshold;
     }
-    else if(pidOutput < -pidVar->outputThreshold){
+    else if(pidOutput < -pidVar->outputThreshold)
+    {
         pidOutput = -pidVar->outputThreshold;
     }
 

@@ -19,7 +19,8 @@ double KalmanFilter(const double ResrcData, double ProcessNiose_Q, double Measur
 
 	double kg;
 
-    if(isFirstTimeExcuted){
+    if(isFirstTimeExcuted)
+	{
         isFirstTimeExcuted = 0;
         x_last = ResrcData;
         p_last = ResrcData;
@@ -50,7 +51,8 @@ double KalmanVarFilter(KALMAN_VAR* kalmanVar)
 
 	double kg;
 
-    if(kalmanVar->isFirstTimeExcuted){
+    if(kalmanVar->isFirstTimeExcuted)
+	{
         kalmanVar->isFirstTimeExcuted = 0;
         kalmanVar->xlast = kalmanVar->currentData;
         kalmanVar->plast = kalmanVar->currentData;

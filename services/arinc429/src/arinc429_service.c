@@ -58,8 +58,7 @@ Uint16 ReadArinc429CtlReg(void)
     SpiaRegs.SPITXBUF = (opcode << 8);
     SpiaRegs.SPITXBUF = (0x0000 << 8);
     SpiaRegs.SPITXBUF = (0x0000 << 8);
-    while(SpiaRegs.SPIFFRX.bit.RXFFST < 3) {
-    }
+    while(SpiaRegs.SPIFFRX.bit.RXFFST < 3);
     arinc429[5] = SpiaRegs.SPIRXBUF;
     arinc429[6] = SpiaRegs.SPIRXBUF;
     arinc429[7] = SpiaRegs.SPIRXBUF;
