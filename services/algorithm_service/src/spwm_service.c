@@ -47,6 +47,39 @@ void Calculate_Three_Phase_Duty(SPWM_PARA* spwmPara)
 
 void Spwm_Output(SPWM_PARA* spwmPara)
 {
+#if(SPWM_DUTY_GRADUAL_CHANGE == INCLUDE_FEATURE)
+	++spwmPara->DutyAddIntervalCnt;
+	if(spwmPara->DutyAddIntervalCnt < spwmPara->DutyAddInterval){
+       return;
+   	}
+	spwmPara->DutyAddIntervalCnt = 0;
+
+	if(spwmPara->Duty_Gradual > spwmPara->TargetDuty){
+       	spwmPara->Duty_Gradual = (spwmPara->Duty_Gradual - spwmPara->Ddtmax) < spwmPara->TargetDuty ? spwmPara->TargetDuty : (spwmPara->Duty_Gradual -spwmPara->Ddtmax);
+    }
+    else if(spwmPara->Duty_Gradual < spwmPara->TargetDuty){
+    	spwmPara->Duty_Gradual = (spwmPara->Duty_Gradual + spwmPara->Ddtmax) > spwmPara->TargetDuty ? spwmPara->TargetDuty : (spwmPara->Duty_Gradual + spwmPara->Ddtmax);
+    }
+    else{
+           //nothing need change
+    }
+
+   	if(spwmPara->Duty_Gradual > spwmPara->ThresholdDutyP)
+	{
+    	spwmPara->Duty_Gradual = spwmPara->ThresholdDutyP;
+   	}
+   	else if(spwmPara->Duty_Gradual < spwmPara->ThresholdDutyN)
+	{
+       	spwmPara->Duty_Gradual = spwmPara->ThresholdDutyN;
+   	}
+
+	spwmPara->Duty = spwmPara->Duty_Gradual;
+#endif
+
+#if(SPWM_DUTY_GRADUAL_CHANGE == EXCLUDE_FEATURE)
+    spwmPara->Duty = spwmPara->TargetDuty;
+#endif
+
     spwmPara->Rvdt_Current_Pos = Get_RVDT_Position(SDB_RVDT_Read_Addr);
 
     spwmPara->Rvdt_Pos = spwmPara->Rvdt_Current_Pos - spwmPara->Rvdt_Zero;
@@ -63,6 +96,7 @@ void Spwm_Output(SPWM_PARA* spwmPara)
 	{
         //TODO generate alarm
     }
+
     Calculate_Three_Phase_Duty(spwmPara);
 
     EPMW1_OUTPUT_DUAL_PLOARITY(750, spwmPara->Phase_Duty_W);
@@ -79,6 +113,10 @@ void Init_Spwm_Service(void)
 	gSpwmPara.Rvdt_Current_Pos = 0;
 	gSpwmPara.Rvdt_Pos = 0;
 	gSpwmPara.Rvdt_Zero = 0;
-
+	gSpwmPara.Duty_Gradual = 0;
+	gSpwmPara.DutyAddInterval = 0;
+	gSpwmPara.DutyAddIntervalCnt = 0;
+	gSpwmPara.Ddtmax = 0;
+	gSpwmPara.ThresholdDutyP = 0;
+	gSpwmPara.ThresholdDutyN = 0;
 }
-
