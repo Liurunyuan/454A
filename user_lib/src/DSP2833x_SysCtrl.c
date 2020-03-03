@@ -35,7 +35,7 @@ void if_flash_init(void);
 // - Set the pre-scaler for the high and low frequency peripheral clocks
 // - Enable the clocks to the peripherals
 
-void InitSysCtrl_M(void)
+void InitSysCtrl(void)
 {
 
    // Disable the watchdog
@@ -47,6 +47,7 @@ void InitSysCtrl_M(void)
 
    // Initialize the peripheral clocks
    InitPeripheralClocks();
+   
    if_flash_init();
 }
 
