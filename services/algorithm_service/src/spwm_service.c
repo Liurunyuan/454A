@@ -1,5 +1,5 @@
 #include "spwm_service.h"
-
+SPWM_PARA gSpwmPara = {0};
 static void FindSinTbl(int16 ct,int16 *psinvalue)
 {
 	if(ct < 1024)

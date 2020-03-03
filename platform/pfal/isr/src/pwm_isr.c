@@ -8,5 +8,6 @@ void PFAL_PWM_ISR(void)
 #if(SYS_DEBUG == INCLUDE_FEATUER)
     gpwmisr++;
 #endif
+    Spwm_Output(&gSpwmPara);
 }
 

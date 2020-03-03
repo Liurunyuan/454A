@@ -24,4 +24,5 @@ typedef struct _SPWM_PARA
 
 
 void Spwm_Output(SPWM_PARA* spwmPara);
+extern SPWM_PARA gSpwmPara;
 #endif
