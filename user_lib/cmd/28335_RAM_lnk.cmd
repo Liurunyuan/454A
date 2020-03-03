@@ -132,7 +132,7 @@ SECTIONS
    .stack           : > RAMM1,     PAGE = 1
    .ebss            : > RAML4,     PAGE = 1
    .econst          : > RAML5,     PAGE = 1
-   .esysmem         : > RAMM1,     PAGE = 1
+   .esysmem         : > RAML4,     PAGE = 1
 
    IQmath           : > RAML1,     PAGE = 0
    IQmathTables     : > IQTABLES,  PAGE = 0, TYPE = NOLOAD
