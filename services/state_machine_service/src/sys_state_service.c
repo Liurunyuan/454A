@@ -17,12 +17,12 @@ void Sys_hlstBackwardRotate(void);
 void Sys_hlsWarning(void);
 void Sys_hlsAlarm(void);
 
-#define Sys_chstInit()                  Sys_hlstPtr = Sys_hlstInit;
-#define Sys_chstStop()                  Sys_hlstPtr = Sys_hlsStop;
-#define Sys_chstForwardRotate()         Sys_hlstPtr = Sys_hlstForwardRotate;
-#define Sys_chstBackwardRotate()        Sys_hlstPtr = Sys_hlstBackwardRotate;
-#define Sys_chstWarning()               Sys_hlstPtr = Sys_hlsWarning;
-#define Sys_chstAlarm()                 Sys_hlstPtr = Sys_hlsAlarm;
+#define Sys_chstInit()                  Sys_hlstPtr = Sys_hlstInit; SET_SYS_RUNNING_STATE_INIT;
+#define Sys_chstStop()                  Sys_hlstPtr = Sys_hlsStop; SET_SYS_RUNNING_STATE_STOP;
+#define Sys_chstForwardRotate()         Sys_hlstPtr = Sys_hlstForwardRotate; SET_SYS_RUNNING_STATE_FORWARD_RUN;
+#define Sys_chstBackwardRotate()        Sys_hlstPtr = Sys_hlstBackwardRotate; SET_SYS_RUNNING_STATE_BACKWARD_RUN;
+#define Sys_chstWarning()               Sys_hlstPtr = Sys_hlsWarning; SET_SYS_RUNNING_STATE_WARNING;
+#define Sys_chstAlarm()                 Sys_hlstPtr = Sys_hlsAlarm; SET_SYS_RUNNING_STATE_ALARM;
 
 
 

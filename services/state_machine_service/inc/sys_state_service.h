@@ -98,7 +98,16 @@ typedef enum _ROTATE_DIRECTION
     BACKWARD
 }ROTATE_DIRECTION;
 
-
+typedef enum _SYS_RUNNING_STATE
+{
+    SYS_INIT,
+    SYS_FORWARD_RUN,
+    SYS_BACKWARD_RUN,
+    SYS_STOP,
+    SYS_ALARM,
+    SYS_WARNING
+    
+}SYS_RUNNING_STATE;
 
 typedef struct _SYS_STATE_FLAG
 {
@@ -106,8 +115,18 @@ typedef struct _SYS_STATE_FLAG
     SYSALARM alarm;
 	SYSWARNING warning;
 	SYSERRO erro;
+    SYS_RUNNING_STATE sysRunningState;
     /* data */
 }SYS_STATE_FLAG;
+
+
+
+#define SET_SYS_RUNNING_STATE_INIT                      (gSysStateFlag.sysRunningState = SYS_INIT)
+#define SET_SYS_RUNNING_STATE_FORWARD_RUN               (gSysStateFlag.sysRunningState = SYS_FORWARD_RUN)
+#define SET_SYS_RUNNING_STATE_BACKWARD_RUN              (gSysStateFlag.sysRunningState = SYS_BACKWARD_RUN)
+#define SET_SYS_RUNNING_STATE_STOP                      (gSysStateFlag.sysRunningState = SYS_STOP)
+#define SET_SYS_RUNNING_STATE_ALARM                     (gSysStateFlag.sysRunningState = SYS_ALARM)
+#define SET_SYS_RUNNING_STATE_WARNING                   (gSysStateFlag.sysRunningState = SYS_WARNING)
 
 
 #define SOFTWARE_ALARM_MASK                             BIT0
