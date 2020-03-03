@@ -140,6 +140,11 @@ typedef union
 								asm (" NOP");\
     						}\
 						}
+
+
+#define Read_ARINC_TFLAG_PIN_STATUS		GpioDataRegs.GPBDATA.bit.GPIO59
+#define Read_ARINC_RFLAG_PIN_STATUS		GpioDataRegs.GPBDATA.bit.GPIO35
+
 void SetArinc429CtlReg(ARINC429_CTL_REG ctlRegVal);
 Uint16 ReadArinc429StatusReg(void);
 Uint16 ReadArinc429CtlReg(void);
