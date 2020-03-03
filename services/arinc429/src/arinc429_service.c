@@ -3,7 +3,6 @@
 int arinc429[11] = {0};
 void SetArinc429CtlReg(ARINC429_CTL_REG ctlRegVal)
 {
-    int i = 0;
     Uint16 opcode = 0x10;
 
     Assert_CS_Pin();
@@ -22,7 +21,6 @@ void SetArinc429CtlReg(ARINC429_CTL_REG ctlRegVal)
 
 Uint16 ReadArinc429StatusReg(void)
 {
-    int i = 0;
     int ret;
     Uint16 opcode = 0x0A;
 
@@ -47,7 +45,6 @@ Uint16 ReadArinc429StatusReg(void)
 
 Uint16 ReadArinc429CtlReg(void)
 {
-    int i = 0;
     Uint16 opcode = 0x0D;
     Uint16 ret;
 

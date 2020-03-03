@@ -126,6 +126,7 @@ typedef union
 #define Assert_CS_Pin()\
 						{\
 							GpioDataRegs.GPBCLEAR.bit.GPIO61 = 1;\
+							int i;\
 							for(i = 0; i < Assert_CS_DELAY; ++i)\
 							{\
 								asm (" NOP");\
@@ -135,6 +136,7 @@ typedef union
 #define Deassert_CS_Pin()\
 						{\
 							GpioDataRegs.GPBSET.bit.GPIO61 = 1;\
+							int i;\
 							for(i = 0; i < Deassert_CS_DELAY; ++i)\
 							{\
 								asm (" NOP");\

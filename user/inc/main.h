@@ -8,6 +8,7 @@
 #include "sys_state_service.h"
 #include "spwm_service.h"
 #include "adc_service.h"
+#include "gpio_service.h"
 
 
 
