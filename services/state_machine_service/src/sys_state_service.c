@@ -25,7 +25,7 @@ void Sys_hlsAlarm(void);
 #define Sys_chstAlarm()                 Sys_hlstPtr = Sys_hlsAlarm; SET_SYS_RUNNING_STATE_ALARM;
 
 
-
+#define SYS_STATE_MACHINE_INIT        Sys_chstInit()  
 void Sys_hlstInit(void)
 {
     if(IS_SYS_ALARM)
@@ -85,7 +85,7 @@ void Sys_hlstForwardRotate(void)
     }
 }
 
-void Sys_hlsBackwardRotate(void)
+void Sys_hlstBackwardRotate(void)
 {
     if(IS_SYS_ALARM)
     {
@@ -136,5 +136,14 @@ void Sys_hlsAlarm(void)
     Sys_chstStop();
 }
 
+void Init_Sys_State_Service(void)
+{
+    CLEAR_SYS_ALARM;
+    CLEAR_SYS_WARNING;
+    CLEAR_SYS_ERROR;
+    INIT_SYS_RUNNING_STATE;            
+    INIT_SYS_ROTATE_DIRECTION;
+    SYS_STATE_MACHINE_INIT;
+}
 
 

@@ -70,3 +70,15 @@ void Spwm_Output(SPWM_PARA* spwmPara)
     EPMW3_OUTPUT_DUAL_PLOARITY(750, spwmPara->Phase_Duty_U);
 }
 
+void Init_Spwm_Service(void)
+{
+	gSpwmPara.Duty = 0;
+	gSpwmPara.Phase_Duty_U = 0;
+	gSpwmPara.Phase_Duty_V = 0;
+	gSpwmPara.Phase_Duty_W = 0;
+	gSpwmPara.Rvdt_Current_Pos = 0;
+	gSpwmPara.Rvdt_Pos = 0;
+	gSpwmPara.Rvdt_Zero = 0;
+
+}
+

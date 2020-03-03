@@ -13,6 +13,8 @@ void main(void)
 	int i = 0;
 
 	InitSysCtrl();
+	Init_Sys_State_Service();
+	Init_Spwm_Service();
     InitgRx422TxVar();
 	PFAL_ADC_CFG(CfgAdcTbl_User,sizeof(CfgAdcTbl_User)/sizeof(CfgAdcTbl_User[0]));		        //pass the test
 	PFAL_GPIO_CFG(CfgGpioTbl_User,sizeof(CfgGpioTbl_User)/sizeof(CfgGpioTbl_User[0]));	        //pass the test

@@ -142,6 +142,10 @@ typedef struct _SYS_STATE_FLAG
 #define IS_SYS_WARNING                                  (gSysStateFlag.warning.all)
 #define CLEAR_SYS_ALARM                                 (gSysStateFlag.alarm.all = 0)
 #define CLEAR_SYS_WARNING                               (gSysStateFlag.warning.all = 0)
+#define CLEAR_SYS_ERROR                                 (gSysStateFlag.erro.all = 0)
+
+#define INIT_SYS_RUNNING_STATE                           (gSysStateFlag.sysRunningState = SYS_INIT)
+#define INIT_SYS_ROTATE_DIRECTION                        (gSysStateFlag.rotateDirectoin = STOP)
 
 
 
@@ -175,5 +179,5 @@ typedef struct _SYS_STATE_FLAG
 
 
 extern void (*Sys_hlstPtr)(void);
-
+void Init_Sys_State_Service(void);
 #endif

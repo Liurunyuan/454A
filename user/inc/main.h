@@ -6,6 +6,7 @@
 #include "pf_cfg.h"
 #include "sci_service.h"
 #include "sys_state_service.h"
+#include "spwm_service.h"
 
 
 
