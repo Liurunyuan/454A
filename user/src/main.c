@@ -2,6 +2,7 @@
 #include "DSP2833x_Examples.h"   // DSP2833x Examples Include File
 #include "main.h"
 #include <stdlib.h>
+
 /**
  * main.c
  */
@@ -28,6 +29,8 @@ void main(void)
 	    ++i;
 	    if(i > 1000)
         {
+
+			(*Sys_hlstPtr)();
 	        gtest++;
 	        i = 0;
             PackSciTxPacket(&gScibTxQue,gSciTxVar);
