@@ -36,16 +36,16 @@ typedef struct _ALARM_16BIT
 	Uint16 busVoltage   : 1;
 	Uint16 busCurrent   : 1;
 	Uint16 hardware     : 1;
-	Uint16 g : 1;
-	Uint16 h : 1;
-	Uint16 i : 1;
-	Uint16 j : 1;
-	Uint16 k : 1;
-	Uint16 l : 1;
-	Uint16 m : 1;
-	Uint16 n : 1;
-	Uint16 o : 1;
-	Uint16 p : 1;
+	Uint16 pgVdd3V3     : 1;
+	Uint16 pg1v9        : 1;
+	Uint16 pgVcc3V3     : 1;
+	Uint16 j            : 1;
+	Uint16 k            : 1;
+	Uint16 l            : 1;
+	Uint16 m            : 1;
+	Uint16 n            : 1;
+	Uint16 o            : 1;
+	Uint16 p            : 1;
 }ALARM_16BIT;
 
 typedef struct _WARINING_16BIT
@@ -135,6 +135,11 @@ typedef struct _SYS_STATE_FLAG
 #define BUS_VOLTAGE_ALARM_MASK                          BIT3
 #define BUS_CURRENT_ALARM_MASK                          BIT4
 #define HARDWARE_ALARM_MASK                             BIT5
+#define POWER_GOOD_VDD3V3_MASK                          BIT6
+#define POWER_GOOD_1V9_MASK                             BIT7
+#define POWER_GOOD_VCC3V3_MASK                          BIT8
+
+
 
 #define IS_SYS_ENABLE_FORWARD_ROTATE                    (gSysStateFlag.rotateDirectoin == FORWARD)
 #define IS_SYS_ENABLE_BACKWARD_ROTATE                   (gSysStateFlag.rotateDirectoin == BACKWARD)
@@ -177,7 +182,19 @@ typedef struct _SYS_STATE_FLAG
 #define CLEAR_SYS_HARDWARE_ALARM                        (gSysStateFlag.alarm.bit.hardware = 0)
 #define IS_SYS_HARDWARE_ALARM                           (gSysStateFlag.alarm.bit.hardware | HARDWARE_ALARM_MASK)
 
+#define SET_SYS_PG_VDD3V3_ALARM                         (gSysStateFlag.alarm.bit.pgVdd3V3 = 1)
+#define CLEAR_SYS_PG_VDD3V3_ALARM                       (gSysStateFlag.alarm.bit.pgVdd3V3 = 0)
+#define IS_SYS_PG_VDD3V3_ALARM                          (gSysStateFlag.alarm.bit.pgVdd3V3 | POWER_GOOD_VDD3V3_MASK)
+
+#define SET_SYS_PG_1V9_ALARM                            (gSysStateFlag.alarm.bit.pg1v9 = 1)
+#define CLEAR_SYS_PG_1V9_ALARM                          (gSysStateFlag.alarm.bit.pg1v9 = 0)
+#define IS_SYS_PG_1V9_ALARM                             (gSysStateFlag.alarm.bit.pg1v9 | POWER_GOOD_1V9_MASK)
+
+#define SET_SYS_PG_VCC3V3_ALARM                         (gSysStateFlag.alarm.bit.pgVcc3V3 = 1)
+#define CLEAR_SYS_PG_VCC3V3_ALARM                       (gSysStateFlag.alarm.bit.pgVcc3V3 = 0)
+#define IS_SYS_PG_VCC3V3_ALARM                          (gSysStateFlag.alarm.bit.pgVcc3V3 | POWER_GOOD_VCC3V3_MASK)
 
 extern void (*Sys_hlstPtr)(void);
 void Init_Sys_State_Service(void);
+extern SYS_STATE_FLAG gSysStateFlag;
 #endif

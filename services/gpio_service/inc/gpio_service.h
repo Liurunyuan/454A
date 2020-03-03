@@ -2,6 +2,7 @@
 #define GPIO_SERVICE_H_
 #include "DSP2833x_Device.h"     // DSP2833x Headerfile Include File
 #include "DSP2833x_Examples.h"   // DSP2833x Examples Include File
+#include "sys_state_service.h"
 
 
 /*
@@ -29,25 +30,46 @@
 #define TURN_ON_PWM_VALVE               (GpioDataRegs.GPCCLEAR.bit.GPIO84 = 1)
 #define TURN_OFF_PWM_VALVE              (GpioDataRegs.GPCCLEAR.bit.GPIO84 = 1)
 
-#define DELAY_NOPS(times)\
-                    {\
-                        int i;\
-                        for(i = 0; i < times; ++i)\
-                        {\
-                            asm (" NOP");\
-                        }\
-                    }
+#define DELAY_NOPS(times)                               \
+                        {                               \
+                            int i;                      \
+                            for(i = 0; i < times; ++i)  \
+                            {                           \
+                                asm (" NOP");           \
+                            }                           \
+                        }
 
-#define ENABLE_DRIVE_BOARD_PWM_OUTPUT()\
-                                        {\
-                                            GpioDataRegs.GPADAT.bit.GPIO16 = 0;\
-                                            DELAY_NOPS(6);\
-                                            GpioDataRegs.GPADAT.bit.GPIO16 = 1;\
-                                            DELAY_NOPS(6);\
-                                            GpioDataRegs.GPADAT.bit.GPIO16 = 0;\
-                                            DELAY_NOPS(6);\
-                                            GpioDataRegs.GPADAT.bit.GPIO16 = 1;\
-                                            DELAY_NOPS(6);\
+#define ENABLE_DRIVE_BOARD_PWM_OUTPUT()                                             \
+                                        {                                           \
+                                            GpioDataRegs.GPADAT.bit.GPIO16 = 0;     \
+                                            DELAY_NOPS(6);                          \
+                                            GpioDataRegs.GPADAT.bit.GPIO16 = 1;     \
+                                            DELAY_NOPS(6);                          \
+                                            GpioDataRegs.GPADAT.bit.GPIO16 = 0;     \
+                                            DELAY_NOPS(6);                          \
+                                            GpioDataRegs.GPADAT.bit.GPIO16 = 1;     \
+                                            DELAY_NOPS(6);                          \
                                         }
+
+
+
+
+#define DIGIT_SIG_ROUTING_INSPECTION()                                              \
+                                        {                                           \
+                                            if(!IS_VDD3V3_PG)                       \
+                                            {                                       \
+                                                SET_SYS_PG_VDD3V3_ALARM;            \
+                                            }                                       \
+                                            if(!IS_1V9_PG)                          \
+                                            {                                       \
+                                                SET_SYS_PG_1V9_ALARM;               \
+                                            }                                       \
+                                            if(!IS_VCC3V3_PG)                       \
+                                            {                                       \
+                                                SET_SYS_PG_VCC3V3_ALARM;            \
+                                            }                                       \
+                                        }
+
+                    
 #endif
 

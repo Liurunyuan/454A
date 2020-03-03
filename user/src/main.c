@@ -30,10 +30,7 @@ void main(void)
 	while(1)
 	{
 	    TOOGLE_CTL_BOARD_WATCHDOG;
-	    if(IS_VDD3V3_PG)
-	    {
-
-	    }
+		DIGIT_SIG_ROUTING_INSPECTION();
         ProcessSciRxPacket(&gScibRxQue);
 	    ++i;
 	    if(i > 1000)
