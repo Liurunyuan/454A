@@ -47,15 +47,19 @@ void main(void)
 	    TOOGLE_CTL_BOARD_WATCHDOG;
 		TOOGLE_DRIVE_BOARD_WATCHDOG;
 		DIGIT_SIG_ROUTING_INSPECTION();
-        ProcessSciRxPacket(&gScibRxQue);
+#if(SYS_DEBUG == INCLUDE_FEATURE)
+		PF_ProcessSciRxPacket(gScibRxQue);
+#elif
+        ProcessSciRxPacket(gScibRxQue);
+#endif
 	    ++i;
 	    if(i > 1000)
         {
 
 			(*Sys_hlstPtr)();
 	        i = 0;
-            PackSciTxPacket(&gScibTxQue,gSciTxVar);
+            PackSciTxPacket(gScibTxQue,gSciTxVar);
 	    }
-        CheckEnableScibTx(&gScibTxQue);
+        CheckEnableScibTx(gScibTxQue);
 	}
 }

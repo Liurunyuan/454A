@@ -3,21 +3,12 @@
 
 #include "DSP2833x_Device.h"     // DSP2833x Headerfile Include File
 #include "DSP2833x_Examples.h"   // DSP2833x Examples Include File
-#define SCI_RX_QUEUE_LEN 800
-#define SCI_TX_QUEUE_LEN 900
-
-typedef struct _RS422RXQUE{
-	char rxBuff[SCI_RX_QUEUE_LEN];
-	int front;
-	int rear;
-}SCIRXQUE;
+#include "pf_data_struct.h"
 
 
-typedef struct _RS422TXQUE{
-	char txBuf[SCI_TX_QUEUE_LEN];
-	int front;
-	int rear;
-}SCITXQUE;
+
+typedef PF_RING_BUFFER SCIRXQUE;
+typedef PF_RING_BUFFER SCITXQUE;
 
 
 int SciRxEnQueue(int e, SCIRXQUE *RS422RxQue);

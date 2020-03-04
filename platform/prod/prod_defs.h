@@ -45,17 +45,5 @@
 #define BIT_31 (0x80000000)
 
 
-typedef struct _PF_RING_BUFFER
-{
-    Uint16 front;
-    Uint16 rear;
-    Uint16 bufferLen;
-    Uint16* buffer;
-}PF_RING_BUFFER;
-
-
-
-
-
 
 #endif
