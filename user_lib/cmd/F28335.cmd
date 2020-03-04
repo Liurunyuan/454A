@@ -131,6 +131,19 @@ SECTIONS
    .pinit              : > FLASHA,     PAGE = 0
    .text               : > FLASHA      PAGE = 0
    codestart           : > BEGIN       PAGE = 0
+
+	Flash28_API:
+	{
+		/*-l Flash28335_API_V210.lib(.econst)*/
+		-l Flash28335_API_V210.lib(.text)
+	}
+			LOAD = FLASHH,
+			RUN = RAML0,
+			LOAD_START(_Flash28_API_LoadStart),
+			LOAD_END(_Flash28_API_LoadEnd),
+			RUN_START(_Flash28_API_RunStart),
+			PAGE = 0
+	/*----------------------------------------------*/
    ramfuncs            : LOAD = FLASHD, 
                          RUN = RAML0, 
                          LOAD_START(_RamfuncsLoadStart),

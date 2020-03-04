@@ -9,7 +9,7 @@
 
 
 
-#define DISABLE_GLOBAL_INTERRUPT()      DINT;\
+#define DISABLE_GLOBAL_INTERRUPT        DINT;\
                                         DRTM;
 
 #define ENABLE_GLOBAL_INTERRUPT         EINT;\

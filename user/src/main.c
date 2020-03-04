@@ -2,6 +2,8 @@
 #include "DSP2833x_Examples.h"   // DSP2833x Examples Include File
 #include "main.h"
 #include <stdlib.h>
+#include "pf_isr.h"
+#include "flash_hal.h"
 
 /**
  * main.c
@@ -9,11 +11,14 @@
 #if(SYS_DEBUG == INCLUDE_FEATURE	)
 int gtest = 0;
 int i = 0;
+Uint16 flashArray[4] = {0x0802, 0x1991, 0x1234, 0x5678};
 #endif
 
 void main(void)
 {
 	InitSysCtrl();
+	MemCopy(&Flash28_API_LoadStart, &Flash28_API_LoadEnd,&Flash28_API_RunStart);
+	FlashAPI_Init();
 	Init_Sys_State_Service();
 	Init_Spwm_Service();
     Init_Sci_Service();
@@ -28,6 +33,22 @@ void main(void)
 	PFAL_INTERRUPT_CFG(CfgInterruptTbl_User,sizeof(CfgInterruptTbl_User)/sizeof(CfgInterruptTbl_User[0]));
 	ENABLE_DRIVE_BOARD_PWM_OUTPUT();
 	TURN_ON_PWM_VALVE;
+
+
+
+	DISABLE_GLOBAL_INTERRUPT;
+     if(Flash_WR(0x330000,flashArray, 4) == STATUS_SUCCESS)
+	 {
+		gtest = 1;
+
+     }
+	 else
+	 {
+		gtest = 2; /* code */
+	 }
+	 
+
+	ENABLE_GLOBAL_INTERRUPT;
 
 	while(1)
 	{
