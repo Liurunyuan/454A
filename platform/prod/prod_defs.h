@@ -5,6 +5,12 @@
 #define INCLUDE_FEATURE     0x01
 #define NOT_INCLUDE_FEATURE 0x00
 
+#define TRUE        (1)
+#define FALSE       (0)
+
+#define SUCCESS     (1)
+#define FAIL        (0)
+
 #define BIT_0 (0x00000001)
 #define BIT_1 (0x00000002)
 #define BIT_2 (0x00000004)

@@ -1,5 +1,5 @@
 #ifndef SCI_PROTOCAL_H_
-#define ASCI_PROTOCAL_H_
+#define SCI_PROTOCAL_H_
 
 #include "DSP2833x_Device.h"     // DSP2833x Headerfile Include File
 #include "DSP2833x_Examples.h"   // DSP2833x Examples Include File
