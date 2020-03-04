@@ -6,7 +6,10 @@
 /**
  * main.c
  */
+#if(SYS_DEBUG == INCLUDE_FEATURE	)
 int gtest = 0;
+int* p;
+#endif
 
 void main(void)
 {
@@ -27,9 +30,22 @@ void main(void)
 	PFAL_INTERRUPT_CFG(CfgInterruptTbl_User,sizeof(CfgInterruptTbl_User)/sizeof(CfgInterruptTbl_User[0]));
 	ENABLE_DRIVE_BOARD_PWM_OUTPUT();
 
+#if(SYS_DEBUG == INCLUDE_FEATURE)
+	p = (int*)malloc(sizeof(int)*10);
+	if(p == NULL)
+	{
+		gtest = 1;
+	}
+	else
+	{
+		gtest = 2;
+	}
+#endif
+
 	while(1)
 	{
 	    TOOGLE_CTL_BOARD_WATCHDOG;
+		TOOGLE_DRIVE_BOARD_WATCHDOG;
 		DIGIT_SIG_ROUTING_INSPECTION();
         ProcessSciRxPacket(&gScibRxQue);
 	    ++i;
@@ -37,7 +53,6 @@ void main(void)
         {
 
 			(*Sys_hlstPtr)();
-	        gtest++;
 	        i = 0;
             PackSciTxPacket(&gScibTxQue,gSciTxVar);
 	    }

@@ -23,7 +23,7 @@
 // Functions that will be run from RAM need to be assigned to
 // a different section.  This section will then be mapped to a load and
 // run address using the linker cmd file.
-
+#define FLASH_PROGRAM
 #pragma CODE_SECTION(InitFlash, "ramfuncs");
 void if_flash_init(void);
 //---------------------------------------------------------------------------
@@ -62,7 +62,7 @@ void InitSysCtrl(void)
 // out of OTP/Flash will yield unpredictable results
 void if_flash_init(void)
 {
-	#ifdef FLASH  	//����
+	#ifdef FLASH_PROGRAM
     MemCopy(&RamfuncsLoadStart,&RamfuncsLoadEnd,&RamfuncsRunStart);
 		// memcpy(	&RamfuncsRunStart,
 		// 		&RamfuncsLoadStart,
