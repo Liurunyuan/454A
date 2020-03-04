@@ -4,6 +4,8 @@
 #include "DSP2833x_Device.h"     // DSP2833x Headerfile Include File
 #include "DSP2833x_Examples.h"   // DSP2833x Examples Include File
 #include "sci_queue.h"
+#include "sys_state_service.h"
+#include "prod.h"
 #include <stdlib.h>
 
 /*0x5a      0x5a    0x01    0x0102      0x01    0x0a0b  0xcrch     0xcrcl   0xa5    0xa5*/

@@ -382,6 +382,7 @@ void Init_Sci_Protocol(void)
 		{
 			//TODO generate alarm
 			gmalloc = gmalloc | 0x01;
+			SET_SYS_MEMORY_MOLLOC_ERROR;
 			return;
 		}
 		gScibRxQue->front = 0;
@@ -391,6 +392,8 @@ void Init_Sci_Protocol(void)
 		if(gScibRxQue->buffer == NULL)
 		{
 			gmalloc = gmalloc | 0x02;
+			SET_SYS_MEMORY_MOLLOC_ERROR;
+			return;
 		}
 		memset(gScibRxQue->buffer, 0 , sizeof(gScibRxQue->buffer));
 	}
@@ -401,6 +404,7 @@ void Init_Sci_Protocol(void)
 		if(gScibTxQue == NULL)
 		{
 			gmalloc = gmalloc | 0x04;
+			SET_SYS_MEMORY_MOLLOC_ERROR;
 			return;
 		}
 		gScibTxQue->front = 0;
@@ -410,6 +414,8 @@ void Init_Sci_Protocol(void)
 		if(gScibTxQue->buffer == NULL)
 		{
 			gmalloc = gmalloc | 0x08;
+			SET_SYS_MEMORY_MOLLOC_ERROR;
+			return;
 		}
 		memset(gScibTxQue->buffer, 0 , sizeof(gScibTxQue->buffer));
 	}
@@ -421,6 +427,7 @@ void Init_Sci_Protocol(void)
 		{
 			//TODO generate alarm
 			gmalloc = gmalloc | 0x10;
+			SET_SYS_MEMORY_MOLLOC_ERROR;
 			return;
 		}
 	}
@@ -451,6 +458,7 @@ void Init_Sci_Protocol(void)
 	{
 		//TODO generate alarm
 		gmalloc = gmalloc | 0x0020;
+		SET_SYS_MEMORY_MOLLOC_ERROR;
 		return;
 	}
 	gRxPacketHead->headLen = 2;
@@ -459,6 +467,7 @@ void Init_Sci_Protocol(void)
 	{
 		//TODO generate alarm
 		gmalloc = gmalloc | 0x0040;
+		SET_SYS_MEMORY_MOLLOC_ERROR;
 		return;
 	}
 	gRxPacketHead->head[0] = 0x5a;
@@ -469,6 +478,7 @@ void Init_Sci_Protocol(void)
 	{
 		//TODO generate alarm
 		gmalloc = gmalloc | 0x0080;
+		SET_SYS_MEMORY_MOLLOC_ERROR;
 		return;
 	}
 	gRxPacketTail->tailLen = 2;
@@ -477,6 +487,7 @@ void Init_Sci_Protocol(void)
 	{
 		//TODO generate alarm
 		gmalloc = gmalloc | 0x0100;
+		SET_SYS_MEMORY_MOLLOC_ERROR;
 		return;
 	}
 	gRxPacketTail->tail[0] = 0xa5;
@@ -488,6 +499,7 @@ void Init_Sci_Protocol(void)
 	{
 		//TODO generate alarm
 		gmalloc = gmalloc | 0x0100;
+		SET_SYS_MEMORY_MOLLOC_ERROR;
 		return;
 	}
 	gRxPacketInfo->lenPos = 2;
@@ -502,7 +514,7 @@ void Init_Sci_Protocol(void)
 int PF_FindRxPacketHead(PF_RING_BUFFER *ringBuffer)
 {
     int i;
-    int flag = 1;
+    int flag = SUCCESS;
 	while(1)
 	{
         for(i = 0; i < gRxPacketHead->headLen; ++i)
@@ -513,14 +525,14 @@ int PF_FindRxPacketHead(PF_RING_BUFFER *ringBuffer)
             }
         }
 
-        if(flag == 1)
+        if(flag == SUCCESS)
         {
-            return 1;
+            return SUCCESS;
         }
 
 		if(SciRxDeQueue(ringBuffer) == 0)
 		{
-			return 0;
+			return FAIL;
 		}
 	}
 }
@@ -529,36 +541,22 @@ int PF_FindRxPacketHead(PF_RING_BUFFER *ringBuffer)
 int PF_FindRxPacketTail(int len, PF_RING_BUFFER *ringBuffer)
 {
 	int i;
-	int flag = 1;
+	int flag = SUCCESS;
 
 	for(i = 0; i < gRxPacketTail->tailLen; ++i)
 	{
 		if(gRxPacketTail->tail[i] != ringBuffer->buffer[(ringBuffer->front + len - 1 - i) % (ringBuffer->bufferLen)])
 		{
-			flag = 0;
+			flag = FAIL;
 		}
 	}
-
-	if(flag == 1)
-	{
-		return 1;
-	}
-	else
-	{
-		return 0;
-	}
+	return flag;
 }
 
-int gsciProcess = 0;
-int gsciProcess1 = 0;
 int PF_CheckRxPacketLength(PF_RING_BUFFER *ringBuffer)
 {
-	gsciProcess1 =ringBuffer->buffer[(ringBuffer->front + gRxPacketInfo->lenPos) % (ringBuffer->bufferLen)];
 	gRxPacketInfo->totallLen = gRxPacketInfo->updateTotalLen(ringBuffer->buffer[(ringBuffer->front + gRxPacketInfo->lenPos) % (ringBuffer->bufferLen)]);
-	if(gRxPacketInfo->totallLen > 30)
-	{
-		gsciProcess++;
-	}
+
 	if(gRxPacketInfo->totallLen <= GetSciRxQueLength(ringBuffer))
 	{
 		return SUCCESS;
@@ -585,6 +583,7 @@ Uint16* PF_SaveRxPacketProfile(Uint16 len, PF_RING_BUFFER *ringBuffer)
 	{
 		//TODO generate alarm
 		gmalloc = gmalloc | 0x0200;
+		SET_SYS_MEMORY_MOLLOC_ERROR;
 		return NULL;
 	}
 

@@ -32,19 +32,21 @@ void main(void)
 	while(1)
 	{
 	    TOOGLE_CTL_BOARD_WATCHDOG;
+
 		TOOGLE_DRIVE_BOARD_WATCHDOG;
+
 		DIGIT_SIG_ROUTING_INSPECTION();
 #if(SYS_DEBUG == INCLUDE_FEATURE)
 		PF_ProcessSciRxPacket(gScibRxQue);
 #elif
         ProcessSciRxPacket(gScibRxQue);
 #endif
-		(*Sys_hlstPtr)();
+		SYS_STATE_MACHINE;
 		++i;
 		if(i > 1000)
 		{
-			i = 0;
         	PackSciTxPacket(gScibTxQue,gSciTxVar);
+			i = 0;
 		}
         CheckEnableScibTx(gScibTxQue);
 	}
