@@ -7,4 +7,12 @@
 #include "timer0_isr.h"
 #include "timer1_isr.h"
 
+
+
+#define DISABLE_GLOBAL_INTERRUPT()      DINT;\
+                                        DRTM;
+
+#define ENABLE_GLOBAL_INTERRUPT         EINT;\
+                                        ERTM;
+
 #endif
