@@ -8,13 +8,11 @@
  */
 #if(SYS_DEBUG == INCLUDE_FEATURE	)
 int gtest = 0;
-int* p;
+int i = 0;
 #endif
 
 void main(void)
 {
-	int i = 0;
-
 	InitSysCtrl();
 	Init_Sys_State_Service();
 	Init_Spwm_Service();
@@ -29,18 +27,7 @@ void main(void)
 	PFAL_TIMER_CFG(CfgTimerTbl_User,sizeof(CfgTimerTbl_User)/sizeof(CfgTimerTbl_User[0]));      //pass the test
 	PFAL_INTERRUPT_CFG(CfgInterruptTbl_User,sizeof(CfgInterruptTbl_User)/sizeof(CfgInterruptTbl_User[0]));
 	ENABLE_DRIVE_BOARD_PWM_OUTPUT();
-
-#if(SYS_DEBUG == INCLUDE_FEATURE)
-	p = (int*)malloc(sizeof(int)*10);
-	if(p == NULL)
-	{
-		gtest = 1;
-	}
-	else
-	{
-		gtest = 2;
-	}
-#endif
+	TURN_ON_PWM_VALVE;
 
 	while(1)
 	{
@@ -52,14 +39,13 @@ void main(void)
 #elif
         ProcessSciRxPacket(gScibRxQue);
 #endif
-	    ++i;
-	    if(i > 1000)
-        {
-
-			(*Sys_hlstPtr)();
-	        i = 0;
-            PackSciTxPacket(gScibTxQue,gSciTxVar);
-	    }
+		(*Sys_hlstPtr)();
+		++i;
+		if(i > 1000)
+		{
+			i = 0;
+        	PackSciTxPacket(gScibTxQue,gSciTxVar);
+		}
         CheckEnableScibTx(gScibTxQue);
 	}
 }

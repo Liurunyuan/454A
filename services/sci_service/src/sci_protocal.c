@@ -12,7 +12,7 @@ int gscitest = 0;
 
 static void DebugTest(VAR16 a, int b, int c) {
 #if(SYS_DEBUG == INCLUDE_FEATURE)
-	    gscitest = 100;
+	    gscitest++;
 #endif
 }
 const functionMsgCodeUnpack SDB_MsgFuncTbl[] = 
@@ -369,6 +369,7 @@ Uint16 calRxPacketTotalLen(Uint16 a)
 
 	return ret;
 }
+int gmalloc = 0;
 void Init_Sci_Protocol(void)
 {
 
@@ -380,12 +381,17 @@ void Init_Sci_Protocol(void)
 		if(gScibRxQue == NULL)
 		{
 			//TODO generate alarm
+			gmalloc = gmalloc | 0x01;
 			return;
 		}
 		gScibRxQue->front = 0;
 		gScibRxQue->rear = 0;
-		gScibRxQue->bufferLen = 800;
+		gScibRxQue->bufferLen = 200;
 		gScibRxQue->buffer = (Uint16*)malloc(sizeof(Uint16) * gScibRxQue->bufferLen);
+		if(gScibRxQue->buffer == NULL)
+		{
+			gmalloc = gmalloc | 0x02;
+		}
 		memset(gScibRxQue->buffer, 0 , sizeof(gScibRxQue->buffer));
 	}
 
@@ -394,13 +400,17 @@ void Init_Sci_Protocol(void)
 		gScibTxQue = (SCITXQUE*)malloc(sizeof(SCITXQUE));
 		if(gScibTxQue == NULL)
 		{
-			//TODO generate alarm
+			gmalloc = gmalloc | 0x04;
 			return;
 		}
 		gScibTxQue->front = 0;
 		gScibTxQue->rear = 0;
-		gScibTxQue->bufferLen = 800;
+		gScibTxQue->bufferLen = 200;
 		gScibTxQue->buffer = (Uint16*)malloc(sizeof(Uint16) * gScibTxQue->bufferLen);
+		if(gScibTxQue->buffer == NULL)
+		{
+			gmalloc = gmalloc | 0x08;
+		}
 		memset(gScibTxQue->buffer, 0 , sizeof(gScibTxQue->buffer));
 	}
 
@@ -410,6 +420,7 @@ void Init_Sci_Protocol(void)
 		if(gSciTxVar == NULL)
 		{
 			//TODO generate alarm
+			gmalloc = gmalloc | 0x10;
 			return;
 		}
 	}
@@ -420,6 +431,7 @@ void Init_Sci_Protocol(void)
 	{
 		gSciTxVar[index].isTx = 0;
 		gSciTxVar[index].index = index;
+		gRx422TxEnableFlag[index] = 0;
 	}
 #if(SYS_DEBUG == INCLUDE_FEATURE)
 	gRx422TxEnableFlag[0] = 1;
@@ -435,23 +447,54 @@ void Init_Sci_Protocol(void)
 
 
 	gRxPacketHead = (PF_RX_PACKET_HEAD*)malloc(sizeof(PF_RX_PACKET_HEAD));
+	if(gRxPacketHead == NULL)
+	{
+		//TODO generate alarm
+		gmalloc = gmalloc | 0x0020;
+		return;
+	}
 	gRxPacketHead->headLen = 2;
 	gRxPacketHead->head = (Uint16*)malloc(sizeof(Uint16) * 2);
+	if(gRxPacketHead->head == NULL)
+	{
+		//TODO generate alarm
+		gmalloc = gmalloc | 0x0040;
+		return;
+	}
 	gRxPacketHead->head[0] = 0x5a;
 	gRxPacketHead->head[1] = 0x5a;
 
 	gRxPacketTail = (PF_RX_PACKET_TAIL*)malloc(sizeof(PF_RX_PACKET_TAIL));
+	if(gRxPacketTail == NULL)
+	{
+		//TODO generate alarm
+		gmalloc = gmalloc | 0x0080;
+		return;
+	}
 	gRxPacketTail->tailLen = 2;
 	gRxPacketTail->tail = (Uint16*)malloc(sizeof(Uint16) * 2);
+	if(gRxPacketTail->tail == NULL)
+	{
+		//TODO generate alarm
+		gmalloc = gmalloc | 0x0100;
+		return;
+	}
 	gRxPacketTail->tail[0] = 0xa5;
 	gRxPacketTail->tail[1] = 0xa5;
 
 
 	gRxPacketInfo = (PF_RX_PACKET_INFO*)malloc(sizeof(PF_RX_PACKET_INFO));
+	if(gRxPacketInfo == NULL)
+	{
+		//TODO generate alarm
+		gmalloc = gmalloc | 0x0100;
+		return;
+	}
 	gRxPacketInfo->lenPos = 2;
 	gRxPacketInfo->minLen = 9;
 	gRxPacketInfo->extraLen = 9;
 	gRxPacketInfo->profileStartPos = 5;
+	gRxPacketInfo->totallLen = 0;
 
 	gRxPacketInfo->updateTotalLen = calRxPacketTotalLen;
 }
@@ -506,10 +549,16 @@ int PF_FindRxPacketTail(int len, PF_RING_BUFFER *ringBuffer)
 	}
 }
 
-
+int gsciProcess = 0;
+int gsciProcess1 = 0;
 int PF_CheckRxPacketLength(PF_RING_BUFFER *ringBuffer)
 {
+	gsciProcess1 =ringBuffer->buffer[(ringBuffer->front + gRxPacketInfo->lenPos) % (ringBuffer->bufferLen)];
 	gRxPacketInfo->totallLen = gRxPacketInfo->updateTotalLen(ringBuffer->buffer[(ringBuffer->front + gRxPacketInfo->lenPos) % (ringBuffer->bufferLen)]);
+	if(gRxPacketInfo->totallLen > 30)
+	{
+		gsciProcess++;
+	}
 	if(gRxPacketInfo->totallLen <= GetSciRxQueLength(ringBuffer))
 	{
 		return SUCCESS;
@@ -531,9 +580,14 @@ Uint16* PF_SaveRxPacketProfile(Uint16 len, PF_RING_BUFFER *ringBuffer)
 {
 	int i;
 
-
-
 	Uint16* profilePtr = (Uint16*)malloc(sizeof(Uint16) * len);
+	if(gRxPacketInfo == NULL)
+	{
+		//TODO generate alarm
+		gmalloc = gmalloc | 0x0200;
+		return NULL;
+	}
+
 	memset(profilePtr, 0 , sizeof(profilePtr));
 
 	for(i = 0; i < len; ++i)
@@ -553,8 +607,8 @@ void PF_UnpackRxProfile(Uint16* profilePtr, int len)
 	for(i = 0; i < len; ++i){
 
 		msgCode = profilePtr[OFFSET + UNIT_LEN * i];
-		var16.datahl.h = profilePtr[OFFSET + UNIT_LEN*i + 1];
-		var16.datahl.l = profilePtr[OFFSET + UNIT_LEN*i + 2];
+		var16.datahl.h = profilePtr[OFFSET + UNIT_LEN * i + 1];
+		var16.datahl.l = profilePtr[OFFSET + UNIT_LEN * i + 2];
 		//var16.value = var16.datahl.l + (var16.datahl.h << 8);
 
 		if(msgCode < (sizeof(SDB_MsgFuncTbl) / sizeof(SDB_MsgFuncTbl[0])))
@@ -593,7 +647,7 @@ int PF_CalCrc(int crc, const Uint16 *buf, int len)
 
 void PF_ProcessSciRxPacket(PF_RING_BUFFER *ringBuffer)
 {
-    Uint16* rs422rxPackTemp;
+    Uint16* pfProfilePtr;
 	while(PF_GetRingBufferDataSize(ringBuffer) > (gRxPacketInfo->minLen))
 	{
 		if(PF_FindRxPacketHead(ringBuffer) == FAIL)
@@ -612,21 +666,21 @@ void PF_ProcessSciRxPacket(PF_RING_BUFFER *ringBuffer)
 			return;
 		}
 
-		rs422rxPackTemp = PF_SaveRxPacketProfile(gRxPacketInfo->totallLen, ringBuffer);
+		pfProfilePtr = PF_SaveRxPacketProfile(gRxPacketInfo->totallLen, ringBuffer);
 
-		if(PF_CalCrc(0, rs422rxPackTemp + gRxPacketInfo->profileStartPos, gRxPacketInfo->totallLen - gRxPacketInfo->totallLen + 2) != 0)
+		if(PF_CalCrc(0, pfProfilePtr + gRxPacketInfo->profileStartPos, gRxPacketInfo->totallLen - gRxPacketInfo->totallLen + 2) != 0)
 		{
-			free(rs422rxPackTemp);
-			rs422rxPackTemp = NULL;
+			free(pfProfilePtr);
+			pfProfilePtr = NULL;
 			SciRxDeQueue(ringBuffer);
 			return;
 		}
 
-		PF_UnpackRxProfile(rs422rxPackTemp, ringBuffer->buffer[(ringBuffer->front + 2) % (ringBuffer->bufferLen)]);
+		PF_UnpackRxProfile(pfProfilePtr, ringBuffer->buffer[(ringBuffer->front + 2) % (ringBuffer->bufferLen)]);
 
-		free(rs422rxPackTemp);
+		free(pfProfilePtr);
 
-		rs422rxPackTemp = NULL;
+		pfProfilePtr = NULL;
 
 		PF_UpdateRxQueueHeadPos(gRxPacketInfo->totallLen, ringBuffer);
 	}
