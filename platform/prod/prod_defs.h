@@ -5,6 +5,12 @@
 #define INCLUDE_FEATURE     0x01
 #define NOT_INCLUDE_FEATURE 0x00
 
+#define TRUE        (1)
+#define FALSE       (0)
+
+#define SUCCESS     (1)
+#define FAIL        (0)
+
 #define BIT_0 (0x00000001)
 #define BIT_1 (0x00000002)
 #define BIT_2 (0x00000004)
@@ -37,18 +43,6 @@
 #define BIT_29 (0x20000000)
 #define BIT_30 (0x40000000)
 #define BIT_31 (0x80000000)
-
-
-typedef struct _PF_RING_BUFFER
-{
-    Uint16 front;
-    Uint16 rear;
-    Uint16 bufferLen;
-    Uint16* buffer;
-}PF_RING_BUFFER;
-
-
-
 
 
 

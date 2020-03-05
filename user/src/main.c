@@ -2,17 +2,24 @@
 #include "DSP2833x_Examples.h"   // DSP2833x Examples Include File
 #include "main.h"
 #include <stdlib.h>
+#include "pf_isr.h"
+#include "flash_hal.h"
 
 /**
  * main.c
  */
+#if(SYS_DEBUG == INCLUDE_FEATURE	)
 int gtest = 0;
+int i = 0;
+Uint16 flashArrayW[4] = {0x0802, 0x1991, 0x1234, 0x5678};
+Uint16 flashArrayR[4] = {0, 0, 0, 0};
+#endif
 
 void main(void)
 {
-	int i = 0;
-
 	InitSysCtrl();
+	MemCopy(&Flash28_API_LoadStart, &Flash28_API_LoadEnd,&Flash28_API_RunStart);
+	FlashAPI_Init();
 	Init_Sys_State_Service();
 	Init_Spwm_Service();
     Init_Sci_Service();
@@ -25,19 +32,50 @@ void main(void)
 	PFAL_XINTF_CFG(CfgXintfTbl_User,sizeof(CfgXintfTbl_User)/sizeof(CfgXintfTbl_User[0]));  
 	PFAL_TIMER_CFG(CfgTimerTbl_User,sizeof(CfgTimerTbl_User)/sizeof(CfgTimerTbl_User[0]));      //pass the test
 	PFAL_INTERRUPT_CFG(CfgInterruptTbl_User,sizeof(CfgInterruptTbl_User)/sizeof(CfgInterruptTbl_User[0]));
+	ENABLE_DRIVE_BOARD_PWM_OUTPUT();
+	TURN_ON_PWM_VALVE;
+
+
+
+	DISABLE_GLOBAL_INTERRUPT;
+	if(Flash_WR(0x330000, flashArrayW, sizeof(flashArrayW)) == STATUS_SUCCESS)
+	{
+		gtest |= 0x01;
+
+	}
+	else
+	{
+		gtest |= 0x02; /* code */
+	}
+	if(Flash_RD(0x330000,flashArrayR, sizeof(flashArrayR)) == STATUS_SUCCESS)
+	{
+		gtest |= 0x04;
+	}
+	else
+	{
+		gtest |= 0x08;
+	}
+	ENABLE_GLOBAL_INTERRUPT;
 
 	while(1)
 	{
-        ProcessSciRxPacket(&gScibRxQue);
-	    ++i;
-	    if(i > 1000)
-        {
+	    TOOGLE_CTL_BOARD_WATCHDOG;
 
-			(*Sys_hlstPtr)();
-	        gtest++;
-	        i = 0;
-            PackSciTxPacket(&gScibTxQue,gSciTxVar);
-	    }
-        CheckEnableScibTx(&gScibTxQue);
+		TOOGLE_DRIVE_BOARD_WATCHDOG;
+
+		DIGIT_SIG_ROUTING_INSPECTION();
+#if(SYS_DEBUG == INCLUDE_FEATURE)
+		PF_ProcessSciRxPacket(gScibRxQue);
+#elif
+        ProcessSciRxPacket(gScibRxQue);
+#endif
+		SYS_STATE_MACHINE;
+		++i;
+		if(i > 1000)
+		{
+        	PackSciTxPacket(gScibTxQue,gSciTxVar);
+			i = 0;
+		}
+        CheckEnableScibTx(gScibTxQue);
 	}
 }

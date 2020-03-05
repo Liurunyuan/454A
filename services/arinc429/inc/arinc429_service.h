@@ -126,6 +126,7 @@ typedef union
 #define Assert_CS_Pin()\
 						{\
 							GpioDataRegs.GPBCLEAR.bit.GPIO61 = 1;\
+							int i;\
 							for(i = 0; i < Assert_CS_DELAY; ++i)\
 							{\
 								asm (" NOP");\
@@ -135,11 +136,17 @@ typedef union
 #define Deassert_CS_Pin()\
 						{\
 							GpioDataRegs.GPBSET.bit.GPIO61 = 1;\
+							int i;\
 							for(i = 0; i < Deassert_CS_DELAY; ++i)\
 							{\
 								asm (" NOP");\
     						}\
 						}
+
+
+#define Read_ARINC_TFLAG_PIN_STATUS		GpioDataRegs.GPBDATA.bit.GPIO59
+#define Read_ARINC_RFLAG_PIN_STATUS		GpioDataRegs.GPBDATA.bit.GPIO35
+
 void SetArinc429CtlReg(ARINC429_CTL_REG ctlRegVal);
 Uint16 ReadArinc429StatusReg(void);
 Uint16 ReadArinc429CtlReg(void);

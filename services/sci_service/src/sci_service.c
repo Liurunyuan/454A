@@ -81,7 +81,7 @@ void SCI_A_Transmit(SCITXQUE* RS422TxQue)
 		{
 			return;
 		}
-		SciaTxByte(RS422TxQue->txBuf[RS422TxQue->front]);//printf by Scic
+		SciaTxByte(RS422TxQue->buffer[RS422TxQue->front]);//printf by Scic
 
 		if(SciTxDeQueue(RS422TxQue) == 0)
 		{
@@ -106,7 +106,7 @@ void SCI_B_Transmit(SCITXQUE* RS422TxQue)
 			return;
 		}
 
-		ScibTxByte(RS422TxQue->txBuf[RS422TxQue->front]);//printf by Scic
+		ScibTxByte(RS422TxQue->buffer[RS422TxQue->front]);//printf by Scic
 
 		if(SciTxDeQueue(RS422TxQue) == 0)
 		{
@@ -130,7 +130,7 @@ void SCI_C_Transmit(SCITXQUE* RS422TxQue)
 		{
 			return;
 		}
-		ScicTxByte(RS422TxQue->txBuf[RS422TxQue->front]);//printf by Scic
+		ScicTxByte(RS422TxQue->buffer[RS422TxQue->front]);//printf by Scic
 
 		if(SciTxDeQueue(RS422TxQue) == 0)
 		{
