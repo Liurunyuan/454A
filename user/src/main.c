@@ -11,7 +11,8 @@
 #if(SYS_DEBUG == INCLUDE_FEATURE	)
 int gtest = 0;
 int i = 0;
-Uint16 flashArray[4] = {0x0802, 0x1991, 0x1234, 0x5678};
+Uint16 flashArrayW[4] = {0x0802, 0x1991, 0x1234, 0x5678};
+Uint16 flashArrayR[4] = {0, 0, 0, 0};
 #endif
 
 void main(void)
@@ -37,17 +38,23 @@ void main(void)
 
 
 	DISABLE_GLOBAL_INTERRUPT;
-     if(Flash_WR(0x330000,flashArray, 4) == STATUS_SUCCESS)
-	 {
-		gtest = 1;
+	if(Flash_WR(0x330000, flashArrayW, sizeof(flashArrayW)) == STATUS_SUCCESS)
+	{
+		gtest |= 0x01;
 
-     }
-	 else
-	 {
-		gtest = 2; /* code */
-	 }
-	 
-
+	}
+	else
+	{
+		gtest |= 0x02; /* code */
+	}
+	if(Flash_RD(0x330000,flashArrayR, sizeof(flashArrayR)) == STATUS_SUCCESS)
+	{
+		gtest |= 0x04;
+	}
+	else
+	{
+		gtest |= 0x08;
+	}
 	ENABLE_GLOBAL_INTERRUPT;
 
 	while(1)
