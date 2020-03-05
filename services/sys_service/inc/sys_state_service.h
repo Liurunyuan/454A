@@ -17,9 +17,9 @@ typedef struct _ERROR_16BIT
 	Uint16 busVoltage : 1;
 	Uint16 busCurrent : 1;
 	Uint16 hardware : 1;
-	Uint16 g : 1;
-	Uint16 h : 1;
-	Uint16 i : 1;
+	Uint16 memoryFull : 1;
+	Uint16 rxQFull : 1;
+	Uint16 txQFull : 1;
 	Uint16 j : 1;
 	Uint16 k : 1;
 	Uint16 l : 1;
@@ -114,7 +114,7 @@ typedef struct _SYS_STATE_FLAG
     ROTATE_DIRECTION rotateDirectoin;
     SYSALARM alarm;
 	SYSWARNING warning;
-	SYSERRO erro;
+	SYSERRO error;
     SYS_RUNNING_STATE sysRunningState;
     /* data */
 }SYS_STATE_FLAG;
@@ -147,7 +147,7 @@ typedef struct _SYS_STATE_FLAG
 #define IS_SYS_WARNING                                  (gSysStateFlag.warning.all)
 #define CLEAR_SYS_ALARM                                 (gSysStateFlag.alarm.all = 0)
 #define CLEAR_SYS_WARNING                               (gSysStateFlag.warning.all = 0)
-#define CLEAR_SYS_ERROR                                 (gSysStateFlag.erro.all = 0)
+#define CLEAR_SYS_ERROR                                 (gSysStateFlag.error.all = 0)
 
 #define INIT_SYS_RUNNING_STATE                           (gSysStateFlag.sysRunningState = SYS_INIT)
 #define INIT_SYS_ROTATE_DIRECTION                        (gSysStateFlag.rotateDirectoin = STOP)
@@ -194,6 +194,20 @@ typedef struct _SYS_STATE_FLAG
 #define CLEAR_SYS_PG_VCC3V3_ALARM                       (gSysStateFlag.alarm.bit.pgVcc3V3 = 0)
 #define IS_SYS_PG_VCC3V3_ALARM                          (gSysStateFlag.alarm.bit.pgVcc3V3 | POWER_GOOD_VCC3V3_MASK)
 
+
+#define SET_SYS_MEMORY_MOLLOC_ERROR                     (gSysStateFlag.error.bit.memoryFull = 1)
+#define CLEAR_SYS_MEMORY_MOLLOC_ERROR                   (gSysStateFlag.error.bit.memoryFull = 0)
+#define IS_SYS_MEMORY_MOLLOC_ERROR                      (gSysStateFlag.error.bit.memoryFull | BIT6)
+
+#define SET_SYS_RX_QUEUE_FULL_ERROR                     (gSysStateFlag.error.bit.rxQFull = 1)
+#define CLEAR_SYS_RX_QUEUE_FULL_ERROR                   (gSysStateFlag.error.bit.rxQFull = 0)
+#define IS_SYS_RX_QUEUE_FULL_ERROR                      (gSysStateFlag.error.bit.rxQFull | BIT7)
+
+#define SET_SYS_TX_QUEUE_FULL_ERROR                     (gSysStateFlag.error.bit.txQFull = 1)
+#define CLEAR_SYS_TX_QUEUE_FULL_ERROR                   (gSysStateFlag.error.bit.txQFull = 0)
+#define IS_SYS_TX_QUEUE_FULL_ERROR                      (gSysStateFlag.error.bit.txQFull | BIT8)
+
+#define SYS_STATE_MACHINE								(*Sys_hlstPtr)()
 extern void (*Sys_hlstPtr)(void);
 void Init_Sys_State_Service(void);
 extern SYS_STATE_FLAG gSysStateFlag;

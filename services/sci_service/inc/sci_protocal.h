@@ -4,6 +4,9 @@
 #include "DSP2833x_Device.h"     // DSP2833x Headerfile Include File
 #include "DSP2833x_Examples.h"   // DSP2833x Examples Include File
 #include "sci_queue.h"
+#include "sys_state_service.h"
+#include "prod.h"
+#include <stdlib.h>
 
 /*0x5a      0x5a    0x01    0x0102      0x01    0x0a0b  0xcrch     0xcrcl   0xa5    0xa5*/
 /*head1     head2   len     serialnum   cmd     data    crcHigh    crcLow   tail1   tail2*/
@@ -20,15 +23,11 @@
 #define EXTRA_LEN   (9)
 #define OFFSET      (5)
 
-typedef struct _DATA{
-	Uint16 l : 8;
-	Uint16 h : 8;
-}DATA;
 
-typedef union _VAR16{
-	DATA datahl;
-	int16 value;
-}VAR16;
+
+
+
+typedef PF_UION_2BYTES VAR16;
 typedef void (*functionMsgCodeUnpack)(VAR16 a, int b,int c);
 typedef void (*UpdateTxVal)(int a, int b,int c);
 typedef struct _SCITXVAR{
@@ -38,14 +37,14 @@ typedef struct _SCITXVAR{
 	UpdateTxVal updateValue;
 }SCITXVAR;
 
-
+void PF_ProcessSciRxPacket(SCIRXQUE *RS422RxQue);
 void ProcessSciRxPacket(SCIRXQUE *RS422RxQue);
 void PackSciTxPacket(SCITXQUE *RS422TxQue, SCITXVAR* sciTxVar);
 void Init_Sci_Protocol(void);
 
-extern SCIRXQUE gScibRxQue;
-extern SCITXQUE gScibTxQue;
-extern SCITXVAR gSciTxVar[8];
+extern SCIRXQUE* gScibRxQue;
+extern SCITXQUE* gScibTxQue;
+extern SCITXVAR* gSciTxVar;
 #endif
 
 
