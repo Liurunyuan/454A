@@ -18,12 +18,16 @@
 
 #include "DSP2833x_Device.h"     // Headerfile Include File
 #include "DSP2833x_Examples.h"   // Examples Include File
+#define FLASH_PROGRAM
+#ifdef FLASH_PROGRAM
+#include "flash_hal.h"
+#include "Flash2833x_API_Library.h"
+#endif
 
 
 // Functions that will be run from RAM need to be assigned to
 // a different section.  This section will then be mapped to a load and
 // run address using the linker cmd file.
-#define FLASH_PROGRAM
 #pragma CODE_SECTION(InitFlash, "ramfuncs");
 void if_flash_init(void);
 //---------------------------------------------------------------------------
@@ -64,12 +68,14 @@ void if_flash_init(void)
 {
 	#ifdef FLASH_PROGRAM
     MemCopy(&RamfuncsLoadStart,&RamfuncsLoadEnd,&RamfuncsRunStart);
-		// memcpy(	&RamfuncsRunStart,
-		// 		&RamfuncsLoadStart,
-		// 		&RamfuncsLoadEnd - &RamfuncsLoadStart);
-	// Call Flash Initialization to setup flash waitstates
+   // memcpy(	&RamfuncsRunStart,
+   // 		&RamfuncsLoadStart,
+   // 		&RamfuncsLoadEnd - &RamfuncsLoadStart);
+   // Call Flash Initialization to setup flash waitstates
 	// This function must reside in RAM
-		InitFlash();
+	InitFlash();
+   MemCopy(&Flash28_API_LoadStart, &Flash28_API_LoadEnd,&Flash28_API_RunStart);
+   FlashAPI_Init();
 	#endif
 }
 void InitFlash(void)
@@ -328,8 +334,8 @@ void InitPeripheralClocks(void)
 // This function unlocks the CSM. User must replace 0xFFFF's with current
 // password for the DSP. Returns 1 if unlock is successful.
 
-#define STATUS_FAIL          0
-#define STATUS_SUCCESS       1
+#define STATUS_FAIL_CMS          0
+#define STATUS_SUCCESS_CMS       1
 
 Uint16 CsmUnlock()
 {
@@ -363,8 +369,8 @@ Uint16 CsmUnlock()
 
     // If the CSM unlocked, return succes, otherwise return
     // failure.
-    if (CsmRegs.CSMSCR.bit.SECURE == 0) return STATUS_SUCCESS;
-    else return STATUS_FAIL;
+    if (CsmRegs.CSMSCR.bit.SECURE == 0) return STATUS_SUCCESS_CMS;
+    else return STATUS_FAIL_CMS;
 
 }
 
