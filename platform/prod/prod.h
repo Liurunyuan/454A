@@ -12,6 +12,7 @@
 #define PF_TIMER                            INCLUDE_FEATURE
 #define PF_SCI                              INCLUDE_FEATURE
 #define PF_XINTF                            INCLUDE_FEATURE
+#define PF_FLASH                            INCLUDE_FEATURE
 
 #define SYS_DEBUG                           INCLUDE_FEATURE
 
