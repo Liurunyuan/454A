@@ -10,10 +10,10 @@
  */
 #if(SYS_DEBUG == INCLUDE_FEATURE)
 int gtest = 0;
-int i = 0;
 Uint16 flashArrayW[4] = {0x0802, 0x1991, 0x1234, 0x5678};
 Uint16 flashArrayR[4] = {0, 0, 0, 0};
 #endif
+int i = 0;
 
 void main(void)
 {
@@ -68,16 +68,19 @@ void main(void)
 		DIGIT_SIG_ROUTING_INSPECTION();
 #if(SYS_DEBUG == INCLUDE_FEATURE)
 		PF_ProcessSciRxPacket(gScibRxQue);
-#elif
+
+#else
         ProcessSciRxPacket(gScibRxQue);
 #endif
 		SYS_STATE_MACHINE;
+
 		++i;
 		if(i > 1000)
 		{
         	PackSciTxPacket(gScibTxQue,gSciTxVar);
 			i = 0;
 		}
+
         CheckEnableScibTx(gScibTxQue);
 	}
 }
