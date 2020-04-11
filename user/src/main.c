@@ -12,8 +12,9 @@
 int gtest = 0;
 Uint16 flashArrayW[4] = {0x0802, 0x1991, 0x1234, 0x5678};
 Uint16 flashArrayR[4] = {0, 0, 0, 0};
-#endif
 int i = 0;
+#endif
+
 
 void main(void)
 {
@@ -74,12 +75,7 @@ void main(void)
 #endif
 		SYS_STATE_MACHINE;
 
-		++i;
-		if(i > 1000)
-		{
-        	PackSciTxPacket(gScibTxQue,gSciTxVar);
-			i = 0;
-		}
+        PackSciTxPacket(gScibTxQue,gSciTxVar);
 
         CheckEnableScibTx(gScibTxQue);
 	}
