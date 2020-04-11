@@ -12,8 +12,9 @@
 #define PF_TIMER                            INCLUDE_FEATURE
 #define PF_SCI                              INCLUDE_FEATURE
 #define PF_XINTF                            INCLUDE_FEATURE
+#define PF_FLASH                            INCLUDE_FEATURE
 
-#define SYS_DEBUG                           INCLUDE_FEATURE
+#define SYS_DEBUG                           NOT_INCLUDE_FEATURE
 
 #define SPWM_DUTY_GRADUAL_CHANGE            INCLUDE_FEATURE
 

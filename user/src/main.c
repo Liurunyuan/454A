@@ -8,22 +8,22 @@
 /**
  * main.c
  */
-#if(SYS_DEBUG == INCLUDE_FEATURE	)
+#if(SYS_DEBUG == INCLUDE_FEATURE)
 int gtest = 0;
-int i = 0;
 Uint16 flashArrayW[4] = {0x0802, 0x1991, 0x1234, 0x5678};
 Uint16 flashArrayR[4] = {0, 0, 0, 0};
 #endif
+int i = 0;
 
 void main(void)
 {
 	InitSysCtrl();
-	MemCopy(&Flash28_API_LoadStart, &Flash28_API_LoadEnd,&Flash28_API_RunStart);
-	FlashAPI_Init();
+
 	Init_Sys_State_Service();
 	Init_Spwm_Service();
     Init_Sci_Service();
 	Init_Adc_Service();
+
 	PFAL_ADC_CFG(CfgAdcTbl_User,sizeof(CfgAdcTbl_User)/sizeof(CfgAdcTbl_User[0]));		        //pass the test
 	PFAL_GPIO_CFG(CfgGpioTbl_User,sizeof(CfgGpioTbl_User)/sizeof(CfgGpioTbl_User[0]));	        //pass the test
 	PFAL_PWM_CFG(CfgPwmTbl_User,sizeof(CfgPwmTbl_User)/sizeof(CfgPwmTbl_User[0]));		        //pass the test
@@ -32,12 +32,13 @@ void main(void)
 	PFAL_XINTF_CFG(CfgXintfTbl_User,sizeof(CfgXintfTbl_User)/sizeof(CfgXintfTbl_User[0]));  
 	PFAL_TIMER_CFG(CfgTimerTbl_User,sizeof(CfgTimerTbl_User)/sizeof(CfgTimerTbl_User[0]));      //pass the test
 	PFAL_INTERRUPT_CFG(CfgInterruptTbl_User,sizeof(CfgInterruptTbl_User)/sizeof(CfgInterruptTbl_User[0]));
+
 	ENABLE_DRIVE_BOARD_PWM_OUTPUT();
 	TURN_ON_PWM_VALVE;
 
-
-
 	DISABLE_GLOBAL_INTERRUPT;
+
+#if(SYS_DEBUG == INCLUDE_FEATURE)
 	if(Flash_WR(0x330000, flashArrayW, sizeof(flashArrayW)) == STATUS_SUCCESS)
 	{
 		gtest |= 0x01;
@@ -56,6 +57,7 @@ void main(void)
 		gtest |= 0x08;
 	}
 	ENABLE_GLOBAL_INTERRUPT;
+#endif
 
 	while(1)
 	{
@@ -66,16 +68,19 @@ void main(void)
 		DIGIT_SIG_ROUTING_INSPECTION();
 #if(SYS_DEBUG == INCLUDE_FEATURE)
 		PF_ProcessSciRxPacket(gScibRxQue);
-#elif
+
+#else
         ProcessSciRxPacket(gScibRxQue);
 #endif
 		SYS_STATE_MACHINE;
+
 		++i;
 		if(i > 1000)
 		{
         	PackSciTxPacket(gScibTxQue,gSciTxVar);
 			i = 0;
 		}
+
         CheckEnableScibTx(gScibTxQue);
 	}
 }
