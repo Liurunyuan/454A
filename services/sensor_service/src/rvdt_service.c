@@ -1,4 +1,5 @@
 #include "rvdt_service.h"
+#include "prod.h"
 
 Uint16 *SDB_RVDT_Read_Addr = (Uint16 *)0x100000;
 int16 Get_RVDT_Position(Uint16 *Resolver_read)
@@ -12,7 +13,7 @@ int16 Get_RVDT_Position(Uint16 *Resolver_read)
 		i = 0;
 	}
 	return i;
-#elif
+#else
 	int16 rvdt_result_tem1=0;
 	int16 rvdt_result_tem2=0;
  	int16 rvdt_result_tem3=0;

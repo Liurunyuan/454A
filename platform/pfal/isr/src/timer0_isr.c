@@ -1,11 +1,13 @@
 #include "timer0_isr.h"
-#if(SYS_DEBUG == INCLUDE_FEATUER)
+#include "prod.h"
+
+#if(SYS_DEBUG == INCLUDE_FEATURE)
 int gtimertest = 0;
 #endif
 
 void PFAL_Timer0_ISR(void)
 {
-#if(SYS_DEBUG == INCLUDE_FEATUER)
+#if(SYS_DEBUG == INCLUDE_FEATURE)
     gtimertest++;
 #endif
 }
