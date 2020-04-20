@@ -18,7 +18,7 @@ typedef struct _SPWM_PARA
     int16 Duty;
     int16 Duty_Gradual;
     int16 Rvdt_Pos;
-    int16 Rvdt_Current_Pos;
+    Uint16 Rvdt_Current_Pos;
     int16 Rvdt_Zero;
     int16 DutyAddInterval;
     int16 DutyAddIntervalCnt;

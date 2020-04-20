@@ -24,7 +24,7 @@ void CFG_XINTF(CFG_XINTF_TBL cfgTbleElement)
         GpioCtrlRegs.GPCMUX1.bit.GPIO67 = 3;  // XD12
         GpioCtrlRegs.GPCMUX1.bit.GPIO68 = 3;  // XD11
         GpioCtrlRegs.GPCMUX1.bit.GPIO69 = 3;  // XD10
-        GpioCtrlRegs.GPCMUX1.bit.GPIO70 = 3;  // XD19
+        GpioCtrlRegs.GPCMUX1.bit.GPIO70 = 3;  // XD9
         GpioCtrlRegs.GPCMUX1.bit.GPIO71 = 3;  // XD8
         GpioCtrlRegs.GPCMUX1.bit.GPIO72 = 3;  // XD7
         GpioCtrlRegs.GPCMUX1.bit.GPIO73 = 3;  // XD6
