@@ -101,6 +101,10 @@ void CFG_XINTF(CFG_XINTF_TBL cfgTbleElement)
         GpioCtrlRegs.GPAMUX2.bit.GPIO29 = 3;  // XA19
     }
 
+    GpioCtrlRegs.GPBMUX1.bit.GPIO34 = 3;  // XREADY
+    //GpioCtrlRegs.GPBMUX1.bit.GPIO35 = 3;  // XRNW
+    GpioCtrlRegs.GPBMUX1.bit.GPIO38 = 3;  // XWE0
+    
     if(cfgTbleElement.xintfZone0Enale == ZONE0_ENABLE)
     {
         GpioCtrlRegs.GPBMUX1.bit.GPIO36 = 3;  // XZCS0
