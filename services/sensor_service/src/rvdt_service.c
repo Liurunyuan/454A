@@ -18,9 +18,9 @@ int16 Get_RVDT_Position(Uint16 *Resolver_read)
 	int16 rvdt_result_tem2=0;
  	int16 rvdt_result_tem3=0;
     int16 rvdt_result;
-	rvdt_result_tem1 = (*Resolver_read) >> 4;
-	rvdt_result_tem2 = (*Resolver_read) >> 4;
-	rvdt_result_tem3 = (*Resolver_read) >> 4;
+	rvdt_result_tem1 = (*Resolver_read) >> 6;
+	rvdt_result_tem2 = (*Resolver_read) >> 6;
+	rvdt_result_tem3 = (*Resolver_read) >> 6;
 	if(rvdt_result_tem1 == rvdt_result_tem2)
 	{
 		rvdt_result = rvdt_result_tem1;
@@ -41,6 +41,7 @@ int16 Get_RVDT_Position(Uint16 *Resolver_read)
 	else
 	{
     }
+	rvdt_result = rvdt_result * 4;
     return rvdt_result;
 #endif
 }
