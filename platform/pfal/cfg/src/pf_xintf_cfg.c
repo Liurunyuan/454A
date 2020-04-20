@@ -106,14 +106,14 @@ void CFG_XINTF(CFG_XINTF_TBL cfgTbleElement)
         GpioCtrlRegs.GPBMUX1.bit.GPIO36 = 3;  // XZCS0
     }
 
-    if(cfgTbleElement.xintfZone0Enale == ZONE6_ENABLE)
+    if(cfgTbleElement.xintfZone6Enale == ZONE6_ENABLE)
     {
-        GpioCtrlRegs.GPBMUX1.bit.GPIO36 = 3;  // XZCS0
+        GpioCtrlRegs.GPAMUX2.bit.GPIO28 = 3;  // XZCS6
     }
 
-    if(cfgTbleElement.xintfZone0Enale == ZONE7_ENABLE)
+    if(cfgTbleElement.xintfZone7Enale == ZONE7_ENABLE)
     {
-        GpioCtrlRegs.GPBMUX1.bit.GPIO36 = 3;  // XZCS0
+        GpioCtrlRegs.GPBMUX1.bit.GPIO37 = 3;  // XZCS7
     }
     EDIS;
 }
