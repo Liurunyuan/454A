@@ -119,6 +119,11 @@ void CFG_XINTF(CFG_XINTF_TBL cfgTbleElement)
     {
         GpioCtrlRegs.GPBMUX1.bit.GPIO37 = 3;  // XZCS7
     }
+    GpioCtrlRegs.GPBMUX1.bit.GPIO38 = 3;  // XWE0
+
+     GpioCtrlRegs.GPBMUX1.bit.GPIO36 = 3;  // XZCS0
+  //   GpioCtrlRegs.GPBMUX1.bit.GPIO37 = 3;  // XZCS7
+     GpioCtrlRegs.GPAMUX2.bit.GPIO28 = 3;  // XZCS6
     EDIS;
 }
 
