@@ -18,9 +18,9 @@ Uint16 Get_RVDT_Position(Uint16 *Resolver_read)
 	Uint16 rvdt_result_tem2=0;
  	Uint16 rvdt_result_tem3=0;
     Uint16 rvdt_result;
-	rvdt_result_tem1 = (*Resolver_read);
-	rvdt_result_tem2 = (*Resolver_read);
-	rvdt_result_tem3 = (*Resolver_read);
+	rvdt_result_tem1 = (*Resolver_read) >> 6;
+	rvdt_result_tem2 = (*Resolver_read) >> 6;
+	rvdt_result_tem3 = (*Resolver_read) >> 6;
 	if(rvdt_result_tem1 == rvdt_result_tem2)
 	{
 		rvdt_result = rvdt_result_tem1;
@@ -33,7 +33,7 @@ Uint16 Get_RVDT_Position(Uint16 *Resolver_read)
 	{
 		rvdt_result = rvdt_result_tem2;
 	}
-	
+
 	if(rvdt_result < 0|| rvdt_result > 4095)
 	{
 		//TODO generate warining
@@ -41,7 +41,7 @@ Uint16 Get_RVDT_Position(Uint16 *Resolver_read)
 	else
 	{
     }
-	rvdt_result = rvdt_result;
+	rvdt_result = rvdt_result * 4;
     return rvdt_result;
 #endif
 }

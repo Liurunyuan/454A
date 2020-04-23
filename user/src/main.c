@@ -38,9 +38,8 @@ void main(void)
 	ENABLE_DRIVE_BOARD_PWM_OUTPUT();
 	TURN_ON_PWM_VALVE;
 
-	DISABLE_GLOBAL_INTERRUPT;
-
 #if(SYS_DEBUG == INCLUDE_FEATURE)
+	DISABLE_GLOBAL_INTERRUPT;
 	if(Flash_WR(0x330000, flashArrayW, sizeof(flashArrayW)) == STATUS_SUCCESS)
 	{
 		gtest |= 0x01;
@@ -66,7 +65,7 @@ void main(void)
 	    TOOGLE_CTL_BOARD_WATCHDOG;
 
 		TOOGLE_DRIVE_BOARD_WATCHDOG;
-		Resolver_result =(*Resolver_read);
+		Resolver_result =(*Resolver_read) >> 6;
 		DIGIT_SIG_ROUTING_INSPECTION();
 #if(SYS_DEBUG == INCLUDE_FEATURE)
 		PF_ProcessSciRxPacket(gScibRxQue);
