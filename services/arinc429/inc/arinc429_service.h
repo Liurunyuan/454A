@@ -147,8 +147,9 @@ typedef union
 #define Read_ARINC_TFLAG_PIN_STATUS		GpioDataRegs.GPBDATA.bit.GPIO59
 #define Read_ARINC_RFLAG_PIN_STATUS		GpioDataRegs.GPBDATA.bit.GPIO35
 
-void SetArinc429CtlReg(ARINC429_CTL_REG ctlRegVal);
-Uint16 ReadArinc429StatusReg(void);
-Uint16 ReadArinc429CtlReg(void);
+void 	Arinc429_SetArincCtlReg(ARINC429_CTL_REG ctlRegVal);
+Uint16 	Arinc429_ReadStatusReg(void);
+Uint16 	Arinc429_ReadCtlReg(void);
+Uint32	Arinc429_ReadRxFIFO_ONE_WORD();
 #endif
 

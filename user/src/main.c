@@ -66,9 +66,9 @@ void main(void)
 
 	// ARINC429_CTL_REG tmp;
 	// tmp.all = 0xff;
-	gtArinc429RegStatus = ReadArinc429StatusReg();
+	gtArinc429RegStatus = Arinc429_ReadStatusReg();
 	//SetArinc429CtlReg(tmp);
-	gtArinc429CtlReg = ReadArinc429CtlReg();
+	gtArinc429CtlReg = Arinc429_ReadCtlReg();
 
 	while(1)
 	{
