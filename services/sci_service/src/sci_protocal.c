@@ -234,7 +234,14 @@ void UpdateSciTxEnableFlag(SCITXVAR* sciTxVar, int len)
  	char tmp[3] = {0};
  	int lenPosition = 0;
  	Uint16 total =0;
+	static int times = 0;
 
+	++times;
+	if(times < 1000)
+	{
+		return;
+	}
+	times = 0;
 
  	if(count == 0)
 	{

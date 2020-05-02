@@ -12,8 +12,10 @@
 int gtest = 0;
 Uint16 flashArrayW[4] = {0x0802, 0x1991, 0x1234, 0x5678};
 Uint16 flashArrayR[4] = {0, 0, 0, 0};
-#endif
 int i = 0;
+#endif
+Uint16 *Resolver_read=(Uint16 *)0x100000;
+Uint16 Resolver_result=0;
 
 void main(void)
 {
@@ -36,9 +38,8 @@ void main(void)
 	ENABLE_DRIVE_BOARD_PWM_OUTPUT();
 	TURN_ON_PWM_VALVE;
 
-	DISABLE_GLOBAL_INTERRUPT;
-
 #if(SYS_DEBUG == INCLUDE_FEATURE)
+	DISABLE_GLOBAL_INTERRUPT;
 	if(Flash_WR(0x330000, flashArrayW, sizeof(flashArrayW)) == STATUS_SUCCESS)
 	{
 		gtest |= 0x01;
@@ -64,7 +65,7 @@ void main(void)
 	    TOOGLE_CTL_BOARD_WATCHDOG;
 
 		TOOGLE_DRIVE_BOARD_WATCHDOG;
-
+		Resolver_result =(*Resolver_read) >> 6;
 		DIGIT_SIG_ROUTING_INSPECTION();
 #if(SYS_DEBUG == INCLUDE_FEATURE)
 		PF_ProcessSciRxPacket(gScibRxQue);
@@ -74,12 +75,7 @@ void main(void)
 #endif
 		SYS_STATE_MACHINE;
 
-		++i;
-		if(i > 1000)
-		{
-        	PackSciTxPacket(gScibTxQue,gSciTxVar);
-			i = 0;
-		}
+        PackSciTxPacket(gScibTxQue,gSciTxVar);
 
         CheckEnableScibTx(gScibTxQue);
 	}
