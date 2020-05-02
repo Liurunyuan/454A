@@ -8,7 +8,7 @@
 typedef struct{
 	Uint16 HighByte : 8;
 	Uint16 LowByte	: 8;
-}VAR16BIT;
+}ARINCVAR16BIT;
 
 typedef struct{
 	Uint16 RxDataRate : 1;
@@ -53,14 +53,14 @@ typedef union
 {
     Uint16 all;
     ARINC429_CTL_REG_BIT16 regVale;
-	VAR16BIT HighLowByte;
+	ARINCVAR16BIT HighLowByte;
 }ARINC429_CTL_REG;
 
 typedef union
 {
     Uint16 all;
     ARINC429_STATUS_REG_BIT8 regVale;
-	VAR16BIT HighLowByte;
+	ARINCVAR16BIT HighLowByte;
 }ARINC429_STATUS_REG;
 
 

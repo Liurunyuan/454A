@@ -9,6 +9,7 @@
 #include "spwm_service.h"
 #include "adc_service.h"
 #include "gpio_service.h"
+#include "arinc429_service.h"
 
 
 

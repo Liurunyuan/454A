@@ -1,6 +1,6 @@
 #include "arinc429_service.h"
 
-int arinc429[11] = {0};
+int arinc429[11] = {0,0,0,0,0,0,0,0,0,0,0};
 void SetArinc429CtlReg(ARINC429_CTL_REG ctlRegVal)
 {
     Uint16 opcode = 0x10;
@@ -45,7 +45,7 @@ Uint16 ReadArinc429StatusReg(void)
 
 Uint16 ReadArinc429CtlReg(void)
 {
-    Uint16 opcode = 0x0D;
+    Uint16 opcode = 0x0B;
     Uint16 ret;
 
     Assert_CS_Pin();

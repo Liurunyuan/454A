@@ -10,8 +10,8 @@ void CFG_SPI_A(CFG_SPI_TBL cfgSpiTblElement)
     if(
         (cfgSpiTblElement.spiSIMOAPin == 54) && 
         (cfgSpiTblElement.spiSOMIAPin == 55) && 
-        (cfgSpiTblElement.spiCLKAPin == 56) && 
-        (cfgSpiTblElement.spiSTEAPin == 57)
+        (cfgSpiTblElement.spiCLKAPin  == 56) && 
+        (cfgSpiTblElement.spiSTEAPin  == 57)
       )
     {
         EALLOW;
@@ -34,8 +34,8 @@ void CFG_SPI_A(CFG_SPI_TBL cfgSpiTblElement)
     else if(
              (cfgSpiTblElement.spiSIMOAPin == 16) && 
              (cfgSpiTblElement.spiSOMIAPin == 17) && 
-             (cfgSpiTblElement.spiCLKAPin == 18) && 
-             (cfgSpiTblElement.spiSTEAPin == 19)
+             (cfgSpiTblElement.spiCLKAPin  == 18) && 
+             (cfgSpiTblElement.spiSTEAPin  == 19)
             )
     {
         EALLOW;
@@ -93,7 +93,7 @@ void CFG_SPI_A(CFG_SPI_TBL cfgSpiTblElement)
     SpiaRegs.SPIFFRX.all=0x204f;
     SpiaRegs.SPIFFCT.all=0x0;
 
-    SpiaRegs.SPICCR.bit.SPILBK = 1;
+    SpiaRegs.SPICCR.bit.SPILBK = 0;
     SpiaRegs.SPICCR.bit.SPISWRESET=1;  // Enable SPI
 
     SpiaRegs.SPIFFTX.bit.TXFIFO=1;
@@ -108,7 +108,6 @@ const CFG_SPI_HDL_TBL SDB_CfgSpiHdlTbl[TOTAL_SPI] =
 void PFAL_SPI_CFG(CFG_SPI_TBL* cfgSpiTbl, int len)
 {
 #if(PF_SPI == INCLUDE_FEATURE)
-
     SDB_CfgSpiHdlTbl[0](cfgSpiTbl[0]);
 #endif
 }

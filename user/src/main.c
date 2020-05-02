@@ -17,6 +17,9 @@ Uint16 *Resolver_read=(Uint16 *)0x100000;
 Uint16 Resolver_result=0;
 #endif
 
+Uint16 gtArinc429RegStatus = 0;
+Uint16 gtArinc429CtlReg = 0;
+
 
 void main(void)
 {
@@ -60,6 +63,12 @@ void main(void)
 	}
 	ENABLE_GLOBAL_INTERRUPT;
 #endif
+
+	// ARINC429_CTL_REG tmp;
+	// tmp.all = 0xff;
+	gtArinc429RegStatus = ReadArinc429StatusReg();
+	//SetArinc429CtlReg(tmp);
+	gtArinc429CtlReg = ReadArinc429CtlReg();
 
 	while(1)
 	{
