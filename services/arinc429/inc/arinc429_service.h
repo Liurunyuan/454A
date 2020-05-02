@@ -121,8 +121,8 @@ typedef union
 #define EnableArincLableRecognition(a)				(a | ArincEnlLalRecgnMask)
 
 
-#define Assert_CS_DELAY    		(20)
-#define Deassert_CS_DELAY    	(20)
+#define Assert_CS_DELAY    		(0)
+#define Deassert_CS_DELAY    	(0)
 #define Assert_CS_Pin()\
 						{\
 							GpioDataRegs.GPBCLEAR.bit.GPIO61 = 1;\
@@ -147,7 +147,7 @@ typedef union
 #define Read_ARINC_TFLAG_PIN_STATUS		GpioDataRegs.GPBDATA.bit.GPIO59
 #define Read_ARINC_RFLAG_PIN_STATUS		GpioDataRegs.GPBDATA.bit.GPIO35
 
-void 	Arinc429_SetArincCtlReg(ARINC429_CTL_REG ctlRegVal);
+void 	Arinc429_SetCtlReg(ARINC429_CTL_REG ctlRegVal);
 Uint16 	Arinc429_ReadStatusReg(void);
 Uint16 	Arinc429_ReadCtlReg(void);
 Uint32	Arinc429_ReadRxFIFO_ONE_WORD();

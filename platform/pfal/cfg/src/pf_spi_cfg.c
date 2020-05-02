@@ -79,25 +79,28 @@ void CFG_SPI_A(CFG_SPI_TBL cfgSpiTblElement)
     // SpiaRegs.SPIFFRX.all=0x205f;
 
     // SpiaRegs.SPIFFCT.all=0x0000;
+    SpiaRegs.SPIFFTX.all=0xE04f;
+    SpiaRegs.SPIFFRX.all=0x204f;
+    SpiaRegs.SPIFFCT.all=0x0;
+
     SpiaRegs.SPICCR.all =0x0007;	// Reset on, rising edge, 16-bit char bits
     
     //
     // Enable master mode, normal phase, enable talk, and SPI int disabled.
     //
-    SpiaRegs.SPICTL.all =0x0004;
-    SpiaRegs.SPIBRR =0x007f;
-    SpiaRegs.SPISTS.all=0x0000;
+    SpiaRegs.SPICTL.all =0x0006;
+    SpiaRegs.SPIBRR =0x01f;
+    // SpiaRegs.SPISTS.all=0x0000;
     // SpiaRegs.SPICCR.all =0x0017;   // Relinquish SPI from Reset
-    SpiaRegs.SPIPRI.bit.FREE = 1;  // Set so breakpoints don't disturb xmission
-    SpiaRegs.SPIFFTX.all=0xE040;
-    SpiaRegs.SPIFFRX.all=0x204f;
-    SpiaRegs.SPIFFCT.all=0x0;
+    
+
 
     SpiaRegs.SPICCR.bit.SPILBK = 0;
     SpiaRegs.SPICCR.bit.SPISWRESET=1;  // Enable SPI
+    SpiaRegs.SPIPRI.bit.FREE = 1;  // Set so breakpoints don't disturb xmission
 
-    SpiaRegs.SPIFFTX.bit.TXFIFO=1;
-    SpiaRegs.SPIFFRX.bit.RXFIFORESET=1;
+    // SpiaRegs.SPIFFTX.bit.TXFIFO=1;
+    // SpiaRegs.SPIFFRX.bit.RXFIFORESET=1;
 }
 
 const CFG_SPI_HDL_TBL SDB_CfgSpiHdlTbl[TOTAL_SPI] =

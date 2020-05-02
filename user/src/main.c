@@ -64,11 +64,8 @@ void main(void)
 	ENABLE_GLOBAL_INTERRUPT;
 #endif
 
-	// ARINC429_CTL_REG tmp;
-	// tmp.all = 0xff;
-	gtArinc429RegStatus = Arinc429_ReadStatusReg();
-	//SetArinc429CtlReg(tmp);
-	gtArinc429CtlReg = Arinc429_ReadCtlReg();
+	ARINC429_CTL_REG tmp;
+	tmp.all = 0x2800;
 
 	while(1)
 	{
@@ -87,6 +84,13 @@ void main(void)
 
         PackSciTxPacket(gScibTxQue,gSciTxVar);
 
+        Arinc429_SetCtlReg(tmp);
+
+        gtArinc429RegStatus = Arinc429_ReadStatusReg();
+
+        gtArinc429CtlReg = Arinc429_ReadCtlReg();
+
+		// GpioDataRegs.GPBTOGGLE.bit.GPIO54 = 1;
         CheckEnableScibTx(gScibTxQue);
 	}
 }
