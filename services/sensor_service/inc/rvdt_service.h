@@ -6,6 +6,6 @@
 
 
 extern Uint16 *SDB_RVDT_Read_Addr;
-int16 Get_RVDT_Position(Uint16 *Resolver_read);
+Uint16 Get_RVDT_Position(Uint16 *Resolver_read);
 
 #endif

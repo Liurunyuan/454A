@@ -44,7 +44,6 @@ void Calculate_Three_Phase_Duty(SPWM_PARA* spwmPara)
 	   spwmPara->Phase_Duty_W = -(spwmPara->Phase_Duty_U + spwmPara->Phase_Duty_V);
 }
 
-
 void Spwm_Output(SPWM_PARA* spwmPara)
 {
 #if(SPWM_DUTY_GRADUAL_CHANGE == INCLUDE_FEATURE)

@@ -24,7 +24,7 @@ void CFG_XINTF(CFG_XINTF_TBL cfgTbleElement)
         GpioCtrlRegs.GPCMUX1.bit.GPIO67 = 3;  // XD12
         GpioCtrlRegs.GPCMUX1.bit.GPIO68 = 3;  // XD11
         GpioCtrlRegs.GPCMUX1.bit.GPIO69 = 3;  // XD10
-        GpioCtrlRegs.GPCMUX1.bit.GPIO70 = 3;  // XD19
+        GpioCtrlRegs.GPCMUX1.bit.GPIO70 = 3;  // XD9
         GpioCtrlRegs.GPCMUX1.bit.GPIO71 = 3;  // XD8
         GpioCtrlRegs.GPCMUX1.bit.GPIO72 = 3;  // XD7
         GpioCtrlRegs.GPCMUX1.bit.GPIO73 = 3;  // XD6
@@ -78,43 +78,45 @@ void CFG_XINTF(CFG_XINTF_TBL cfgTbleElement)
 
     if(cfgTbleElement.xintfAddrEnable == ADDR_ENABLE)
     {
-        GpioCtrlRegs.GPBMUX1.bit.GPIO40 = 3;  // XA0/XWE1n
-        GpioCtrlRegs.GPBMUX1.bit.GPIO41 = 3;  // XA1
-        GpioCtrlRegs.GPBMUX1.bit.GPIO42 = 3;  // XA2
-        GpioCtrlRegs.GPBMUX1.bit.GPIO43 = 3;  // XA3
-        GpioCtrlRegs.GPBMUX1.bit.GPIO44 = 3;  // XA4
-        GpioCtrlRegs.GPBMUX1.bit.GPIO45 = 3;  // XA5
-        GpioCtrlRegs.GPBMUX1.bit.GPIO46 = 3;  // XA6
-        GpioCtrlRegs.GPBMUX1.bit.GPIO47 = 3;  // XA7
+         GpioCtrlRegs.GPBMUX1.bit.GPIO40 = 3;  // XA0/XWE1n
+         GpioCtrlRegs.GPBMUX1.bit.GPIO41 = 3;  // XA1
+         GpioCtrlRegs.GPBMUX1.bit.GPIO42 = 3;  // XA2
+         GpioCtrlRegs.GPBMUX1.bit.GPIO43 = 3;  // XA3
+         GpioCtrlRegs.GPBMUX1.bit.GPIO44 = 3;  // XA4
+         GpioCtrlRegs.GPBMUX1.bit.GPIO45 = 3;  // XA5
+         GpioCtrlRegs.GPBMUX1.bit.GPIO46 = 3;  // XA6
+         GpioCtrlRegs.GPBMUX1.bit.GPIO47 = 3;  // XA7
 
-        GpioCtrlRegs.GPCMUX2.bit.GPIO80 = 3;  // XA8
-        GpioCtrlRegs.GPCMUX2.bit.GPIO81 = 3;  // XA9
-        GpioCtrlRegs.GPCMUX2.bit.GPIO82 = 3;  // XA10
-        GpioCtrlRegs.GPCMUX2.bit.GPIO83 = 3;  // XA11
-        GpioCtrlRegs.GPCMUX2.bit.GPIO84 = 3;  // XA12
-        GpioCtrlRegs.GPCMUX2.bit.GPIO85 = 3;  // XA13
-        GpioCtrlRegs.GPCMUX2.bit.GPIO86 = 3;  // XA14
-        GpioCtrlRegs.GPCMUX2.bit.GPIO87 = 3;  // XA15
-        GpioCtrlRegs.GPBMUX1.bit.GPIO39 = 3;  // XA16
-        GpioCtrlRegs.GPAMUX2.bit.GPIO31 = 3;  // XA17
-        GpioCtrlRegs.GPAMUX2.bit.GPIO30 = 3;  // XA18
-        GpioCtrlRegs.GPAMUX2.bit.GPIO29 = 3;  // XA19
+         GpioCtrlRegs.GPCMUX2.bit.GPIO80 = 3;  // XA8
+         GpioCtrlRegs.GPCMUX2.bit.GPIO81 = 3;  // XA9
+         GpioCtrlRegs.GPCMUX2.bit.GPIO82 = 3;  // XA10
+         GpioCtrlRegs.GPCMUX2.bit.GPIO83 = 3;  // XA11
+         GpioCtrlRegs.GPCMUX2.bit.GPIO84 = 3;  // XA12
+         GpioCtrlRegs.GPCMUX2.bit.GPIO85 = 3;  // XA13
+         GpioCtrlRegs.GPCMUX2.bit.GPIO86 = 3;  // XA14
+         GpioCtrlRegs.GPCMUX2.bit.GPIO87 = 3;  // XA15
+         GpioCtrlRegs.GPBMUX1.bit.GPIO39 = 3;  // XA16
+         GpioCtrlRegs.GPAMUX2.bit.GPIO31 = 3;  // XA17
+         GpioCtrlRegs.GPAMUX2.bit.GPIO30 = 3;  // XA18
+         GpioCtrlRegs.GPAMUX2.bit.GPIO29 = 3;  // XA19
     }
-
+    
     if(cfgTbleElement.xintfZone0Enale == ZONE0_ENABLE)
     {
         GpioCtrlRegs.GPBMUX1.bit.GPIO36 = 3;  // XZCS0
     }
 
-    if(cfgTbleElement.xintfZone0Enale == ZONE6_ENABLE)
+    if(cfgTbleElement.xintfZone6Enale == ZONE6_ENABLE)
     {
-        GpioCtrlRegs.GPBMUX1.bit.GPIO36 = 3;  // XZCS0
+        GpioCtrlRegs.GPAMUX2.bit.GPIO28 = 3;  // XZCS6
     }
 
-    if(cfgTbleElement.xintfZone0Enale == ZONE7_ENABLE)
+    if(cfgTbleElement.xintfZone7Enale == ZONE7_ENABLE)
     {
-        GpioCtrlRegs.GPBMUX1.bit.GPIO36 = 3;  // XZCS0
+        GpioCtrlRegs.GPBMUX1.bit.GPIO37 = 3;  // XZCS7
     }
+
+     GpioCtrlRegs.GPBMUX1.bit.GPIO38 = 3;  // XWE0
     EDIS;
 }
 
