@@ -13,9 +13,10 @@ int gtest = 0;
 Uint16 flashArrayW[4] = {0x0802, 0x1991, 0x1234, 0x5678};
 Uint16 flashArrayR[4] = {0, 0, 0, 0};
 int i = 0;
-#endif
 Uint16 *Resolver_read=(Uint16 *)0x100000;
 Uint16 Resolver_result=0;
+#endif
+
 
 void main(void)
 {
@@ -65,11 +66,11 @@ void main(void)
 	    TOOGLE_CTL_BOARD_WATCHDOG;
 
 		TOOGLE_DRIVE_BOARD_WATCHDOG;
-		Resolver_result =(*Resolver_read) >> 6;
+
 		DIGIT_SIG_ROUTING_INSPECTION();
 #if(SYS_DEBUG == INCLUDE_FEATURE)
 		PF_ProcessSciRxPacket(gScibRxQue);
-
+		Resolver_result =(*Resolver_read) >> 6;
 #else
         ProcessSciRxPacket(gScibRxQue);
 #endif
