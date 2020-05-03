@@ -42,6 +42,25 @@ void main(void)
 	ENABLE_DRIVE_BOARD_PWM_OUTPUT();
 	TURN_ON_PWM_VALVE;
 
+	Arinc429_MR_DEASSERT;
+	int i;
+	for(i = 0; i < 20; ++i)
+	{
+		asm (" NOP");
+	}
+
+	Arinc429_MR_ASSERT;
+	for(i = 0; i < 20; ++i)
+	{
+		asm (" NOP");
+	}
+
+	Arinc429_MR_DEASSERT;
+	for(i = 0; i < 20; ++i)
+	{
+		asm (" NOP");
+	}
+
 #if(SYS_DEBUG == INCLUDE_FEATURE)
 	DISABLE_GLOBAL_INTERRUPT;
 	if(Flash_WR(0x330000, flashArrayW, sizeof(flashArrayW)) == STATUS_SUCCESS)

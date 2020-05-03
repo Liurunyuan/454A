@@ -6,8 +6,8 @@
 #include "prod_defs.h"
 
 typedef struct{
-	Uint16 HighByte : 8;
-	Uint16 LowByte	: 8;
+	Uint16 LowByte : 8;
+	Uint16 HighByte	: 8;
 }ARINCVAR16BIT;
 
 typedef struct{
@@ -146,6 +146,10 @@ typedef union
 
 #define Read_ARINC_TFLAG_PIN_STATUS		GpioDataRegs.GPBDATA.bit.GPIO59
 #define Read_ARINC_RFLAG_PIN_STATUS		GpioDataRegs.GPBDATA.bit.GPIO35
+
+
+#define Arinc429_MR_ASSERT              (GpioDataRegs.GPBSET.bit.GPIO60 = 1)
+#define Arinc429_MR_DEASSERT            (GpioDataRegs.GPBCLEAR.bit.GPIO60 = 1)
 
 void 	Arinc429_SetCtlReg(ARINC429_CTL_REG ctlRegVal);
 Uint16 	Arinc429_ReadStatusReg(void);
