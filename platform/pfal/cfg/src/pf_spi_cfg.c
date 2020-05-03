@@ -61,22 +61,10 @@ void CFG_SPI_A(CFG_SPI_TBL cfgSpiTblElement)
         //TODO generate warning info
     }
 
-    SpiaRegs.SPIFFTX.all=0xE04f;
-    SpiaRegs.SPIFFRX.all=0x204f;
-    SpiaRegs.SPIFFCT.all=0x0;
-    SpiaRegs.SPIFFTX.bit.TXFIFO=1;
-    SpiaRegs.SPIFFRX.bit.RXFIFORESET=1;
-
     SpiaRegs.SPICCR.all =0x0007;	// Reset on, rising edge, 16-bit char bits
-    
-    //
-    // Enable master mode, normal phase, enable talk, and SPI int disabled.
-    //
     SpiaRegs.SPICTL.all =0x0006;
     SpiaRegs.SPIBRR =0x01f;
-    
-    SpiaRegs.SPICCR.bit.SPILBK = 0;
-    SpiaRegs.SPICCR.bit.SPISWRESET=1;  // Enable SPI
+    SpiaRegs.SPICCR.all =0x0087;
     SpiaRegs.SPIPRI.bit.FREE = 1;  // Set so breakpoints don't disturb xmission
 }
 
