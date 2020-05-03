@@ -121,8 +121,8 @@ typedef union
 #define EnableArincLableRecognition(a)				(a | ArincEnlLalRecgnMask)
 
 
-#define Assert_CS_DELAY    		(0)
-#define Deassert_CS_DELAY    	(0)
+#define Assert_CS_DELAY    		(20)
+#define Deassert_CS_DELAY    	(20)
 #define Assert_CS_Pin()\
 						{\
 							GpioDataRegs.GPBCLEAR.bit.GPIO61 = 1;\
