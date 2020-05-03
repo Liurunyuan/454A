@@ -84,7 +84,7 @@ void main(void)
 #endif
 
 	ARINC429_CTL_REG tmp;
-	tmp.all = 0x2800;
+	tmp.all = 0x2801;
 
 	while(1)
 	{

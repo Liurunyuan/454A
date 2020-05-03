@@ -63,8 +63,8 @@ void CFG_SPI_A(CFG_SPI_TBL cfgSpiTblElement)
 
     SpiaRegs.SPICCR.all =0x0007;	// Reset on, rising edge, 16-bit char bits
     SpiaRegs.SPICTL.all =0x0006;
-    SpiaRegs.SPIBRR =0x02f;
-    SpiaRegs.SPICCR.all =0x0087;
+    SpiaRegs.SPIBRR =0x01f;
+    SpiaRegs.SPICCR.all =0x00C7;
     SpiaRegs.SPIPRI.bit.FREE = 1;  // Set so breakpoints don't disturb xmission
 }
 
