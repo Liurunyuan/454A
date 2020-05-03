@@ -44,19 +44,19 @@ void main(void)
 
 	Arinc429_MR_DEASSERT;
 	int i;
-	for(i = 0; i < 20; ++i)
+	for(i = 0; i < 100; ++i)
 	{
 		asm (" NOP");
 	}
 
 	Arinc429_MR_ASSERT;
-	for(i = 0; i < 20; ++i)
+	for(i = 0; i < 100; ++i)
 	{
 		asm (" NOP");
 	}
 
 	Arinc429_MR_DEASSERT;
-	for(i = 0; i < 20; ++i)
+	for(i = 0; i < 100; ++i)
 	{
 		asm (" NOP");
 	}

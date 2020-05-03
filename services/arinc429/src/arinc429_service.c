@@ -9,16 +9,15 @@ void Arinc429_SetCtlReg(ARINC429_CTL_REG ctlRegVal)
 
     SpiaRegs.SPITXBUF = (opcode) << 8;
     while(SpiaRegs.SPISTS.bit.INT_FLAG != 1);
-    arinc429[0] = SpiaRegs.SPIRXBUF;
+    arinc429[0] = (SpiaRegs.SPIRXBUF >> 8);
 
     SpiaRegs.SPITXBUF = (ctlRegVal.HighLowByte.HighByte << 8);
-
     while(SpiaRegs.SPISTS.bit.INT_FLAG != 1);
-    arinc429[1] = SpiaRegs.SPIRXBUF;
+    arinc429[1] = (SpiaRegs.SPIRXBUF >> 8);
 
     SpiaRegs.SPITXBUF = (ctlRegVal.HighLowByte.LowByte << 8);
     while(SpiaRegs.SPISTS.bit.INT_FLAG != 1);
-    arinc429[2] = SpiaRegs.SPIRXBUF;
+    arinc429[2] = (SpiaRegs.SPIRXBUF >> 8);
 
     Deassert_CS_Pin();
 }
@@ -33,11 +32,11 @@ Uint16 Arinc429_ReadStatusReg(void)
 
     SpiaRegs.SPITXBUF = (opcode << 8);
     while(SpiaRegs.SPISTS.bit.INT_FLAG != 1);
-    arinc429[3] = SpiaRegs.SPIRXBUF;
+    arinc429[3] = (SpiaRegs.SPIRXBUF >> 8);
 
     SpiaRegs.SPITXBUF = (0x0000 << 8);
     while(SpiaRegs.SPISTS.bit.INT_FLAG != 1);
-    arinc429[4] = SpiaRegs.SPIRXBUF;
+    arinc429[4] = (SpiaRegs.SPIRXBUF >> 8);
     
     ret = arinc429[4];
 
@@ -56,15 +55,15 @@ Uint16 Arinc429_ReadCtlReg(void)
   
     SpiaRegs.SPITXBUF = (opcode << 8);
     while(SpiaRegs.SPISTS.bit.INT_FLAG != 1);
-    arinc429[5] = SpiaRegs.SPIRXBUF;
+    arinc429[5] = (SpiaRegs.SPIRXBUF >> 8);
 
     SpiaRegs.SPITXBUF = (0x0000 << 8);
     while(SpiaRegs.SPISTS.bit.INT_FLAG != 1);
-    arinc429[6] = SpiaRegs.SPIRXBUF;
+    arinc429[6] = (SpiaRegs.SPIRXBUF >> 8);
 
     SpiaRegs.SPITXBUF = (0x0000 << 8);
     while(SpiaRegs.SPISTS.bit.INT_FLAG != 1);
-    arinc429[7] = SpiaRegs.SPIRXBUF;
+    arinc429[7] = (SpiaRegs.SPIRXBUF >> 8);
 
 
     ret = arinc429[6];
