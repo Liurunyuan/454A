@@ -28,7 +28,7 @@
 #define IS_OV_ERR_TZ                    (GpioDataRegs.GPADAT.bit.GPIO12 == 1)
 
 #define TURN_ON_PWM_VALVE               (GpioDataRegs.GPCCLEAR.bit.GPIO84 = 1)
-#define TURN_OFF_PWM_VALVE              (GpioDataRegs.GPCCLEAR.bit.GPIO84 = 1)
+#define TURN_OFF_PWM_VALVE              (GpioDataRegs.GPCSET.bit.GPIO84 = 1)
 
 #define DELAY_NOPS(times)                               \
                         {                               \
