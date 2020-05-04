@@ -19,6 +19,8 @@ Uint16 Resolver_result=0;
 
 Uint16 gtArinc429RegStatus = 0;
 Uint16 gtArinc429CtlReg = 0;
+Uint32 gtArinc429SendWord = 1;
+Uint32 gtArinc429ReadWord = 0;
 
 
 void main(void)
@@ -84,8 +86,15 @@ void main(void)
 #endif
 
 	ARINC429_CTL_REG tmp;
-	tmp.all = 0x2801;
+	tmp.all = 0x2800;
+	tmp.regVale.SelfTest = 0;
 
+	Arinc429_SetCtlReg(tmp);
+
+	gtArinc429RegStatus = Arinc429_ReadStatusReg();
+
+	gtArinc429CtlReg = Arinc429_ReadCtlReg();
+	gtArinc429SendWord = 0x00002008 + 0x01010101;
 	while(1)
 	{
 	    TOOGLE_CTL_BOARD_WATCHDOG;
@@ -103,11 +112,13 @@ void main(void)
 
         PackSciTxPacket(gScibTxQue,gSciTxVar);
 
-        Arinc429_SetCtlReg(tmp);
+		Arinc429_WriteTxFIFO_ONE_WORD(gtArinc429SendWord);
 
-        gtArinc429RegStatus = Arinc429_ReadStatusReg();
-
-        gtArinc429CtlReg = Arinc429_ReadCtlReg();
+		if(!(Arinc429_ReadStatusReg() & 0x01))
+		{
+			gtArinc429ReadWord = Arinc429_ReadRxFIFO_ONE_WORD();
+			// gtArinc429SendWord++;
+		}
 
 		// GpioDataRegs.GPBTOGGLE.bit.GPIO54 = 1;
         CheckEnableScibTx(gScibTxQue);
