@@ -5,9 +5,11 @@
 #include "pf_isr.h"
 #include "flash_hal.h"
 
-/**
+/*
+ *******
  * main.c
- */
+ *******
+*/
 #if(SYS_DEBUG == INCLUDE_FEATURE)
 int gtest = 0;
 Uint16 flashArrayW[4] = {0x0802, 0x1991, 0x1234, 0x5678};
