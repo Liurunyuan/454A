@@ -50,21 +50,14 @@ void main(void)
 
 #if(SYS_DEBUG == INCLUDE_FEATURE)
 	DISABLE_GLOBAL_INTERRUPT;
-	if(Flash_WR(0x330000, flashArrayW, sizeof(flashArrayW)) == STATUS_SUCCESS)
+	if(Flash_WR(0x330000, flashArrayW, sizeof(flashArrayW)) != STATUS_SUCCESS)
 	{
 		gtest |= 0x01;
 	}
-	else
+
+	if(Flash_RD(0x330000,flashArrayR, sizeof(flashArrayR)) != STATUS_SUCCESS)
 	{
-		gtest |= 0x02; /* code */
-	}
-	if(Flash_RD(0x330000,flashArrayR, sizeof(flashArrayR)) == STATUS_SUCCESS)
-	{
-		gtest |= 0x04;
-	}
-	else
-	{
-		gtest |= 0x08;
+		gtest |= 0x02;
 	}
 	ENABLE_GLOBAL_INTERRUPT;
 #endif
@@ -78,7 +71,9 @@ void main(void)
 	gtArinc429RegStatus = Arinc429_ReadStatusReg();
 
 	gtArinc429CtlReg = Arinc429_ReadCtlReg();
+
 	gtArinc429SendWord = 0x00002008 + 0x01010101;
+	
 	while(1)
 	{
 	    TOOGLE_CTL_BOARD_WATCHDOG;

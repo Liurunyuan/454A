@@ -113,9 +113,11 @@ void Init_Spwm_Service(void)
 	gSpwmPara.Rvdt_Pos = 0;
 	gSpwmPara.Rvdt_Zero = 0;
 	gSpwmPara.Duty_Gradual = 0;
-	gSpwmPara.DutyAddInterval = 0;
+	gSpwmPara.DutyAddInterval = 3;
 	gSpwmPara.DutyAddIntervalCnt = 0;
-	gSpwmPara.Ddtmax = 0;
-	gSpwmPara.ThresholdDutyP = 0;
-	gSpwmPara.ThresholdDutyN = 0;
+	gSpwmPara.Ddtmax = 1;
+	gSpwmPara.ThresholdDutyP = 300;
+	gSpwmPara.ThresholdDutyN = -300;
+
+	gSpwmPara.TargetDuty = 100;
 }
