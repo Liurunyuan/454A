@@ -152,3 +152,25 @@ Uint32 Arinc429_WriteTxFIFO_ONE_WORD(Uint32 data)
     return dummy;
 }
 
+void Arinc429_MasterReset(void)
+{
+    int i;
+	Arinc429_MR_DEASSERT;
+
+	for(i = 0; i < 100; ++i)
+	{
+		asm (" NOP");
+	}
+
+	Arinc429_MR_ASSERT;
+	for(i = 0; i < 100; ++i)
+	{
+		asm (" NOP");
+	}
+
+	Arinc429_MR_DEASSERT;
+	for(i = 0; i < 100; ++i)
+	{
+		asm (" NOP");
+	}
+}

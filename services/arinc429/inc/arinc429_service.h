@@ -156,5 +156,6 @@ Uint16 	Arinc429_ReadStatusReg(void);
 Uint16 	Arinc429_ReadCtlReg(void);
 Uint32	Arinc429_ReadRxFIFO_ONE_WORD(void);
 Uint32  Arinc429_WriteTxFIFO_ONE_WORD(Uint32 data);
+void 	Arinc429_MasterReset(void);
 #endif
 
