@@ -71,7 +71,9 @@ void main(void)
 	gtArinc429RegStatus = Arinc429_ReadStatusReg();
 
 	gtArinc429CtlReg = Arinc429_ReadCtlReg();
+
 	gtArinc429SendWord = 0x00002008 + 0x01010101;
+	
 	while(1)
 	{
 	    TOOGLE_CTL_BOARD_WATCHDOG;
