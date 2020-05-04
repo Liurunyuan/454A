@@ -8,6 +8,8 @@ SYS_STATE_FLAG gSysStateFlag =
     0
 };
 
+Uint16 gSysVersionNum = 0;
+
 void (*Sys_hlstPtr)(void);
 
 void Sys_hlstInit(void);
@@ -144,6 +146,7 @@ void Init_Sys_State_Service(void)
     INIT_SYS_RUNNING_STATE;            
     INIT_SYS_ROTATE_DIRECTION;
     SYS_STATE_MACHINE_INIT;
+    gSysVersionNum = 0;
 }
 
 

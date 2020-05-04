@@ -211,4 +211,5 @@ typedef struct _SYS_STATE_FLAG
 extern void (*Sys_hlstPtr)(void);
 void Init_Sys_State_Service(void);
 extern SYS_STATE_FLAG gSysStateFlag;
+extern Uint16 gSysVersionNum;
 #endif
