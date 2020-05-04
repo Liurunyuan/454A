@@ -1,0 +1,18 @@
+﻿/***************************0.0.1*******************************/
+Version Number: 0.0.1
+Date: 2020/5/4
+Author:Simon
+
+What new: 
+	1. Read Arinc429 status register succeed.
+	2. Read Arinc429 contrl register succeed.
+	3. Write Arinc429 contrl register succeed.
+	4. Write and read Arinc429 FIFO succeed(self test)
+
+TODO:
+	1. Test Arinc429 communication between two real boards.
+	2. Rotate the motor
+
+Bug Fix:
+	1. SPI configuration(mode, read, write...)
+/***************************************************************/
