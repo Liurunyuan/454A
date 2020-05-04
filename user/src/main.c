@@ -117,10 +117,8 @@ void main(void)
 		if(!(Arinc429_ReadStatusReg() & 0x01))
 		{
 			gtArinc429ReadWord = Arinc429_ReadRxFIFO_ONE_WORD();
-			// gtArinc429SendWord++;
 		}
 
-		// GpioDataRegs.GPBTOGGLE.bit.GPIO54 = 1;
         CheckEnableScibTx(gScibTxQue);
 	}
 }
