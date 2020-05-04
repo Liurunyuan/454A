@@ -34,7 +34,7 @@ Uint16 Get_RVDT_Position(Uint16 *Resolver_read)
 		rvdt_result = rvdt_result_tem2;
 	}
 
-	if(rvdt_result < 0|| rvdt_result > 4095)
+	if(rvdt_result > 4095)
 	{
 		//TODO generate warining
 	}

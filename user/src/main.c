@@ -13,9 +13,13 @@ int gtest = 0;
 Uint16 flashArrayW[4] = {0x0802, 0x1991, 0x1234, 0x5678};
 Uint16 flashArrayR[4] = {0, 0, 0, 0};
 int i = 0;
-#endif
 Uint16 *Resolver_read=(Uint16 *)0x100000;
 Uint16 Resolver_result=0;
+#endif
+
+Uint16 gtArinc429RegStatus = 0;
+Uint16 gtArinc429CtlReg = 0;
+
 
 void main(void)
 {
@@ -37,6 +41,25 @@ void main(void)
 
 	ENABLE_DRIVE_BOARD_PWM_OUTPUT();
 	TURN_ON_PWM_VALVE;
+
+	Arinc429_MR_DEASSERT;
+	int i;
+	for(i = 0; i < 100; ++i)
+	{
+		asm (" NOP");
+	}
+
+	Arinc429_MR_ASSERT;
+	for(i = 0; i < 100; ++i)
+	{
+		asm (" NOP");
+	}
+
+	Arinc429_MR_DEASSERT;
+	for(i = 0; i < 100; ++i)
+	{
+		asm (" NOP");
+	}
 
 #if(SYS_DEBUG == INCLUDE_FEATURE)
 	DISABLE_GLOBAL_INTERRUPT;
@@ -60,16 +83,19 @@ void main(void)
 	ENABLE_GLOBAL_INTERRUPT;
 #endif
 
+	ARINC429_CTL_REG tmp;
+	tmp.all = 0x2801;
+
 	while(1)
 	{
 	    TOOGLE_CTL_BOARD_WATCHDOG;
 
 		TOOGLE_DRIVE_BOARD_WATCHDOG;
-		Resolver_result =(*Resolver_read) >> 6;
+
 		DIGIT_SIG_ROUTING_INSPECTION();
 #if(SYS_DEBUG == INCLUDE_FEATURE)
 		PF_ProcessSciRxPacket(gScibRxQue);
-
+		Resolver_result =(*Resolver_read) >> 6;
 #else
         ProcessSciRxPacket(gScibRxQue);
 #endif
@@ -77,6 +103,13 @@ void main(void)
 
         PackSciTxPacket(gScibTxQue,gSciTxVar);
 
+        Arinc429_SetCtlReg(tmp);
+
+        gtArinc429RegStatus = Arinc429_ReadStatusReg();
+
+        gtArinc429CtlReg = Arinc429_ReadCtlReg();
+
+		// GpioDataRegs.GPBTOGGLE.bit.GPIO54 = 1;
         CheckEnableScibTx(gScibTxQue);
 	}
 }
