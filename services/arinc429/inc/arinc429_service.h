@@ -151,10 +151,10 @@ typedef union
 #define Arinc429_MR_ASSERT              (GpioDataRegs.GPBSET.bit.GPIO60 = 1)
 #define Arinc429_MR_DEASSERT            (GpioDataRegs.GPBCLEAR.bit.GPIO60 = 1)
 
-void 	Arinc429_SetCtlReg(ARINC429_CTL_REG ctlRegVal);
+Uint32 	Arinc429_SetCtlReg(ARINC429_CTL_REG ctlRegVal);
 Uint16 	Arinc429_ReadStatusReg(void);
 Uint16 	Arinc429_ReadCtlReg(void);
 Uint32	Arinc429_ReadRxFIFO_ONE_WORD(void);
-void Arinc429_WriteTxFIFO_ONE_WORD(Uint32 data);
+Uint32  Arinc429_WriteTxFIFO_ONE_WORD(Uint32 data);
 #endif
 
