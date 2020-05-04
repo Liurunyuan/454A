@@ -6,9 +6,9 @@
 #include "prod_defs.h"
 
 typedef struct{
-	Uint16 HighByte : 8;
-	Uint16 LowByte	: 8;
-}VAR16BIT;
+	Uint16 LowByte : 8;
+	Uint16 HighByte	: 8;
+}ARINCVAR16BIT;
 
 typedef struct{
 	Uint16 RxDataRate : 1;
@@ -53,14 +53,14 @@ typedef union
 {
     Uint16 all;
     ARINC429_CTL_REG_BIT16 regVale;
-	VAR16BIT HighLowByte;
+	ARINCVAR16BIT HighLowByte;
 }ARINC429_CTL_REG;
 
 typedef union
 {
     Uint16 all;
     ARINC429_STATUS_REG_BIT8 regVale;
-	VAR16BIT HighLowByte;
+	ARINCVAR16BIT HighLowByte;
 }ARINC429_STATUS_REG;
 
 
@@ -147,8 +147,13 @@ typedef union
 #define Read_ARINC_TFLAG_PIN_STATUS		GpioDataRegs.GPBDATA.bit.GPIO59
 #define Read_ARINC_RFLAG_PIN_STATUS		GpioDataRegs.GPBDATA.bit.GPIO35
 
-void SetArinc429CtlReg(ARINC429_CTL_REG ctlRegVal);
-Uint16 ReadArinc429StatusReg(void);
-Uint16 ReadArinc429CtlReg(void);
+
+#define Arinc429_MR_ASSERT              (GpioDataRegs.GPBSET.bit.GPIO60 = 1)
+#define Arinc429_MR_DEASSERT            (GpioDataRegs.GPBCLEAR.bit.GPIO60 = 1)
+
+void 	Arinc429_SetCtlReg(ARINC429_CTL_REG ctlRegVal);
+Uint16 	Arinc429_ReadStatusReg(void);
+Uint16 	Arinc429_ReadCtlReg(void);
+Uint32	Arinc429_ReadRxFIFO_ONE_WORD();
 #endif
 

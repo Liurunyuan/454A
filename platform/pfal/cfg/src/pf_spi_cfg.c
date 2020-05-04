@@ -10,8 +10,8 @@ void CFG_SPI_A(CFG_SPI_TBL cfgSpiTblElement)
     if(
         (cfgSpiTblElement.spiSIMOAPin == 54) && 
         (cfgSpiTblElement.spiSOMIAPin == 55) && 
-        (cfgSpiTblElement.spiCLKAPin == 56) && 
-        (cfgSpiTblElement.spiSTEAPin == 57)
+        (cfgSpiTblElement.spiCLKAPin  == 56) && 
+        (cfgSpiTblElement.spiSTEAPin  == 57)
       )
     {
         EALLOW;
@@ -34,8 +34,8 @@ void CFG_SPI_A(CFG_SPI_TBL cfgSpiTblElement)
     else if(
              (cfgSpiTblElement.spiSIMOAPin == 16) && 
              (cfgSpiTblElement.spiSOMIAPin == 17) && 
-             (cfgSpiTblElement.spiCLKAPin == 18) && 
-             (cfgSpiTblElement.spiSTEAPin == 19)
+             (cfgSpiTblElement.spiCLKAPin  == 18) && 
+             (cfgSpiTblElement.spiSTEAPin  == 19)
             )
     {
         EALLOW;
@@ -60,44 +60,12 @@ void CFG_SPI_A(CFG_SPI_TBL cfgSpiTblElement)
     {
         //TODO generate warning info
     }
-    // SpiaRegs.SPICCR.bit.SPISWRESET=0;
-	// SpiaRegs.SPICCR.all 		= 0x0051;
-	// SpiaRegs.SPICTL.all 		= 0x000f;
-	// SpiaRegs.SPIBRR				= 0x1d;
-	// SpiaRegs.SPICCR.all 		= 0x000F;
 
-
-	// SpiaRegs.SPICTL.bit.CLK_PHASE = 0;
-	// SpiaRegs.SPICCR.bit.CLKPOLARITY = 0;
-	// SpiaRegs.SPICCR.bit.SPICHAR = 0x7;
-
-	// SpiaRegs.SPICCR.bit.SPILBK = 1;
-	// SpiaRegs.SPICCR.bit.SPISWRESET = 1;
-	// SpiaRegs.SPIPRI.bit.FREE 	= 1;
-
-    // SpiaRegs.SPIFFTX.all=0xE041;
-    // SpiaRegs.SPIFFRX.all=0x205f;
-
-    // SpiaRegs.SPIFFCT.all=0x0000;
     SpiaRegs.SPICCR.all =0x0007;	// Reset on, rising edge, 16-bit char bits
-    
-    //
-    // Enable master mode, normal phase, enable talk, and SPI int disabled.
-    //
-    SpiaRegs.SPICTL.all =0x0004;
-    SpiaRegs.SPIBRR =0x007f;
-    SpiaRegs.SPISTS.all=0x0000;
-    // SpiaRegs.SPICCR.all =0x0017;   // Relinquish SPI from Reset
+    SpiaRegs.SPICTL.all =0x0006;
+    SpiaRegs.SPIBRR =0x01f;
+    SpiaRegs.SPICCR.all =0x00C7;
     SpiaRegs.SPIPRI.bit.FREE = 1;  // Set so breakpoints don't disturb xmission
-    SpiaRegs.SPIFFTX.all=0xE040;
-    SpiaRegs.SPIFFRX.all=0x204f;
-    SpiaRegs.SPIFFCT.all=0x0;
-
-    SpiaRegs.SPICCR.bit.SPILBK = 1;
-    SpiaRegs.SPICCR.bit.SPISWRESET=1;  // Enable SPI
-
-    SpiaRegs.SPIFFTX.bit.TXFIFO=1;
-    SpiaRegs.SPIFFRX.bit.RXFIFORESET=1;
 }
 
 const CFG_SPI_HDL_TBL SDB_CfgSpiHdlTbl[TOTAL_SPI] =
@@ -108,7 +76,6 @@ const CFG_SPI_HDL_TBL SDB_CfgSpiHdlTbl[TOTAL_SPI] =
 void PFAL_SPI_CFG(CFG_SPI_TBL* cfgSpiTbl, int len)
 {
 #if(PF_SPI == INCLUDE_FEATURE)
-
     SDB_CfgSpiHdlTbl[0](cfgSpiTbl[0]);
 #endif
 }
