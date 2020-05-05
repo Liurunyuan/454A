@@ -1,17 +1,19 @@
-﻿/***************************0.0.1*****************************/
-Version Number: 0.0.1
-Date: 2020/5/4
+﻿/***************************0.0.2*****************************/
+Version Number: 0.0.2
+Date: 2020/5/5
 Author:Simon
 
 What new: 
 	1. PWM curve verified succeed on the control board, duty change depends on the RVDT position
+	2. Use the GPIO62,63 to simulate the SSI protocol to get the position infor from the sensor.Pass the test.
+	3. Succeed passing the test of Arinc429 communication between two real boards.
+	4. Add the FW version number.
 
 TODO:
-	1. Test Arinc429 communication between two real boards.
-	2. Rotate the motor
+	1. Rotate the motor
 
 Bug Fix:
-	N/A
+	1. Fix some compile warnings
 /***************************0.0.1*******************************/
 Version Number: 0.0.1
 Date: 2020/5/4
