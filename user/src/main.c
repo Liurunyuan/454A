@@ -24,6 +24,21 @@ Uint16 gtArinc429CtlReg = 0;
 Uint32 gtArinc429SendWord = 1;
 Uint32 gtArinc429ReadWord = 0;
 
+Uint16 gPositionSensorData[4] = {0,0,0,0};
+void Read_PositionSensor(void)
+{
+	//send rs422 clock for the position sensor
+	ScicRegs.SCITXBUF = 0x55;
+	ScicRegs.SCITXBUF = 0x55;
+	ScicRegs.SCITXBUF = 0x55;
+	ScicRegs.SCITXBUF = 0x55;
+	ScicRegs.SCITXBUF = 0x55;
+
+	while(ScibRegs.SCIFFRX.bit.RXFFST != 0)
+	{// rs422 rx fifo is not empty
+		gPositionSensorData[0] = ScibRegs.SCIRXBUF.all;
+	}
+}
 
 void main(void)
 {
@@ -64,7 +79,7 @@ void main(void)
 
 	ARINC429_CTL_REG tmp;
 	tmp.all = 0x2800;
-	tmp.regVale.SelfTest = 0;
+	tmp.regVale.SelfTest = 1;
 
 	Arinc429_SetCtlReg(tmp);
 
@@ -96,6 +111,7 @@ void main(void)
 		if(!(Arinc429_ReadStatusReg() & 0x01))
 		{
 			gtArinc429ReadWord = Arinc429_ReadRxFIFO_ONE_WORD();
+			gtArinc429SendWord++;
 		}
 
         CheckEnableScibTx(gScibTxQue);
