@@ -24,22 +24,6 @@ Uint16 gtArinc429CtlReg = 0;
 Uint32 gtArinc429SendWord = 1;
 Uint32 gtArinc429ReadWord = 0;
 
-Uint16 gPositionSensorData[4] = {0,0,0,0};
-void Read_PositionSensor(void)
-{
-	//send rs422 clock for the position sensor
-	ScicRegs.SCITXBUF = 0x55;
-	ScicRegs.SCITXBUF = 0x55;
-	ScicRegs.SCITXBUF = 0x55;
-	ScicRegs.SCITXBUF = 0x55;
-	ScicRegs.SCITXBUF = 0x55;
-
-	while(ScibRegs.SCIFFRX.bit.RXFFST != 0)
-	{// rs422 rx fifo is not empty
-		gPositionSensorData[0] = ScibRegs.SCIRXBUF.all;
-	}
-}
-
 void main(void)
 {
 	InitSysCtrl();

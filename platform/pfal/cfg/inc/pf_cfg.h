@@ -23,11 +23,13 @@ CFG_GPIO_TBL CfgGpioTbl_User[] =
     {16, GPIO_OUTPUT},
     {84, GPIO_OUTPUT},
     {51, GPIO_OUTPUT},
+    {63, GPIO_OUTPUT},
     {59, GPIO_INTPUT},
     {35, GPIO_INTPUT},
     {12, GPIO_INTPUT},
     {40, GPIO_INTPUT},
     {42, GPIO_INTPUT},
+    {62, GPIO_INTPUT},
     {47, GPIO_INTPUT}
 };
 
@@ -155,17 +157,17 @@ CFG_SCI_TBL CfgSciTbl_User[] =
             ENABLE_LOOP_BACK
         }
     },
-    {
-        {
-            SCIC, 
-            62,
-            63
-        },
-        {
-            BAUD_RATE_115200,
-            ENABLE_LOOP_BACK
-        }
-    }
+    // {
+    //     {
+    //         SCIC, 
+    //         62,
+    //         63
+    //     },
+    //     {
+    //         BAUD_RATE_115200,
+    //         ENABLE_LOOP_BACK
+    //     }
+    // }
 };
 
 
@@ -189,7 +191,7 @@ CFG_TIMER_TBL CfgTimerTbl_User[] =
 {
     {
         TIMER0,       //Timer moudule, timer0 timer1
-        20000,         //timer period, unit:us
+        2,         //timer period, unit:us
         120          //system frequency
     },
     {
@@ -207,7 +209,7 @@ CFG_INTERRUPT_TBL CfgInterruptTbl_User[] =
     EPWM1,
     SCIBRX,
     SCIBTX,
-    SCICRX,
+    // SCICRX,
     // SCICTX
 };
 
