@@ -1,4 +1,18 @@
-﻿/***************************0.0.1*******************************/
+﻿/***************************0.0.1*****************************/
+Version Number: 0.0.1
+Date: 2020/5/4
+Author:Simon
+
+What new: 
+	1. PWM curve verified succeed on the control board, duty change depends on the RVDT position
+
+TODO:
+	1. Test Arinc429 communication between two real boards.
+	2. Rotate the motor
+
+Bug Fix:
+	N/A
+/***************************0.0.1*******************************/
 Version Number: 0.0.1
 Date: 2020/5/4
 Author:Simon
@@ -15,4 +29,4 @@ TODO:
 
 Bug Fix:
 	1. SPI configuration(mode, read, write...)
-/***************************************************************/
+/*****************************************************************/
