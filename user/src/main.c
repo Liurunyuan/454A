@@ -61,11 +61,7 @@ void main(void)
 	ENABLE_GLOBAL_INTERRUPT;
 #endif
 
-	ARINC429_CTL_REG tmp;
-	tmp.all = 0x2800;
-	tmp.regVale.SelfTest = 1;
-
-	Arinc429_SetCtlReg(tmp);
+	Arinc429_InitCtlReg();
 
 	gtArinc429RegStatus = Arinc429_ReadStatusReg();
 

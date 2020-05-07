@@ -174,3 +174,12 @@ void Arinc429_MasterReset(void)
 		asm (" NOP");
 	}
 }
+
+void Arinc429_InitCtlReg(void)
+{
+	ARINC429_CTL_REG tmp;
+	tmp.all = 0x2800;
+	tmp.regVale.SelfTest = 1;
+
+    Arinc429_SetCtlReg(tmp);
+}
