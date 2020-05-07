@@ -1,5 +1,8 @@
 #include "arinc429_service.h"
 
+
+ARINC429_PARA gArinc429Para = {0};
+
 int arinc429[11] = {0,0,0,0,0,0,0,0,0,0,0};
 Uint32 Arinc429_SetCtlReg(ARINC429_CTL_REG ctlRegVal)
 {
@@ -173,4 +176,21 @@ void Arinc429_MasterReset(void)
 	{
 		asm (" NOP");
 	}
+}
+
+void Arinc429_InitCtlReg(void)
+{
+	ARINC429_CTL_REG tmp;
+	tmp.all = 0x2800;
+	tmp.regVale.SelfTest = 1;
+
+    Arinc429_SetCtlReg(tmp);
+}
+
+void Init_Arinc429_Service(void)
+{
+    Arinc429_MasterReset();
+    Arinc429_InitCtlReg();
+    gArinc429Para.arinc429RegStatus = Arinc429_ReadStatusReg();
+    gArinc429Para.arinc429CtlReg = Arinc429_ReadCtlReg();
 }

@@ -1,24 +1,20 @@
-#include "timer0_isr.h"
-#include "prod.h"
+#include "position_ssi_service.h"
 
-#if(SYS_DEBUG == INCLUDE_FEATURE)
-int gtimertest = 0;
-#endif
+POSITION_SSI_PARA gPositionSSIPara = {0};
 
-Uint32 gSSIDATA = 0;
-Uint32 gSSIDATABAK = 0;
-
-void SimulateSSI(void)
+void PositionSSIService(void)
 {
     static int count = 0;
     static int subWait = 0;
     Uint32 tmp = 0;
+    static Uint32 gSSIDATA = 0;
 
     if(count == 0)
     {
         GpioDataRegs.GPBCLEAR.bit.GPIO63 = 1;
         count++;
         gSSIDATA = 0;
+        
         return;
     }
 
@@ -33,9 +29,9 @@ void SimulateSSI(void)
     {
         GpioDataRegs.GPBSET.bit.GPIO63 = 1;
 
-        if(subWait++ > 60)
+        if(subWait++ > gPositionSSIPara.subWaitTimes)
         {
-            gSSIDATABAK = gSSIDATA >> 1;
+            gPositionSSIPara.currentPos = gSSIDATA >> 1;
             subWait = 0;
             count = 0;
         }
@@ -56,20 +52,6 @@ void SimulateSSI(void)
         GpioDataRegs.GPBSET.bit.GPIO63 = 1;
         count++;
         return;
-    }
+    }   
 }
 
-
-void PFAL_Timer0_ISR(void)
-{
-#if(SYS_DEBUG == INCLUDE_FEATURE)
-    gtimertest++;
-#endif
-    static Uint64 count = 0;
-    if(count < 200000)
-    {
-        ++count;
-        return;
-    }
-    SimulateSSI();
-}
