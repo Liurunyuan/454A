@@ -19,8 +19,6 @@ Uint16 *Resolver_read=(Uint16 *)0x100000;
 Uint16 Resolver_result=0;
 #endif
 
-Uint16 gtArinc429RegStatus = 0;
-Uint16 gtArinc429CtlReg = 0;
 Uint32 gtArinc429SendWord = 1;
 Uint32 gtArinc429ReadWord = 0;
 
@@ -45,7 +43,7 @@ void main(void)
 	ENABLE_DRIVE_BOARD_PWM_OUTPUT();
 	TURN_ON_PWM_VALVE;
 
-	Arinc429_MasterReset();
+	Init_Arinc429_Service();
 
 #if(SYS_DEBUG == INCLUDE_FEATURE)
 	DISABLE_GLOBAL_INTERRUPT;
@@ -60,12 +58,6 @@ void main(void)
 	}
 	ENABLE_GLOBAL_INTERRUPT;
 #endif
-
-	Arinc429_InitCtlReg();
-
-	gtArinc429RegStatus = Arinc429_ReadStatusReg();
-
-	gtArinc429CtlReg = Arinc429_ReadCtlReg();
 
 	gtArinc429SendWord = 0x00002008 + 0x01010101;
 	

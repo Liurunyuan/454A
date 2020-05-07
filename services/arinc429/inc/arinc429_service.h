@@ -64,6 +64,13 @@ typedef union
 }ARINC429_STATUS_REG;
 
 
+typedef struct
+{
+	Uint16 arinc429RegStatus;
+	Uint16 arinc429CtlReg;
+}ARINC429_PARA;
+
+
 #define ArincRxFifoEmptyMask				BIT0
 #define ArincRxFifoHalFullMask				BIT1
 #define ArincRxFifoFullMask					BIT2
@@ -158,5 +165,6 @@ Uint32	Arinc429_ReadRxFIFO_ONE_WORD(void);
 Uint32  Arinc429_WriteTxFIFO_ONE_WORD(Uint32 data);
 void 	Arinc429_MasterReset(void);
 void 	Arinc429_InitCtlReg(void);
+void 	Init_Arinc429_Service(void);
 #endif
 
