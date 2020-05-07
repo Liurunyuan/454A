@@ -7,7 +7,7 @@ int gtimertest = 0;
 
 Uint32 gSSIDATA = 0;
 Uint32 gSSIDATABAK = 0;
-Uint32 gGPIO62DATA = 0;
+
 void SimulateSSI(void)
 {
     static int count = 0;
@@ -44,7 +44,6 @@ void SimulateSSI(void)
 
     if((count % 2) == 0)
     {
-//        gGPIO62DATA = GpioDataRegs.GPBDAT.bit.GPIO62;
         tmp = GpioDataRegs.GPBDAT.bit.GPIO62;
         gSSIDATA |= (tmp << (17 - (count/2)));
         GpioDataRegs.GPBCLEAR.bit.GPIO63 = 1;
