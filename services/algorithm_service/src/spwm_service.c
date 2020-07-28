@@ -98,9 +98,9 @@ void Spwm_Output(SPWM_PARA* spwmPara)
 
     Calculate_Three_Phase_Duty(spwmPara);
 
-    EPMW1_OUTPUT_DUAL_PLOARITY(750, spwmPara->Phase_Duty_W);
-    EPMW2_OUTPUT_DUAL_PLOARITY(750, spwmPara->Phase_Duty_V);
-    EPMW3_OUTPUT_DUAL_PLOARITY(750, spwmPara->Phase_Duty_U);
+    EPMW2_OUTPUT_DUAL_PLOARITY(750, spwmPara->Phase_Duty_W);
+    EPMW3_OUTPUT_DUAL_PLOARITY(750, spwmPara->Phase_Duty_V);
+    EPMW6_OUTPUT_DUAL_PLOARITY(750, spwmPara->Phase_Duty_U);
 }
 
 void Init_Spwm_Service(void)

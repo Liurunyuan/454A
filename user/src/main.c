@@ -24,6 +24,7 @@ Uint32 gtArinc429ReadWord = 0;
 
 void main(void)
 {
+	static int watchdog_count = 0;
 	InitSysCtrl();
 
 	Init_Sys_State_Service();
@@ -42,6 +43,7 @@ void main(void)
 
 	ENABLE_DRIVE_BOARD_PWM_OUTPUT();
 	TURN_ON_PWM_VALVE;
+	TURN_ON_CTL_BOARD();
 
 	Init_Arinc429_Service();
 
@@ -63,9 +65,15 @@ void main(void)
 	
 	while(1)
 	{
-	    TOOGLE_CTL_BOARD_WATCHDOG;
+		watchdog_count++;
+		if(watchdog_count == 15){
+		    TOOGLE_CTL_BOARD_WATCHDOG;
 
-		TOOGLE_DRIVE_BOARD_WATCHDOG;
+			TOOGLE_DRIVE_BOARD_WATCHDOG;
+
+			watchdog_count = 0;
+		}
+
 
 		DIGIT_SIG_ROUTING_INSPECTION();
 #if(SYS_DEBUG == INCLUDE_FEATURE)

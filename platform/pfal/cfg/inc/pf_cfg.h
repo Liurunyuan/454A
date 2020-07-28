@@ -24,13 +24,16 @@ CFG_GPIO_TBL CfgGpioTbl_User[] =
     {84, GPIO_OUTPUT},
     {51, GPIO_OUTPUT},
     {63, GPIO_OUTPUT},
+    {31, GPIO_OUTPUT},
+    {83, GPIO_OUTPUT},
     {59, GPIO_INTPUT},
     {35, GPIO_INTPUT},
     {12, GPIO_INTPUT},
     {40, GPIO_INTPUT},
     {42, GPIO_INTPUT},
     {62, GPIO_INTPUT},
-    {47, GPIO_INTPUT}
+    {47, GPIO_INTPUT},
+	{81, GPIO_INTPUT}
 };
 
 #define EPWM_PERIOD_K 40
@@ -191,7 +194,7 @@ CFG_TIMER_TBL CfgTimerTbl_User[] =
 {
     {
         TIMER0,       //Timer moudule, timer0 timer1
-        2,         //timer period, unit:us
+        20000,         //timer period, unit:us
         120          //system frequency
     },
     {
@@ -204,7 +207,7 @@ CFG_TIMER_TBL CfgTimerTbl_User[] =
 
 CFG_INTERRUPT_TBL CfgInterruptTbl_User[] = 
 {
-    TIMER0_ISR,
+//    TIMER0_ISR,
     TIMER1_ISR,
     EPWM1,
     SCIBRX,
