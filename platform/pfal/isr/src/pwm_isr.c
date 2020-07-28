@@ -2,13 +2,15 @@
 #include "prod.h"
 
 #if(SYS_DEBUG == INCLUDE_FEATURE)
-int gpwmisr = 0;
+
 #endif
+int gpwmisr = 0;
 void PFAL_PWM_ISR(void)
 {
 #if(SYS_DEBUG == INCLUDE_FEATURE)
-    gpwmisr++;
+
 #endif
+    gpwmisr++;
     Spwm_Output(&gSpwmPara);
 }
 
