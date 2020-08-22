@@ -5,5 +5,5 @@
 .launches/454A.launch
 
 .vscode/
-ctags
+tags
 cscope*
