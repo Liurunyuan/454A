@@ -16,6 +16,10 @@
 #define SYS_DEBUG                           NOT_INCLUDE_FEATURE
 #define SPWM_DUTY_GRADUAL_CHANGE            INCLUDE_FEATURE
 #define SYS_LOG								INCLUDE_FEATURE
+#define SYS_LOG_WARN                        INCLUDE_FEATURE
+#define SYS_LOG_ALARM                       INCLUDE_FEATURE
+#define SYS_LOG_DEBUG                       INCLUDE_FEATURE
+#define SYS_LOG_INFO                        INCLUDE_FEATURE
 
 
 #endif

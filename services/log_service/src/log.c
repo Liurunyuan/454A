@@ -5,10 +5,11 @@ SYS_LOG gSysLog = {0};
 
 void Log_Init()
 {
+
 #if(SYS_LOG_WARN == INCLUDE_FEATURE)
 	gSysLog.logLvStatus.warning = 1;
 #else
-
+	gSysLog.logLvStatus.warning = 0;
 #endif
 
 #if(SYS_LOG_ALARM == INCLUDE_FEATURE)
@@ -23,19 +24,20 @@ void Log_Init()
 	gSysLog.logLvStatus.info = 0;
 #endif
 
-#if(SYS_LOG DEBUG == INCLUDE_FEATURE)
-	gSysLog.logLvStatus.debug = 1;
-#else
-	gSysLog.logLvStatus.debug = 0;
-#endif
+//#if(SYS_LOG DEBUG == INCLUDE_FEATURE)
+//	gSysLog.logLvStatus.debug = 1;
+//#else
+//	gSysLog.logLvStatus.debug = 0;
+//#endif
+
 }
 
-inline void SetLogLevel(SYS_LOG_LV logLv)
+void SetLogLevel(SYS_LOG_LV logLv)
 {
 	gSysLog.logLvStatus = logLv;
 }
 
-void LOG_DEBUG()
+void LogDebug()
 {
 
 	//TODO
@@ -44,38 +46,38 @@ void LOG_DEBUG()
 
 }
 
-void LOG_WARN()
+void LogWarn()
 {
 
 }
 
-void LOG_ALARM()
+void LogAlarm()
 {
 
 }
 
-void LOG_INFO()
+void LogInfo()
 {
 
 }
 
-void LOG(UINT8 logLv)
+void LOG(Uint16 logLv)
 {
 	switch(logLv)
 	{
 		case LOG_DBG:
-			LOG_DEBUG();
+		    LogDebug();
 			break;
 		case LOG_WARN:
-			LOG_WARN();
+		    LogWarn();
 			break;
 		case LOG_ALARM:
-			LOG_ALARM();
+		    LogAlarm();
 			break;
 		case LOG_INFO:
-			LOG_INFO();
+			LogInfo();
 			break;
-		defalut:
+		default:
 			break;
 	}
 }

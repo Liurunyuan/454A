@@ -11,10 +11,10 @@
 
 typedef struct _SYS_LOG_LV
 {
-	UINT16 debug	:1;
-	UINT16 warning	:1;
-	UINT16 alarm	:1;
-	UINT16 info		:1;
+	Uint16 debug	:1;
+	Uint16 warning	:1;
+	Uint16 alarm	:1;
+	Uint16 info		:1;
 
 }SYS_LOG_LV;
 typedef struct _SYS_LOG
