@@ -26,7 +26,7 @@ typedef struct _SYS_LOG_LV
 typedef struct _SYS_LOG
 {
 	SYS_LOG_LV	logLvStatus;
-	Uint8		tranportType;
+	Uint16		transportType;
 
 }SYS_LOG;
 

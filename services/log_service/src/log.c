@@ -1,4 +1,5 @@
 #include "log.h"
+#include "prod_defs.h"
 
 
 SYS_LOG gSysLog = {0};
@@ -48,7 +49,7 @@ void SetLogLevel(SYS_LOG_LV logLv)
 	gSysLog.logLvStatus = logLv;
 }
 
-void LogDebug(Uint8 logid, void* data, Uint8 len)
+void LogDebug(Uint16 logid, void* data, Uint16 len)
 {
 	if(gSysLog.logLvStatus.debug == DISABLE)
 	{
@@ -59,7 +60,7 @@ void LogDebug(Uint8 logid, void* data, Uint8 len)
 	//send the data to the host
 }
 
-void LogWarn(Uint8 logid, void* data, Uint8 len)
+void LogWarn(Uint16 logid, void* data, Uint16 len)
 {
 	if(gSysLog.logLvStatus.warning == DISABLE)
 	{
@@ -68,7 +69,7 @@ void LogWarn(Uint8 logid, void* data, Uint8 len)
 
 }
 
-void LogAlarm(Uint8 logid, void* data, Uint8 len)
+void LogAlarm(Uint16 logid, void* data, Uint16 len)
 {
 	if(gSysLog.logLvStatus.alarm == DISABLE)
 	{
@@ -77,7 +78,7 @@ void LogAlarm(Uint8 logid, void* data, Uint8 len)
 
 }
 
-void LogInfo(Uint8 logid, void* data, Uint8 len)
+void LogInfo(Uint16 logid, void* data, Uint16 len)
 {
 	if(gSysLog.logLvStatus.info == DISABLE)
 	{
@@ -86,21 +87,21 @@ void LogInfo(Uint8 logid, void* data, Uint8 len)
 
 }
 
-void Log(Uint16 logLv, Uint8 logid, void* data, Uint8 len)
+void Log(Uint16 logLv, Uint16 logid, void* data, Uint16 len)
 {
 	switch(logLv)
 	{
 		case LOG_DBG:
-		    LogDebug(logLv, logid, data, len);
+		    LogDebug(logid, data, len);
 			break;
 		case LOG_WARN:
-		    LogWarn(logLv, logid, data, len);
+		    LogWarn(logid, data, len);
 			break;
 		case LOG_ALARM:
-		    LogAlarm(logLv, logid, data, len);
+		    LogAlarm(logid, data, len);
 			break;
 		case LOG_INFO:
-			LogInfo(logLv, logid, data, len);
+			LogInfo(logid, data, len);
 			break;
 		default:
 			break;
