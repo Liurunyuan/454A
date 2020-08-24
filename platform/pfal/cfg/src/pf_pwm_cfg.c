@@ -59,7 +59,60 @@ void CFG_PWM_1A(CFG_PWM_TBL cfgPwmTblElement)
 	epwmPeriod = (Uint16)(120000/cfgPwmTblElement.cfgPwmParam.Frequency/2);
     EALLOW;
     GpioCtrlRegs.GPAPUD.bit.GPIO0 = 0;    // Enable pull-up on GPIO0 (EPWM1A)
+    GpioCtrlRegs.GPAPUD.bit.GPIO1 = 0;    // Enable pull-up on GPIO1 (EPWM1B)   
+
     GpioCtrlRegs.GPAMUX1.bit.GPIO0 = 1;   // Configure GPIO0 as EPWM1A
+    GpioCtrlRegs.GPAMUX1.bit.GPIO1 = 1;   // Configure GPIO1 as EPWM1B
+
+    GpioCtrlRegs.GPAPUD.bit.GPIO2 = 0;    // Enable pull-up on GPIO2 (EPWM2A)
+    GpioCtrlRegs.GPAPUD.bit.GPIO3 = 0;    // Enable pull-up on GPIO3 (EPWM3B)
+
+/* Configure ePWM-2 pins using GPIO regs*/
+// This specifies which of the possible GPIO pins will be ePWM2 functional pins.
+// Comment out other unwanted lines.
+
+    GpioCtrlRegs.GPAMUX1.bit.GPIO2 = 1;   // Configure GPIO2 as EPWM2A
+    GpioCtrlRegs.GPAMUX1.bit.GPIO3 = 1;   // Configure GPIO3 as EPWM2B
+
+    GpioCtrlRegs.GPAPUD.bit.GPIO4 = 0;    // Enable pull-up on GPIO4 (EPWM3A)
+    GpioCtrlRegs.GPAPUD.bit.GPIO5 = 0;    // Enable pull-up on GPIO5 (EPWM3B)
+       
+/* Configure ePWM-3 pins using GPIO regs*/
+// This specifies which of the possible GPIO pins will be ePWM3 functional pins.
+// Comment out other unwanted lines.
+
+    GpioCtrlRegs.GPAMUX1.bit.GPIO4 = 1;   // Configure GPIO4 as EPWM3A
+    GpioCtrlRegs.GPAMUX1.bit.GPIO5 = 1;   // Configure GPIO5 as EPWM3B
+
+    GpioCtrlRegs.GPAPUD.bit.GPIO6 = 0;    // Enable pull-up on GPIO6 (EPWM4A)
+    GpioCtrlRegs.GPAPUD.bit.GPIO7 = 0;    // Enable pull-up on GPIO7 (EPWM4B)
+
+/* Configure ePWM-4 pins using GPIO regs*/
+// This specifies which of the possible GPIO pins will be ePWM4 functional pins.
+// Comment out other unwanted lines.
+
+    GpioCtrlRegs.GPAMUX1.bit.GPIO6 = 1;   // Configure GPIO6 as EPWM4A
+    GpioCtrlRegs.GPAMUX1.bit.GPIO7 = 1;   // Configure GPIO7 as EPWM4B
+
+    GpioCtrlRegs.GPAPUD.bit.GPIO8 = 0;    // Enable pull-up on GPIO8 (EPWM5A)
+    GpioCtrlRegs.GPAPUD.bit.GPIO9 = 0;    // Enable pull-up on GPIO9 (EPWM5B)
+
+/* Configure ePWM-5 pins using GPIO regs*/
+// This specifies which of the possible GPIO pins will be ePWM5 functional pins.
+// Comment out other unwanted lines.
+
+    GpioCtrlRegs.GPAMUX1.bit.GPIO8 = 1;   // Configure GPIO8 as EPWM5A
+    GpioCtrlRegs.GPAMUX1.bit.GPIO9 = 1;   // Configure GPIO9 as EPWM5B
+
+    GpioCtrlRegs.GPAPUD.bit.GPIO10 = 0;    // Enable pull-up on GPIO10 (EPWM6A)
+    GpioCtrlRegs.GPAPUD.bit.GPIO11 = 0;    // Enable pull-up on GPIO11 (EPWM6B)
+
+/* Configure ePWM-6 pins using GPIO regs*/
+// This specifies which of the possible GPIO pins will be ePWM6 functional pins.
+// Comment out other unwanted lines.
+
+    GpioCtrlRegs.GPAMUX1.bit.GPIO10 = 1;   // Configure GPIO10 as EPWM6A
+    GpioCtrlRegs.GPAMUX1.bit.GPIO11 = 1;   // Configure GPIO11 as EPWM6B
     EDIS;
     EALLOW;
 	SysCtrlRegs.PCLKCR0.bit.TBCLKSYNC = 0;
@@ -98,20 +151,20 @@ void CFG_PWM_1A(CFG_PWM_TBL cfgPwmTblElement)
 }
 void CFG_PWM_1B(CFG_PWM_TBL cfgPwmTblElement)
 {
-    EALLOW;
-    GpioCtrlRegs.GPAPUD.bit.GPIO1 = 0;    // Enable pull-up on GPIO1 (EPWM1B)
-    GpioCtrlRegs.GPAMUX1.bit.GPIO1 = 1;   // Configure GPIO1 as EPWM1B
-    EDIS;
+    // EALLOW;
+    // GpioCtrlRegs.GPAPUD.bit.GPIO1 = 0;    // Enable pull-up on GPIO1 (EPWM1B)
+    // GpioCtrlRegs.GPAMUX1.bit.GPIO1 = 1;   // Configure GPIO1 as EPWM1B
+    // EDIS;
 
 }
 void CFG_PWM_2A(CFG_PWM_TBL cfgPwmTblElement)
 {
 	Uint16 epwmPeriod;
 	epwmPeriod = (Uint16)(120000/cfgPwmTblElement.cfgPwmParam.Frequency/2);
-    EALLOW;
-    GpioCtrlRegs.GPAPUD.bit.GPIO2 = 0;    // Enable pull-up on GPIO2 (EPWM2A)
-    GpioCtrlRegs.GPAMUX1.bit.GPIO2 = 1;   // Configure GPIO2 as EPWM2A
-    EDIS;
+    // EALLOW;
+    // GpioCtrlRegs.GPAPUD.bit.GPIO2 = 0;    // Enable pull-up on GPIO2 (EPWM2A)
+    // GpioCtrlRegs.GPAMUX1.bit.GPIO2 = 1;   // Configure GPIO2 as EPWM2A
+    // EDIS;
 	EPwm2Regs.TBPRD = epwmPeriod;
 	EPwm2Regs.TBPHS.half.TBPHS = 0x0000;
 	EPwm2Regs.TBCTR = 0x0000;
@@ -143,19 +196,19 @@ void CFG_PWM_2A(CFG_PWM_TBL cfgPwmTblElement)
 }
 void CFG_PWM_2B(CFG_PWM_TBL cfgPwmTblElement)
 {
-    EALLOW;
-    GpioCtrlRegs.GPAPUD.bit.GPIO3 = 0;    // Enable pull-up on GPIO3 (EPWM3B)
-    GpioCtrlRegs.GPAMUX1.bit.GPIO3 = 1;   // Configure GPIO3 as EPWM2B
-    EDIS;
+    // EALLOW;
+    // GpioCtrlRegs.GPAPUD.bit.GPIO3 = 0;    // Enable pull-up on GPIO3 (EPWM3B)
+    // GpioCtrlRegs.GPAMUX1.bit.GPIO3 = 1;   // Configure GPIO3 as EPWM2B
+    // EDIS;
 }
 void CFG_PWM_3A(CFG_PWM_TBL cfgPwmTblElement)
 {
 	Uint16 epwmPeriod;
 	epwmPeriod = (Uint16)(120000/cfgPwmTblElement.cfgPwmParam.Frequency/2);
-    EALLOW;
-    GpioCtrlRegs.GPAPUD.bit.GPIO4 = 0;    // Enable pull-up on GPIO4 (EPWM3A)
-    GpioCtrlRegs.GPAMUX1.bit.GPIO4 = 1;   // Configure GPIO4 as EPWM3A
-    EDIS;
+    // EALLOW;
+    // GpioCtrlRegs.GPAPUD.bit.GPIO4 = 0;    // Enable pull-up on GPIO4 (EPWM3A)
+    // GpioCtrlRegs.GPAMUX1.bit.GPIO4 = 1;   // Configure GPIO4 as EPWM3A
+    // EDIS;
     EPwm3Regs.TBPRD = epwmPeriod;
 	EPwm3Regs.TBPHS.half.TBPHS = 0x0000;
 	EPwm3Regs.TBCTR = 0x0000;
@@ -187,19 +240,19 @@ void CFG_PWM_3A(CFG_PWM_TBL cfgPwmTblElement)
 }
 void CFG_PWM_3B(CFG_PWM_TBL cfgPwmTblElement)
 {
-    EALLOW;
-    GpioCtrlRegs.GPAPUD.bit.GPIO5 = 0;    // Enable pull-up on GPIO5 (EPWM3B)
-    GpioCtrlRegs.GPAMUX1.bit.GPIO5 = 1;   // Configure GPIO5 as EPWM3B
-    EDIS;
+    // EALLOW;
+    // GpioCtrlRegs.GPAPUD.bit.GPIO5 = 0;    // Enable pull-up on GPIO5 (EPWM3B)
+    // GpioCtrlRegs.GPAMUX1.bit.GPIO5 = 1;   // Configure GPIO5 as EPWM3B
+    // EDIS;
 }
 void CFG_PWM_4A(CFG_PWM_TBL cfgPwmTblElement)
 {
 	Uint16 epwmPeriod;
 	epwmPeriod = (Uint16)(120000/cfgPwmTblElement.cfgPwmParam.Frequency/2);
-    EALLOW;
-    GpioCtrlRegs.GPAPUD.bit.GPIO6 = 0;    // Enable pull-up on GPIO6 (EPWM4A)
-    GpioCtrlRegs.GPAMUX1.bit.GPIO6 = 1;   // Configure GPIO6 as EPWM4A
-    EDIS;
+    // EALLOW;
+    // GpioCtrlRegs.GPAPUD.bit.GPIO6 = 0;    // Enable pull-up on GPIO6 (EPWM4A)
+    // GpioCtrlRegs.GPAMUX1.bit.GPIO6 = 1;   // Configure GPIO6 as EPWM4A
+    // EDIS;
     EPwm4Regs.TBPRD = epwmPeriod;
 	EPwm4Regs.TBPHS.half.TBPHS = 0x0000;
 	EPwm4Regs.TBCTR = 0x0000;
@@ -231,19 +284,19 @@ void CFG_PWM_4A(CFG_PWM_TBL cfgPwmTblElement)
 }
 void CFG_PWM_4B(CFG_PWM_TBL cfgPwmTblElement)
 {
-    EALLOW;
-    GpioCtrlRegs.GPAPUD.bit.GPIO7 = 0;
-    GpioCtrlRegs.GPAMUX1.bit.GPIO7 = 1;
-    EDIS;
+    // EALLOW;
+    // GpioCtrlRegs.GPAPUD.bit.GPIO7 = 0;
+    // GpioCtrlRegs.GPAMUX1.bit.GPIO7 = 1;
+    // EDIS;
 }
 void CFG_PWM_5A(CFG_PWM_TBL cfgPwmTblElement)
 {
 	Uint16 epwmPeriod;
 	epwmPeriod = (Uint16)(120000/cfgPwmTblElement.cfgPwmParam.Frequency/2);
-    EALLOW;
-    GpioCtrlRegs.GPAPUD.bit.GPIO8 = 0;    // Enable pull-up on GPIO8 (EPWM5A)
-    GpioCtrlRegs.GPAMUX1.bit.GPIO8 = 1;   // Configure GPIO8 as EPWM5A
-    EDIS;
+    // EALLOW;
+    // GpioCtrlRegs.GPAPUD.bit.GPIO8 = 0;    // Enable pull-up on GPIO8 (EPWM5A)
+    // GpioCtrlRegs.GPAMUX1.bit.GPIO8 = 1;   // Configure GPIO8 as EPWM5A
+    // EDIS;
     EPwm5Regs.TBPRD = epwmPeriod;
 	EPwm5Regs.TBPHS.half.TBPHS = 0x0000;
 	EPwm5Regs.TBCTR = 0x0000;
@@ -275,19 +328,19 @@ void CFG_PWM_5A(CFG_PWM_TBL cfgPwmTblElement)
 }
 void CFG_PWM_5B(CFG_PWM_TBL cfgPwmTblElement)
 {
-    EALLOW;
-    GpioCtrlRegs.GPAPUD.bit.GPIO9 = 0;    // Enable pull-up on GPIO9 (EPWM5B)
-    GpioCtrlRegs.GPAMUX1.bit.GPIO9 = 1;   // Configure GPIO9 as EPWM5B
-    EDIS;
+    // EALLOW;
+    // GpioCtrlRegs.GPAPUD.bit.GPIO9 = 0;    // Enable pull-up on GPIO9 (EPWM5B)
+    // GpioCtrlRegs.GPAMUX1.bit.GPIO9 = 1;   // Configure GPIO9 as EPWM5B
+    // EDIS;
 }
 void CFG_PWM_6A(CFG_PWM_TBL cfgPwmTblElement)
 {
 	Uint16 epwmPeriod;
 	epwmPeriod = (Uint16)(120000/cfgPwmTblElement.cfgPwmParam.Frequency/2);
-    EALLOW;
-    GpioCtrlRegs.GPAPUD.bit.GPIO10 = 0;    // Enable pull-up on GPIO10 (EPWM6A)
-    GpioCtrlRegs.GPAMUX1.bit.GPIO10 = 1;   // Configure GPIO10 as EPWM6A
-    EDIS;
+    // EALLOW;
+    // GpioCtrlRegs.GPAPUD.bit.GPIO10 = 0;    // Enable pull-up on GPIO10 (EPWM6A)
+    // GpioCtrlRegs.GPAMUX1.bit.GPIO10 = 1;   // Configure GPIO10 as EPWM6A
+    // EDIS;
     EPwm6Regs.TBPRD = epwmPeriod;
 	EPwm6Regs.TBPHS.half.TBPHS = 0x0000;
 	EPwm6Regs.TBCTR = 0x0000;
@@ -319,10 +372,13 @@ void CFG_PWM_6A(CFG_PWM_TBL cfgPwmTblElement)
 }
 void CFG_PWM_6B(CFG_PWM_TBL cfgPwmTblElement)
 {
-    EALLOW;
-    GpioCtrlRegs.GPAPUD.bit.GPIO11 = 0;    // Enable pull-up on GPIO11 (EPWM6B)
-    GpioCtrlRegs.GPAMUX1.bit.GPIO11 = 1;   // Configure GPIO11 as EPWM6B
-    EDIS;
+    // EALLOW;
+    // GpioCtrlRegs.GPAPUD.bit.GPIO11 = 0;    // Enable pull-up on GPIO11 (EPWM6B)
+    // GpioCtrlRegs.GPAMUX1.bit.GPIO11 = 1;   // Configure GPIO11 as EPWM6B
+    // EDIS;
+	EALLOW;
+	SysCtrlRegs.PCLKCR0.bit.TBCLKSYNC = 1;
+	EDIS;
 }
 
 
@@ -347,16 +403,12 @@ void PFAL_PWM_CFG(CFG_PWM_TBL* cfgPwmTbl, int len)
 {
 #if(PF_PWM == INCLUDE_FEATURE)
     int i = 0;
-    EALLOW;
-	SysCtrlRegs.PCLKCR0.bit.TBCLKSYNC = 0;
-	EDIS;
+
     for(i = 0; i < len; ++i)
     {
         SDB_CfgPwmHdlTbl[cfgPwmTbl[i].cfgPwmModule.pwmModule](cfgPwmTbl[i]);
     }
-    EALLOW;
-	SysCtrlRegs.PCLKCR0.bit.TBCLKSYNC = 1;
-	EDIS;
+
 #endif
 }
 

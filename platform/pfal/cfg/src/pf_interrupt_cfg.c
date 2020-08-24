@@ -86,10 +86,17 @@ void PFAL_INTERRUPT_CFG(CFG_INTERRUPT_TBL* cfgInterruptTbl, int len)
 
     EINT;   // Enable Global interrupt INTM
     ERTM;
+    AdcRegs.ADCST.bit.INT_SEQ1_CLR=1;
     ScicRegs.SCIFFRX.bit.RXFFINTCLR = 1;
     ScicRegs.SCIFFTX.bit.TXFFINTCLR = 1;
     ScibRegs.SCIFFRX.bit.RXFFINTCLR = 1;
     ScibRegs.SCIFFTX.bit.TXFFINTCLR = 1;
+
+    EALLOW;
+    EPwm1Regs.TZCLR.bit.CBC=1;
+    EPwm1Regs.TZCLR.bit.INT=1;
+    EDIS;
+    EPwm1Regs.ETCLR.bit.INT = 1;
 #endif
 }
 

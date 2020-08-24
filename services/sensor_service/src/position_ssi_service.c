@@ -25,7 +25,7 @@ void PositionSSIService(void)
         return;
     }
 
-    if(count == 33)
+    if(count == (gPositionSSIPara.sensorBit * 2 + 1))
     {
         GpioDataRegs.GPBSET.bit.GPIO63 = 1;
 
@@ -53,5 +53,16 @@ void PositionSSIService(void)
         count++;
         return;
     }   
+}
+
+void Init_PositionSSI_Service(void)
+{
+    gPositionSSIPara.currentPos = 0;
+    gPositionSSIPara.isFirstExecuted = 1;
+    gPositionSSIPara.lastPos = 0;
+    gPositionSSIPara.powerUpPos = 0;
+    gPositionSSIPara.sensorBit = 16;
+    gPositionSSIPara.subWaitTimes = 60;
+    gPositionSSIPara.totalDistance = 0;
 }
 

@@ -44,6 +44,8 @@ void Calculate_Three_Phase_Duty(SPWM_PARA* spwmPara)
 	   spwmPara->Phase_Duty_W = -(spwmPara->Phase_Duty_U + spwmPara->Phase_Duty_V);
 }
 
+Uint16 gPostest = 0;
+int16 gtest2[3] = {0,0,0};
 void Spwm_Output(SPWM_PARA* spwmPara)
 {
 #if(SPWM_DUTY_GRADUAL_CHANGE == INCLUDE_FEATURE)
@@ -98,9 +100,14 @@ void Spwm_Output(SPWM_PARA* spwmPara)
 
     Calculate_Three_Phase_Duty(spwmPara);
 
-    EPMW1_OUTPUT_DUAL_PLOARITY(750, spwmPara->Phase_Duty_W);
-    EPMW2_OUTPUT_DUAL_PLOARITY(750, spwmPara->Phase_Duty_V);
-    EPMW3_OUTPUT_DUAL_PLOARITY(750, spwmPara->Phase_Duty_U);
+    EPMW2_OUTPUT_DUAL_PLOARITY(750, spwmPara->Phase_Duty_W);
+    EPMW3_OUTPUT_DUAL_PLOARITY(750, spwmPara->Phase_Duty_V);
+    EPMW6_OUTPUT_DUAL_PLOARITY(750, spwmPara->Phase_Duty_U);
+
+//    EPMW1_OUTPUT_DUAL_PLOARITY(750, gtest2[0]);
+//    EPMW4_OUTPUT_DUAL_PLOARITY(750, gtest2[1]);
+//    EPMW5_OUTPUT_DUAL_PLOARITY(750, gtest2[2]);
+
 }
 
 void Init_Spwm_Service(void)

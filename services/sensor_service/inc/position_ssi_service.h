@@ -16,5 +16,5 @@ typedef struct
     Uint16 isFirstExecuted;
 }POSITION_SSI_PARA;
 
-
+void Init_PositionSSI_Service(void);
 #endif

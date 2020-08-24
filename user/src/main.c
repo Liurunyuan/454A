@@ -22,6 +22,13 @@ Uint16 Resolver_result=0;
 Uint32 gtArinc429SendWord = 1;
 Uint32 gtArinc429ReadWord = 0;
 
+int gTestcount = 0;
+int gIsOcCnt = 0;
+int gtest = 0;
+Uint16 gP = 0;
+int gIsOC = 0;
+int gNoOC = 0;
+
 void main(void)
 {
 	InitSysCtrl();
@@ -33,15 +40,17 @@ void main(void)
 
 	PFAL_ADC_CFG(CfgAdcTbl_User,sizeof(CfgAdcTbl_User)/sizeof(CfgAdcTbl_User[0]));		        //pass the test
 	PFAL_GPIO_CFG(CfgGpioTbl_User,sizeof(CfgGpioTbl_User)/sizeof(CfgGpioTbl_User[0]));	        //pass the test
-	PFAL_PWM_CFG(CfgPwmTbl_User,sizeof(CfgPwmTbl_User)/sizeof(CfgPwmTbl_User[0]));		        //pass the test
+	Init_PWM();
+	// PFAL_PWM_CFG(CfgPwmTbl_User,sizeof(CfgPwmTbl_User)/sizeof(CfgPwmTbl_User[0]));		        //pass the test
 	PFAL_SCI_CFG(CfgSciTbl_User,sizeof(CfgSciTbl_User)/sizeof(CfgSciTbl_User[0]));		        //pass the test
 	PFAL_SPI_CFG(CfgSpiTbl_User,sizeof(CfgSpiTbl_User)/sizeof(CfgSpiTbl_User[0]));              //pass the test
 	PFAL_XINTF_CFG(CfgXintfTbl_User,sizeof(CfgXintfTbl_User)/sizeof(CfgXintfTbl_User[0]));  
 	PFAL_TIMER_CFG(CfgTimerTbl_User,sizeof(CfgTimerTbl_User)/sizeof(CfgTimerTbl_User[0]));      //pass the test
-	PFAL_INTERRUPT_CFG(CfgInterruptTbl_User,sizeof(CfgInterruptTbl_User)/sizeof(CfgInterruptTbl_User[0]));
-
+	// PFAL_INTERRUPT_CFG(CfgInterruptTbl_User,sizeof(CfgInterruptTbl_User)/sizeof(CfgInterruptTbl_User[0]));
+	Init_Interrupt();
 	ENABLE_DRIVE_BOARD_PWM_OUTPUT();
 	TURN_ON_PWM_VALVE;
+	TURN_ON_CTL_BOARD();
 
 	Init_Arinc429_Service();
 
@@ -63,9 +72,32 @@ void main(void)
 	
 	while(1)
 	{
-	    TOOGLE_CTL_BOARD_WATCHDOG;
+//		gP = Get_RVDT_Position(SDB_RVDT_Read_Addr);
+//		if(gtest == 0){
+//			Disable_All_Epwms();
+//		}
+//		else{
+//			Enable_All_Epwms();
+//		}
+//
+		if(IS_OC){
+			gIsOC++;
+		}
+		else{
+			gNoOC++;
+		}
 
-		TOOGLE_DRIVE_BOARD_WATCHDOG;
+		gTestcount++;
+		if(gTestcount == 500){
+			if(IS_OC){
+				ENABLE_DRIVE_BOARD_PWM_OUTPUT();
+				gIsOcCnt++;
+				gTestcount = 0;
+			}
+			else{
+				gTestcount = 0;
+			}
+		}
 
 		DIGIT_SIG_ROUTING_INSPECTION();
 #if(SYS_DEBUG == INCLUDE_FEATURE)
