@@ -21,14 +21,14 @@
 #define TOOGLE_DRIVE_BOARD_WATCHDOG		(GpioDataRegs.GPCTOGGLE.bit.GPIO85 = 1)
 #define TURN_ON_CTL_BOARD()                                            				\
                                         {                                           \
-                                            GpioDataRegs.GPASET.bit.GPIO31 = 1;     \
+                                            GpioDataRegs.GPADAT.bit.GPIO31 = 1;     \
                                             GpioDataRegs.GPCCLEAR.bit.GPIO83 = 1;     \
                                         }
 
 #define IS_VDD3V3_PG                    (GpioDataRegs.GPBDAT.bit.GPIO40 == 1)
 #define IS_1V9_PG                       (GpioDataRegs.GPBDAT.bit.GPIO42 == 1)
 #define IS_VCC3V3_PG                    (GpioDataRegs.GPBDAT.bit.GPIO47 == 1)
-#define IS_OC							(GpioDataRegs.GPCDAT.bit.GPIO81 == 0)
+#define IS_OC							(GpioDataRegs.GPCDAT.bit.GPIO81 == 1)
 
 #define IS_OV_ERR_TZ                    (GpioDataRegs.GPADAT.bit.GPIO12 == 1)
 
@@ -52,7 +52,7 @@
                                             GpioDataRegs.GPADAT.bit.GPIO16 = 1;     \
                                             DELAY_NOPS(30);                          \
                                             GpioDataRegs.GPADAT.bit.GPIO16 = 0;     \
-                                            DELAY_NOPS(30);                          \
+                                            DELAY_NOPS(15);                          \
                                             GpioDataRegs.GPADAT.bit.GPIO16 = 1;     \
                                             DELAY_NOPS(30);                          \
                                             GpioDataRegs.GPADAT.bit.GPIO16 = 0;		\
