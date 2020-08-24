@@ -38,7 +38,7 @@ void Calculate_Three_Phase_Duty(SPWM_PARA* spwmPara)
 	FindSinTbl(ct,&pb);
 
 	ful = (long)pa * (long)spwmPara->Duty;
-	pwmPara->Phase_Duty_U = (int16)(ful/32000);
+	spwmPara->Phase_Duty_U = (int16)(ful/32000);
 	ful = (long)pb * (long)spwmPara->Duty;
 	spwmPara->Phase_Duty_V = (int16)(ful/32000);
 	spwmPara->Phase_Duty_W = -(spwmPara->Phase_Duty_U + spwmPara->Phase_Duty_V);
