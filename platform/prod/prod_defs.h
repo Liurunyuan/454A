@@ -11,6 +11,9 @@
 #define SUCCESS     (1)
 #define FAIL        (0)
 
+#define ENABLE		(1)
+#define DISABLE     (0)
+
 #define BIT_0 (0x00000001)
 #define BIT_1 (0x00000002)
 #define BIT_2 (0x00000004)

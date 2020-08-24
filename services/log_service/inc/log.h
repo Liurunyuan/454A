@@ -9,6 +9,12 @@
 #define LOG_ALARM	2	
 #define LOG_INFO	3
 
+#define SCIA_TRANSPORT	0
+#define SCIB_TRANSPORT	1
+#define SCIC_TRANSPORT	2
+#define SPI_TRANSPORT	3
+#define CAN_TRANSPORT	4
+
 typedef struct _SYS_LOG_LV
 {
 	Uint16 debug	:1;
@@ -19,7 +25,8 @@ typedef struct _SYS_LOG_LV
 }SYS_LOG_LV;
 typedef struct _SYS_LOG
 {
-	SYS_LOG_LV logLvStatus;
+	SYS_LOG_LV	logLvStatus;
+	Uint8		tranportType;
 
 }SYS_LOG;
 
