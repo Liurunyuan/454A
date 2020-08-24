@@ -22,9 +22,15 @@ Uint16 Resolver_result=0;
 Uint32 gtArinc429SendWord = 1;
 Uint32 gtArinc429ReadWord = 0;
 
+int gTestcount = 0;
+int gIsOcCnt = 0;
+int gtest = 0;
+Uint16 gP = 0;
+int gIsOC = 0;
+int gNoOC = 0;
+
 void main(void)
 {
-	static int watchdog_count = 0;
 	InitSysCtrl();
 
 	Init_Sys_State_Service();
@@ -66,15 +72,32 @@ void main(void)
 	
 	while(1)
 	{
-		watchdog_count++;
-		if(watchdog_count == 15){
-		    TOOGLE_CTL_BOARD_WATCHDOG;
-
-			TOOGLE_DRIVE_BOARD_WATCHDOG;
-
-			watchdog_count = 0;
+//		gP = Get_RVDT_Position(SDB_RVDT_Read_Addr);
+//		if(gtest == 0){
+//			Disable_All_Epwms();
+//		}
+//		else{
+//			Enable_All_Epwms();
+//		}
+//
+		if(IS_OC){
+			gIsOC++;
+		}
+		else{
+			gNoOC++;
 		}
 
+		gTestcount++;
+		if(gTestcount == 500){
+			if(IS_OC){
+				ENABLE_DRIVE_BOARD_PWM_OUTPUT();
+				gIsOcCnt++;
+				gTestcount = 0;
+			}
+			else{
+				gTestcount = 0;
+			}
+		}
 
 		DIGIT_SIG_ROUTING_INSPECTION();
 #if(SYS_DEBUG == INCLUDE_FEATURE)

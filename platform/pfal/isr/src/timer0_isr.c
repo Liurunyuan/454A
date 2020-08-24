@@ -1,5 +1,6 @@
 #include "timer0_isr.h"
 #include "prod.h"
+#include "gpio_service.h"
 
 #if(SYS_DEBUG == INCLUDE_FEATURE)
 int gtimertest = 0;
@@ -59,17 +60,21 @@ void SimulateSSI(void)
     }
 }
 
-
+int gFeedWatchDogCnt = 0;
 void PFAL_Timer0_ISR(void)
 {
 #if(SYS_DEBUG == INCLUDE_FEATURE)
     gtimertest++;
 #endif
     static Uint64 count = 0;
-    if(count < 200000)
+    count++;
+    if(count > 3)
     {
-        ++count;
-        return;
+        count = 0;
+        gFeedWatchDogCnt++;
+        TOOGLE_CTL_BOARD_WATCHDOG;
+	    TOOGLE_DRIVE_BOARD_WATCHDOG;
     }
-    SimulateSSI();
+
+    //SimulateSSI();
 }
