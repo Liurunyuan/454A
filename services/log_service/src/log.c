@@ -24,11 +24,11 @@ void Log_Init()
 	gSysLog.logLvStatus.info = 0;
 #endif
 
-//#if(SYS_LOG DEBUG == INCLUDE_FEATURE)
-//	gSysLog.logLvStatus.debug = 1;
-//#else
-//	gSysLog.logLvStatus.debug = 0;
-//#endif
+#if(SYS_LOG_DEBUG == INCLUDE_FEATURE)
+	gSysLog.logLvStatus.debug = 1;
+#else
+	gSysLog.logLvStatus.debug = 0;
+#endif
 
 }
 
@@ -39,11 +39,9 @@ void SetLogLevel(SYS_LOG_LV logLv)
 
 void LogDebug()
 {
-
 	//TODO
 	//need to pack the coming data as sci protcol request
 	//send the data to the host
-
 }
 
 void LogWarn()
@@ -61,7 +59,7 @@ void LogInfo()
 
 }
 
-void LOG(Uint16 logLv)
+void Log(Uint16 logLv)
 {
 	switch(logLv)
 	{
