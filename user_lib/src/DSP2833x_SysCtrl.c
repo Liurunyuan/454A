@@ -66,17 +66,17 @@ void InitSysCtrl(void)
 // out of OTP/Flash will yield unpredictable results
 void if_flash_init(void)
 {
-	#ifdef FLASH_PROGRAM
+#ifdef FLASH_PROGRAM
     MemCopy(&RamfuncsLoadStart,&RamfuncsLoadEnd,&RamfuncsRunStart);
-   // memcpy(	&RamfuncsRunStart,
-   // 		&RamfuncsLoadStart,
-   // 		&RamfuncsLoadEnd - &RamfuncsLoadStart);
-   // Call Flash Initialization to setup flash waitstates
+	// memcpy(	&RamfuncsRunStart,
+	// 		&RamfuncsLoadStart,
+	// 		&RamfuncsLoadEnd - &RamfuncsLoadStart);
+	// Call Flash Initialization to setup flash waitstates
 	// This function must reside in RAM
 	InitFlash();
-   MemCopy(&Flash28_API_LoadStart, &Flash28_API_LoadEnd,&Flash28_API_RunStart);
-   FlashAPI_Init();
-	#endif
+	MemCopy(&Flash28_API_LoadStart, &Flash28_API_LoadEnd,&Flash28_API_RunStart);
+	FlashAPI_Init();
+#endif
 }
 void InitFlash(void)
 {
