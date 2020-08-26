@@ -1,5 +1,53 @@
 #include "spwm_service.h"
 SPWM_PARA gSpwmPara = {0};
+
+inline void openAH(void){
+	EPwm1Regs.AQCSFRC.bit.CSFA = 3;
+}
+
+inline void closeAH(void){
+	EPwm1Regs.AQCSFRC.bit.CSFA = 1;
+}
+
+inline void openAL(void){
+	EPwm1Regs.AQCSFRC.bit.CSFB = 3;
+}
+
+inline void closeAL(void){
+	EPwm1Regs.AQCSFRC.bit.CSFB = 2;
+}
+
+inline void openBH(void){
+	EPwm2Regs.AQCSFRC.bit.CSFA = 3;
+}
+
+inline void closeBH(void){
+	EPwm2Regs.AQCSFRC.bit.CSFA = 1;
+}
+inline void openBL(void){
+	EPwm2Regs.AQCSFRC.bit.CSFB = 3;
+}
+
+inline void closeBL(void){
+	EPwm2Regs.AQCSFRC.bit.CSFB = 2;
+}
+
+inline void openCH(void){
+	EPwm3Regs.AQCSFRC.bit.CSFA = 3;
+}
+
+inline void closeCH(void){
+	EPwm3Regs.AQCSFRC.bit.CSFA = 1;
+}
+inline void openCL(void){
+	EPwm3Regs.AQCSFRC.bit.CSFB = 3;
+}
+
+inline void closeCL(void){
+	EPwm3Regs.AQCSFRC.bit.CSFB = 2;
+}
+
+
 static void FindSinTbl(int16 ct,int16 *psinvalue)
 {
 	if(ct < 1024)
@@ -32,16 +80,57 @@ void Calculate_Three_Phase_Duty(SPWM_PARA* spwmPara)
 
 	   FindSinTbl(ct,&pa);
 
-	   ct += 1365;
-	   if(ct > 4095) ct -= 4096;
-
-	   FindSinTbl(ct,&pb);
-
 	   ful = (long)pa * (long)spwmPara->Duty;
 	   spwmPara->Phase_Duty_U = (int16)(ful/32000);
+
+	   if(ct < 2047){
+		    EPMW6_OUTPUT_UP(750, spwmPara->Phase_Duty_U);
+		    openAH();
+		    closeAL();
+	   }
+	   else{
+		   EPMW6_OUTPUT_DOWN(750, spwmPara->Phase_Duty_U);
+		   openAL();
+		   closeAH();
+	   }
+
+	   ct += 1365;
+	   if(ct > 4095) ct -= 4096;
+	   FindSinTbl(ct,&pb);
 	   ful = (long)pb * (long)spwmPara->Duty;
 	   spwmPara->Phase_Duty_V = (int16)(ful/32000);
+
+	   if(ct < 2047){
+		   EPMW2_OUTPUT_UP(750, spwmPara->Phase_Duty_V);
+		   openBH();
+		   closeBL();
+	   }
+	   else{
+		   EPMW2_OUTPUT_DOWN(750, spwmPara->Phase_Duty_V);
+		   openBL();
+		   closeBH();
+	   }
+
+	   ct += 1365;
+	   if(ct > 4095) ct -= 4096;
 	   spwmPara->Phase_Duty_W = -(spwmPara->Phase_Duty_U + spwmPara->Phase_Duty_V);
+
+	   if(ct < 2047){
+		   EPMW3_OUTPUT_UP(750, spwmPara->Phase_Duty_W);
+		   openCH();
+		   closeCL();
+	   }
+	   else{
+		   EPMW3_OUTPUT_DOWN(750, spwmPara->Phase_Duty_W);
+		   openCL();
+		   closeCH();
+	   }
+
+//	   ful = (long)pa * (long)spwmPara->Duty;
+//	   spwmPara->Phase_Duty_U = (int16)(ful/32000);
+
+
+
 }
 
 Uint16 gPostest = 0;
@@ -100,9 +189,9 @@ void Spwm_Output(SPWM_PARA* spwmPara)
 
     Calculate_Three_Phase_Duty(spwmPara);
 
-    EPMW2_OUTPUT_DUAL_PLOARITY(750, spwmPara->Phase_Duty_W);
-    EPMW3_OUTPUT_DUAL_PLOARITY(750, spwmPara->Phase_Duty_V);
-    EPMW6_OUTPUT_DUAL_PLOARITY(750, spwmPara->Phase_Duty_U);
+//    EPMW2_OUTPUT_DUAL_PLOARITY(750, spwmPara->Phase_Duty_W);
+//    EPMW3_OUTPUT_DUAL_PLOARITY(750, spwmPara->Phase_Duty_V);
+//    EPMW6_OUTPUT_DUAL_PLOARITY(750, spwmPara->Phase_Duty_U);
 
 //    EPMW1_OUTPUT_DUAL_PLOARITY(750, gtest2[0]);
 //    EPMW4_OUTPUT_DUAL_PLOARITY(750, gtest2[1]);
