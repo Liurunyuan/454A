@@ -101,12 +101,12 @@ void Calculate_Three_Phase_Duty(SPWM_PARA* spwmPara)
 	   spwmPara->Phase_Duty_V = (int16)(ful/32000);
 
 	   if(ct < 2047){
-		   EPMW2_OUTPUT_UP(750, spwmPara->Phase_Duty_V);
+		   EPMW3_OUTPUT_UP(750, spwmPara->Phase_Duty_V);
 		   openBH();
 		   closeBL();
 	   }
 	   else{
-		   EPMW2_OUTPUT_DOWN(750, spwmPara->Phase_Duty_V);
+		   EPMW3_OUTPUT_DOWN(750, spwmPara->Phase_Duty_V);
 		   openBL();
 		   closeBH();
 	   }
@@ -116,12 +116,12 @@ void Calculate_Three_Phase_Duty(SPWM_PARA* spwmPara)
 	   spwmPara->Phase_Duty_W = -(spwmPara->Phase_Duty_U + spwmPara->Phase_Duty_V);
 
 	   if(ct < 2047){
-		   EPMW3_OUTPUT_UP(750, spwmPara->Phase_Duty_W);
+		   EPMW2_OUTPUT_UP(750, spwmPara->Phase_Duty_W);
 		   openCH();
 		   closeCL();
 	   }
 	   else{
-		   EPMW3_OUTPUT_DOWN(750, spwmPara->Phase_Duty_W);
+		   EPMW2_OUTPUT_DOWN(750, spwmPara->Phase_Duty_W);
 		   openCL();
 		   closeCH();
 	   }
