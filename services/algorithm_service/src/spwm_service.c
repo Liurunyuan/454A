@@ -2,49 +2,49 @@
 SPWM_PARA gSpwmPara = {0};
 
 inline void openAH(void){
-	EPwm1Regs.AQCSFRC.bit.CSFA = 3;
+	EPwm6Regs.AQCSFRC.bit.CSFA = 3;
 }
 
 inline void closeAH(void){
-	EPwm1Regs.AQCSFRC.bit.CSFA = 1;
+	EPwm6Regs.AQCSFRC.bit.CSFA = 1;
 }
 
 inline void openAL(void){
-	EPwm1Regs.AQCSFRC.bit.CSFB = 3;
+	EPwm6Regs.AQCSFRC.bit.CSFB = 3;
 }
 
 inline void closeAL(void){
-	EPwm1Regs.AQCSFRC.bit.CSFB = 2;
+	EPwm6Regs.AQCSFRC.bit.CSFB = 2;
 }
 
 inline void openBH(void){
-	EPwm2Regs.AQCSFRC.bit.CSFA = 3;
-}
-
-inline void closeBH(void){
-	EPwm2Regs.AQCSFRC.bit.CSFA = 1;
-}
-inline void openBL(void){
-	EPwm2Regs.AQCSFRC.bit.CSFB = 3;
-}
-
-inline void closeBL(void){
-	EPwm2Regs.AQCSFRC.bit.CSFB = 2;
-}
-
-inline void openCH(void){
 	EPwm3Regs.AQCSFRC.bit.CSFA = 3;
 }
 
-inline void closeCH(void){
+inline void closeBH(void){
 	EPwm3Regs.AQCSFRC.bit.CSFA = 1;
 }
-inline void openCL(void){
+inline void openBL(void){
 	EPwm3Regs.AQCSFRC.bit.CSFB = 3;
 }
 
-inline void closeCL(void){
+inline void closeBL(void){
 	EPwm3Regs.AQCSFRC.bit.CSFB = 2;
+}
+
+inline void openCH(void){
+	EPwm2Regs.AQCSFRC.bit.CSFA = 3;
+}
+
+inline void closeCH(void){
+	EPwm2Regs.AQCSFRC.bit.CSFA = 1;
+}
+inline void openCL(void){
+	EPwm2Regs.AQCSFRC.bit.CSFB = 3;
+}
+
+inline void closeCL(void){
+	EPwm2Regs.AQCSFRC.bit.CSFB = 2;
 }
 
 
