@@ -18,7 +18,8 @@ typedef enum
 typedef enum
 {
     BAUD_RATE_9600,
-    BAUD_RATE_115200
+    BAUD_RATE_115200,
+    BAUD_RATE_921600
 }SCI_BAUD_RATE;
 
 typedef enum

@@ -29,7 +29,6 @@ typedef struct _SYS_LOG
 {
 	SYS_LOG_LV	logLvStatus;
 	Uint16		transportType;
-
 }SYS_LOG;
 
 extern void SetLogLevel(SYS_LOG_LV logLv);
@@ -38,5 +37,6 @@ extern void LogWarn(Uint16 logid, void* data, Uint16 len);
 extern void LogAlarm(Uint16 logid, void* data, Uint16 len);
 extern void LogInfo(Uint16 logid, void* data, Uint16 len);
 extern void Log(Uint16 logLv, Uint16 logid, void* data, Uint16 len);
+extern void Log_Init();
 #endif
 
