@@ -52,25 +52,42 @@ void SetLogLevel(SYS_LOG_LV logLv)
 void LogDebug(Uint16 logid, void* data, Uint16 len)
 {
     int i;
-#if(0)
+	int totalLength;
+
 	if(gSysLog.logLvStatus.debug == DISABLE)
 	{
 		return;
 	}
-#endif
-	//TODO
-	//need to pack the coming data as sci protcol request
-	//send the data to the host
 
-	char* tmp = (char*)malloc(len);
+	totalLength = len + EXTRA_LEN;
+
+	if(totalLength < GetSciTxQueLength(gScibTxQue))
+	{
+		return;
+	}
+
+	char* tmp = (char*)malloc(totalLength);
+
 	if(tmp == NULL)
 	{
 	    return;
 	}
+	tmp[0] = 0x5a;
+	tmp[1] = 0x5a;
 
-	memcpy(tmp, data, len);
+	tmp[2] = 0x5a;
 
-	for(i = 0; i < len; ++i)
+	tmp[3] = 0xff;
+	tmp[4] = 0xff;
+
+	tmp[totalLength - 4] = 0xbb;
+	tmp[totalLength - 3] = 0xcc;
+	tmp[totalLength - 2] = 0xa5;
+	tmp[totalLength - 1] = 0xa5;
+
+	memcpy(tmp + OFFSET, data, len);
+
+	for(i = 0; i < totalLength; ++i)
 	{
  		if(SciTxEnQueue(tmp[i],gScibTxQue) == 0)
 		{
