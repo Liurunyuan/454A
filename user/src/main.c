@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include "pf_isr.h"
 #include "flash_hal.h"
+#include "log.h"
 
 /*
  *******
@@ -22,12 +23,20 @@ Uint16 Resolver_result=0;
 Uint32 gtArinc429SendWord = 1;
 Uint32 gtArinc429ReadWord = 0;
 
+int gSwitch = 0;
+
+
+typedef struct
+{
+	/* data */
+	int a;
+	int b;
+	int c;
+	int d;
+}GTMP;
+
+
 int gTestcount = 0;
-int gIsOcCnt = 0;
-int gtest = 0;
-Uint16 gP = 0;
-int gIsOC = 0;
-int gNoOC = 0;
 
 void main(void)
 {
@@ -70,28 +79,16 @@ void main(void)
 
 	gtArinc429SendWord = 0x00002008 + 0x01010101;
 	
+	GTMP data;
+	data.a =1;
+	data.b =3;
+	data.c =5;
+	data.d =7;
 	while(1)
 	{
-//		gP = Get_RVDT_Position(SDB_RVDT_Read_Addr);
-//		if(gtest == 0){
-//			Disable_All_Epwms();
-//		}
-//		else{
-//			Enable_All_Epwms();
-//		}
-//
-		if(IS_OC){
-			gIsOC++;
-		}
-		else{
-			gNoOC++;
-		}
-
-		gTestcount++;
 		if(gTestcount == 500){
 			if(IS_OC){
 				ENABLE_DRIVE_BOARD_PWM_OUTPUT();
-				gIsOcCnt++;
 				gTestcount = 0;
 			}
 			else{
@@ -108,7 +105,15 @@ void main(void)
 #endif
 		SYS_STATE_MACHINE;
 
-        PackSciTxPacket(gScibTxQue,gSciTxVar);
+        //PackSciTxPacket(gScibTxQue,gSciTxVar);
+
+
+
+		if(gSwitch)
+		{
+			LogDebug(33, &data, sizeof(data));
+			gSwitch = 0;
+		}
 
 		Arinc429_WriteTxFIFO_ONE_WORD(gtArinc429SendWord);
 
