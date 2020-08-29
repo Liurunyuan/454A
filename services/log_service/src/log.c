@@ -98,11 +98,11 @@ void LogDebug(Uint16 logid, void* data, Uint16 len)
 
 	for(i = 0; i < len; ++i)
 	{
- 		if(SciTxEnQueue(tmp[i] >> 8,gScibTxQue) == 0)
+ 		if(SciTxEnQueue(tmp[i],gScibTxQue) == 0)
 		{
 			//TODO, generate alarm, queue is full
 		}
- 		if(SciTxEnQueue(tmp[i],gScibTxQue) == 0)
+ 		if(SciTxEnQueue(tmp[i] >> 8,gScibTxQue) == 0)
 		{
 			//TODO, generate alarm, queue is full
 		}
