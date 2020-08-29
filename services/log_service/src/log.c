@@ -51,13 +51,34 @@ void SetLogLevel(SYS_LOG_LV logLv)
 
 void LogDebug(Uint16 logid, void* data, Uint16 len)
 {
+    int i;
+#if(0)
 	if(gSysLog.logLvStatus.debug == DISABLE)
 	{
 		return;
 	}
+#endif
 	//TODO
 	//need to pack the coming data as sci protcol request
 	//send the data to the host
+
+	char* tmp = (char*)malloc(len);
+	if(tmp == NULL)
+	{
+	    return;
+	}
+
+	memcpy(tmp, data, len);
+
+	for(i = 0; i < len; ++i)
+	{
+ 		if(SciTxEnQueue(tmp[i],gScibTxQue) == 0)
+		{
+			//TODO, generate alarm, queue is full
+		}
+	}
+
+	free(tmp);
 }
 
 void LogWarn(Uint16 logid, void* data, Uint16 len)

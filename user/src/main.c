@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include "pf_isr.h"
 #include "flash_hal.h"
+#include "log.h"
 
 /*
  *******
@@ -21,6 +22,19 @@ Uint16 Resolver_result=0;
 
 Uint32 gtArinc429SendWord = 1;
 Uint32 gtArinc429ReadWord = 0;
+
+int gSwitch = 0;
+
+
+typedef struct
+{
+	/* data */
+	int a;
+	int b;
+	int c;
+	int d;
+}GTMP;
+
 
 int gTestcount = 0;
 
@@ -65,6 +79,11 @@ void main(void)
 
 	gtArinc429SendWord = 0x00002008 + 0x01010101;
 	
+	GTMP data;
+	data.a =1;
+	data.b =3;
+	data.c =5;
+	data.d =7;
 	while(1)
 	{
 		if(gTestcount == 500){
@@ -86,7 +105,15 @@ void main(void)
 #endif
 		SYS_STATE_MACHINE;
 
-        PackSciTxPacket(gScibTxQue,gSciTxVar);
+        //PackSciTxPacket(gScibTxQue,gSciTxVar);
+
+
+
+		if(gSwitch)
+		{
+			LogDebug(33, &data, sizeof(data));
+			gSwitch = 0;
+		}
 
 		Arinc429_WriteTxFIFO_ONE_WORD(gtArinc429SendWord);
 
