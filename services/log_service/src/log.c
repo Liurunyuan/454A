@@ -66,33 +66,63 @@ void LogDebug(Uint16 logid, void* data, Uint16 len)
 		return;
 	}
 
-	char* tmp = (char*)malloc(totalLength);
+	char* tmp = (char*)malloc(len);
 
 	if(tmp == NULL)
 	{
 	    return;
 	}
-	tmp[0] = 0x5a;
-	tmp[1] = 0x5a;
 
-	tmp[2] = 0x5a;
+	memcpy(tmp, data, len);
 
-	tmp[3] = 0xff;
-	tmp[4] = 0xff;
-
-	tmp[totalLength - 4] = 0xbb;
-	tmp[totalLength - 3] = 0xcc;
-	tmp[totalLength - 2] = 0xa5;
-	tmp[totalLength - 1] = 0xa5;
-
-	memcpy(tmp + OFFSET, data, len);
-
-	for(i = 0; i < totalLength; ++i)
+ 	if(SciTxEnQueue(0x5a,gScibTxQue) == 0)
 	{
+		//TODO, generate alarm, queue is full
+	}
+ 	if(SciTxEnQueue(0x5a,gScibTxQue) == 0)
+	{
+		//TODO, generate alarm, queue is full
+	}
+ 	if(SciTxEnQueue(0x00,gScibTxQue) == 0)
+	{
+		//TODO, generate alarm, queue is full
+	}
+ 	if(SciTxEnQueue(0xff,gScibTxQue) == 0)
+	{
+		//TODO, generate alarm, queue is full
+	}
+ 	if(SciTxEnQueue(0xff,gScibTxQue) == 0)
+	{
+		//TODO, generate alarm, queue is full
+	}
+
+	for(i = 0; i < len; ++i)
+	{
+ 		if(SciTxEnQueue(tmp[i] >> 8,gScibTxQue) == 0)
+		{
+			//TODO, generate alarm, queue is full
+		}
  		if(SciTxEnQueue(tmp[i],gScibTxQue) == 0)
 		{
 			//TODO, generate alarm, queue is full
 		}
+	}
+
+ 	if(SciTxEnQueue(0xaa,gScibTxQue) == 0)
+	{
+		//TODO, generate alarm, queue is full
+	}
+ 	if(SciTxEnQueue(0xbb,gScibTxQue) == 0)
+	{
+		//TODO, generate alarm, queue is full
+	}
+ 	if(SciTxEnQueue(0xa5,gScibTxQue) == 0)
+	{
+		//TODO, generate alarm, queue is full
+	}
+ 	if(SciTxEnQueue(0xa5,gScibTxQue) == 0)
+	{
+		//TODO, generate alarm, queue is full
 	}
 
 	free(tmp);

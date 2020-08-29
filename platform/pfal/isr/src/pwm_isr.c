@@ -1,5 +1,7 @@
 #include "pwm_isr.h"
 #include "prod.h"
+#include "sci_protocal.h"
+#include "sci_service.h"
 
 #if(SYS_DEBUG == INCLUDE_FEATURE)
 
@@ -12,5 +14,6 @@ void PFAL_PWM_ISR(void)
 #endif
     gpwmisr++;
     Spwm_Output(&gSpwmPara);
+    CheckEnableScibTx(gScibTxQue);
 }
 

@@ -25,12 +25,13 @@ Uint32 gtArinc429ReadWord = 0;
 typedef struct
 {
 	/* data */
-	int a;
-	int b;
-	int c;
-	int d;
+	Uint32 a;
+	Uint32 b;
+	Uint32 c;
+	Uint32 d;
 }GTMP;
 
+GTMP data;
 
 int gTestcount = 0;
 
@@ -74,12 +75,12 @@ void main(void)
 #endif
 
 	gtArinc429SendWord = 0x00002008 + 0x01010101;
+
+	data.a = 0x1234;
+	data.b = 0x4567;
+	data.c = 0x8901;
+	data.d = 0x2345;
 	
-	GTMP data;
-	data.a =1;
-	data.b =3;
-	data.c =5;
-	data.d =7;
 	while(1)
 	{
 		if(gTestcount == 500){
@@ -102,7 +103,7 @@ void main(void)
 		SYS_STATE_MACHINE;
 
         //PackSciTxPacket(gScibTxQue,gSciTxVar);
-		LogDebug(33, &data, sizeof(data));
+		LogDebug(33, &data, sizeof(GTMP));
 
 		Arinc429_WriteTxFIFO_ONE_WORD(gtArinc429SendWord);
 
@@ -111,7 +112,5 @@ void main(void)
 			gtArinc429ReadWord = Arinc429_ReadRxFIFO_ONE_WORD();
 			gtArinc429SendWord++;
 		}
-
-        CheckEnableScibTx(gScibTxQue);
 	}
 }
