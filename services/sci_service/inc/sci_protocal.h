@@ -13,19 +13,24 @@
 //UNIT_LEN = len(cmd + data) = 3
 //EXTRA_LEN = (head1 + head2 + len + serialnum + crch + crcl + tail1 + tail2) = 9
 //OFFSET = (head1 + head2 + len + serialnum) = 5
-#define HEAD1 0x5a
-#define HEAD2 0x5a
-#define TAIL1 0xa5
-#define TAIL2 0xa5
+#define HEAD1 		0x5a
+#define HEAD2 		0x5a
+#define HEAD_LEN 	(2) 
+
+#define TAIL1 		0xa5
+#define TAIL2 		0xa5
+#define TAIL_LEN 	(2)
+
+#define NUM_LEN		(2)
+#define CRC_LEN 	(2)
+
+#define UNIT_LEN    (3)
+
+#define EXTRA_LEN   (HEAD_LEN + 1 + NUM_LEN + CRC_LEN + TAIL_LEN)
+#define OFFSET      (HEAD_LEN + 1 + NUM_LEN)
+
 #define SUCCESS     (1)
 #define FAIL        (0)
-#define UNIT_LEN    (3)
-#define EXTRA_LEN   (9)
-#define OFFSET      (5)
-
-
-
-
 
 typedef PF_UION_2BYTES VAR16;
 typedef void (*functionMsgCodeUnpack)(VAR16 a, int b,int c);

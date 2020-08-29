@@ -156,7 +156,7 @@ CFG_SCI_TBL CfgSciTbl_User[] =
             22
         },
         {
-            BAUD_RATE_115200,
+            BAUD_RATE_921600,
             DISABLE_LOOP_BACK
         }
     },

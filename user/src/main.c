@@ -22,10 +22,6 @@ Uint16 Resolver_result=0;
 
 Uint32 gtArinc429SendWord = 1;
 Uint32 gtArinc429ReadWord = 0;
-
-int gSwitch = 0;
-
-
 typedef struct
 {
 	/* data */
@@ -49,14 +45,14 @@ void main(void)
 
 	PFAL_ADC_CFG(CfgAdcTbl_User,sizeof(CfgAdcTbl_User)/sizeof(CfgAdcTbl_User[0]));		        //pass the test
 	PFAL_GPIO_CFG(CfgGpioTbl_User,sizeof(CfgGpioTbl_User)/sizeof(CfgGpioTbl_User[0]));	        //pass the test
-	Init_PWM();
-	// PFAL_PWM_CFG(CfgPwmTbl_User,sizeof(CfgPwmTbl_User)/sizeof(CfgPwmTbl_User[0]));		        //pass the test
+	PFAL_PWM_CFG(CfgPwmTbl_User,sizeof(CfgPwmTbl_User)/sizeof(CfgPwmTbl_User[0]));		        //pass the test
 	PFAL_SCI_CFG(CfgSciTbl_User,sizeof(CfgSciTbl_User)/sizeof(CfgSciTbl_User[0]));		        //pass the test
 	PFAL_SPI_CFG(CfgSpiTbl_User,sizeof(CfgSpiTbl_User)/sizeof(CfgSpiTbl_User[0]));              //pass the test
-	PFAL_XINTF_CFG(CfgXintfTbl_User,sizeof(CfgXintfTbl_User)/sizeof(CfgXintfTbl_User[0]));  
+	PFAL_XINTF_CFG(CfgXintfTbl_User,sizeof(CfgXintfTbl_User)/sizeof(CfgXintfTbl_User[0]));  	//pass the test
 	PFAL_TIMER_CFG(CfgTimerTbl_User,sizeof(CfgTimerTbl_User)/sizeof(CfgTimerTbl_User[0]));      //pass the test
-	// PFAL_INTERRUPT_CFG(CfgInterruptTbl_User,sizeof(CfgInterruptTbl_User)/sizeof(CfgInterruptTbl_User[0]));
-	Init_Interrupt();
+	PFAL_INTERRUPT_CFG(CfgInterruptTbl_User,sizeof(CfgInterruptTbl_User)/sizeof(CfgInterruptTbl_User[0]));
+
+	Log_Init();
 	ENABLE_DRIVE_BOARD_PWM_OUTPUT();
 	TURN_ON_PWM_VALVE;
 	TURN_ON_CTL_BOARD();
@@ -106,14 +102,7 @@ void main(void)
 		SYS_STATE_MACHINE;
 
         //PackSciTxPacket(gScibTxQue,gSciTxVar);
-
-
-
-		if(gSwitch)
-		{
-			LogDebug(33, &data, sizeof(data));
-			gSwitch = 0;
-		}
+		LogDebug(33, &data, sizeof(data));
 
 		Arinc429_WriteTxFIFO_ONE_WORD(gtArinc429SendWord);
 
