@@ -17,6 +17,11 @@ static void DebugTest(VAR16 a, int b, int c)
 	    gscitest++;
 #endif
 	gRxData = a.value;
+	if(gRxData == 0x1122)
+	{
+		//need to send the version number, add a flag to indicate that we need to send the version number
+       	PackSciTxPacket(gScibTxQue,gSciTxVar);
+	}
 }
 
 const functionMsgCodeUnpack SDB_MsgFuncTbl[] = 
@@ -243,7 +248,7 @@ void UpdateSciTxEnableFlag(SCITXVAR* sciTxVar, int len)
 	++times;
 	if(times < 1000)
 	{
-		return;
+//		return;
 	}
 	times = 0;
 
