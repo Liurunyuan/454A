@@ -339,6 +339,7 @@ void GetTorqueCurve(int a, int b, int c)
 #if(SYS_DEBUG == INCLUDE_FEATURE)
 	    gSciTxVar[0].value = 10;
 #endif
+	    gSciTxVar[0].value++;
 }
 void GetMotorSpeedCurve(int a, int b, int c)
 {
@@ -454,6 +455,7 @@ void Init_Sci_Protocol(void)
 #if(SYS_DEBUG == INCLUDE_FEATURE)
 	gRx422TxEnableFlag[0] = 1;
 #endif
+	gRx422TxEnableFlag[0] = 1;
 	gSciTxVar[0].updateValue = GetTorqueCurve;
 	gSciTxVar[1].updateValue = GetMotorSpeedCurve;
 	gSciTxVar[2].updateValue = GetDisplacementCurve;
