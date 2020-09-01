@@ -10,11 +10,15 @@ char rs422rxPack[100] = {0};
 int gscitest = 0;
 #endif
 
-static void DebugTest(VAR16 a, int b, int c) {
+Uint16 gRxData = 0;
+static void DebugTest(VAR16 a, int b, int c) 
+{
 #if(SYS_DEBUG == INCLUDE_FEATURE)
 	    gscitest++;
 #endif
+	gRxData = a.value;
 }
+
 const functionMsgCodeUnpack SDB_MsgFuncTbl[] = 
 {
     DebugTest,
@@ -79,7 +83,6 @@ int FindRxPacketTail(int len, SCIRXQUE *RS422RxQue)
 
 int CheckRxPacketLength(SCIRXQUE *RS422RxQue)
 {
-
 	if((RS422RxQue->buffer[(RS422RxQue->front + 2) % (RS422RxQue->bufferLen)] * UNIT_LEN + EXTRA_LEN) <= GetSciRxQueLength(RS422RxQue))
 	{
 		return SUCCESS;
@@ -136,6 +139,7 @@ void UpdateRxQueueHeadPos(int len, SCIRXQUE *RS422RxQue)
 void ProcessSciRxPacket(SCIRXQUE *RS422RxQue)
 {
 	int length;
+
 	while(GetSciRxQueLength(RS422RxQue) > EXTRA_LEN)
 	{
 		if(FindRxPacketHead(RS422RxQue) == FAIL)
