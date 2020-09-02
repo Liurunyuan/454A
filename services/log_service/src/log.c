@@ -59,9 +59,9 @@ void LogDebug(Uint16 logid, void* data, Uint16 len)
 		return;
 	}
 
-	totalLength = len + EXTRA_LEN;
+	totalLength = len * 2 + 5;
 
-	if(totalLength < GetSciTxQueLength(gScibTxQue))
+	if(totalLength > (gScibTxQue->bufferLen - GetSciTxQueLength(gScibTxQue)))
 	{
 		return;
 	}
@@ -75,23 +75,21 @@ void LogDebug(Uint16 logid, void* data, Uint16 len)
 
 	memcpy(tmp, data, len);
 
- 	if(SciTxEnQueue(0x5a,gScibTxQue) == 0)
+ 	if(SciTxEnQueue(0xa5,gScibTxQue) == 0)
 	{
 		//TODO, generate alarm, queue is full
 	}
- 	if(SciTxEnQueue(0x5a,gScibTxQue) == 0)
+ 	if(SciTxEnQueue(len * 2 + 2,gScibTxQue) == 0)
 	{
 		//TODO, generate alarm, queue is full
 	}
- 	if(SciTxEnQueue(0x00,gScibTxQue) == 0)
+	
+ 	if(SciTxEnQueue(0,gScibTxQue) == 0)
 	{
 		//TODO, generate alarm, queue is full
 	}
- 	if(SciTxEnQueue(0xff,gScibTxQue) == 0)
-	{
-		//TODO, generate alarm, queue is full
-	}
- 	if(SciTxEnQueue(0xff,gScibTxQue) == 0)
+
+ 	if(SciTxEnQueue(logid,gScibTxQue) == 0)
 	{
 		//TODO, generate alarm, queue is full
 	}
@@ -107,20 +105,7 @@ void LogDebug(Uint16 logid, void* data, Uint16 len)
 			//TODO, generate alarm, queue is full
 		}
 	}
-
- 	if(SciTxEnQueue(0xaa,gScibTxQue) == 0)
-	{
-		//TODO, generate alarm, queue is full
-	}
- 	if(SciTxEnQueue(0xbb,gScibTxQue) == 0)
-	{
-		//TODO, generate alarm, queue is full
-	}
- 	if(SciTxEnQueue(0xa5,gScibTxQue) == 0)
-	{
-		//TODO, generate alarm, queue is full
-	}
- 	if(SciTxEnQueue(0xa5,gScibTxQue) == 0)
+ 	if(SciTxEnQueue(0x5a,gScibTxQue) == 0)
 	{
 		//TODO, generate alarm, queue is full
 	}
