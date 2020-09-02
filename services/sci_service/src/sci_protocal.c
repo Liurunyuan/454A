@@ -1,6 +1,7 @@
 #include "sci_protocal.h"
 //#include <stdio.h>
 #include <string.h>
+#include "log.h"
 SCIRXQUE* gScibRxQue = NULL;
 SCITXQUE* gScibTxQue = NULL;
 SCITXVAR* gSciTxVar = NULL;
@@ -10,13 +11,41 @@ char rs422rxPack[100] = {0};
 int gscitest = 0;
 #endif
 
+typedef struct
+{
+	/* data */
+	Uint32 a;
+	Uint32 b;
+	Uint32 c;
+	Uint32 d;
+}GTMP;
+
+
 Uint16 gRxData = 0;
+extern GTMP data;
 static void DebugTest(VAR16 a, int b, int c) 
 {
 #if(SYS_DEBUG == INCLUDE_FEATURE)
 	    gscitest++;
 #endif
 	gRxData = a.value;
+
+	if(gRxData == 0x1122)
+	{
+		LogDebug(0, &data, sizeof(GTMP));
+	}
+	else if(gRxData == 0x4433)
+	{
+
+	}
+	else if(gRxData == 0x6655)
+	{
+		LogDebug(1, &gSysVersionNum, sizeof(Uint16));
+	}
+	else
+	{
+		/* code */
+	}
 }
 
 const functionMsgCodeUnpack SDB_MsgFuncTbl[] = 

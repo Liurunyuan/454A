@@ -104,7 +104,9 @@ void main(void)
 
        	//PackSciTxPacket(gScibTxQue,gSciTxVar);
 
-		LogDebug(33, &data, sizeof(GTMP));
+		//LogDebug(0, &data, sizeof(GTMP));
+
+   		Sci_B_Receive(gScibRxQue);
 
 		Arinc429_WriteTxFIFO_ONE_WORD(gtArinc429SendWord);
 
