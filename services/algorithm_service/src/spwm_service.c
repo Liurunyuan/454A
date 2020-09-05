@@ -64,7 +64,7 @@ static void FindSinTbl(int16 ct,int16 *psinvalue)
 	}
 	else if(ct < 4096)
 	{
-		*psinvalue =- SDC_Sin_Tbl[4095-ct]; 	/* 270--360*/
+		*psinvalue = -SDC_Sin_Tbl[4095-ct]; 	/* 270--360*/
 	}
 	else
 	{
@@ -83,15 +83,15 @@ void Calculate_Three_Phase_Duty(SPWM_PARA* spwmPara)
 	   ful = (long)pa * (long)spwmPara->Duty;
 	   spwmPara->Phase_Duty_U = (int16)(ful/32000);
 
-	   if((ct > 113) && (ct < 1934)){
+	   if((ct >= 0) && (ct <= 2047)){
 		    EPMW6_OUTPUT_UP(750, spwmPara->Phase_Duty_U);
-		    openAH();
 		    closeAL();
+		    openAH();
 	   }
-	   else if((ct > 2161) && (ct < 3982)){
+	   else if((ct >= 2048) && (ct < 4096)){
 		   EPMW6_OUTPUT_DOWN(750, spwmPara->Phase_Duty_U);
-		   openAL();
 		   closeAH();
+		   openAL();
 	   }
 	   else{
 		   closeAH();
@@ -104,15 +104,15 @@ void Calculate_Three_Phase_Duty(SPWM_PARA* spwmPara)
 	   ful = (long)pb * (long)spwmPara->Duty;
 	   spwmPara->Phase_Duty_V = (int16)(ful/32000);
 
-	   if((ct > 113) && (ct < 1934)){
+	   if((ct >= 0) && (ct <= 2047)){
 		   EPMW3_OUTPUT_UP(750, spwmPara->Phase_Duty_V);
-		   openBH();
 		   closeBL();
+		   openBH();
 	   }
-	   else if((ct > 2161) && (ct < 3982)){
+	   else if((ct >= 2048) && (ct < 4096)){
 		   EPMW3_OUTPUT_DOWN(750, spwmPara->Phase_Duty_V);
-		   openBL();
 		   closeBH();
+		   openBL();
 	   }
 	   else{
 		   closeBH();
@@ -123,15 +123,15 @@ void Calculate_Three_Phase_Duty(SPWM_PARA* spwmPara)
 	   if(ct > 4095) ct -= 4096;
 	   spwmPara->Phase_Duty_W = -(spwmPara->Phase_Duty_U + spwmPara->Phase_Duty_V);
 
-	   if((ct > 113) && (ct < 1934)){
+	   if((ct >= 0) && (ct <= 2047)){
 		   EPMW2_OUTPUT_UP(750, spwmPara->Phase_Duty_W);
-		   openCH();
 		   closeCL();
+		   openCH();
 	   }
-	   else if((ct > 2161) && (ct < 3982)){
+	   else if((ct >= 2048) && (ct < 4096)){
 		   EPMW2_OUTPUT_DOWN(750, spwmPara->Phase_Duty_W);
-		   openCL();
 		   closeCH();
+		   openCL();
 	   }
 	   else{
 		   closeCH();
@@ -144,8 +144,9 @@ void Calculate_Three_Phase_Duty(SPWM_PARA* spwmPara)
 
 }
 
-Uint16 gPostest = 0;
-int16 gtest2[3] = {0,0,0};
+
+int gSwitch = 0;
+
 void Spwm_Output(SPWM_PARA* spwmPara)
 {
 #if(SPWM_DUTY_GRADUAL_CHANGE == INCLUDE_FEATURE)
@@ -198,7 +199,16 @@ void Spwm_Output(SPWM_PARA* spwmPara)
         //TODO generate alarm
     }
 
-    Calculate_Three_Phase_Duty(spwmPara);
+	if(gSwitch)
+	{
+		Calculate_Three_Phase_Duty(spwmPara);
+	}
+	else
+	{
+		Disable_All_Epwms();
+	}
+	
+
 
 //    EPMW2_OUTPUT_DUAL_PLOARITY(750, spwmPara->Phase_Duty_W);
 //    EPMW3_OUTPUT_DUAL_PLOARITY(750, spwmPara->Phase_Duty_V);
@@ -223,8 +233,8 @@ void Init_Spwm_Service(void)
 	gSpwmPara.DutyAddInterval = 3;
 	gSpwmPara.DutyAddIntervalCnt = 0;
 	gSpwmPara.Ddtmax = 1;
-	gSpwmPara.ThresholdDutyP = 300;
-	gSpwmPara.ThresholdDutyN = -300;
+	gSpwmPara.ThresholdDutyP = 600;
+	gSpwmPara.ThresholdDutyN = -600;
 
-	gSpwmPara.TargetDuty = 100;
+	gSpwmPara.TargetDuty = 600;
 }
