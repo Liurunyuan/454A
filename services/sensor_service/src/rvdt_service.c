@@ -1,7 +1,6 @@
 #include "rvdt_service.h"
 #include "prod.h"
 
-Uint16 gTest[4] = {0,0,0,0};
 Uint16 *SDB_RVDT_Read_Addr = (Uint16 *)0x100000;
 Uint16 Get_RVDT_Position(Uint16 *Resolver_read)
 {
@@ -22,7 +21,6 @@ Uint16 Get_RVDT_Position(Uint16 *Resolver_read)
 	rvdt_result_tem1 = (*Resolver_read) >> 6;
 	rvdt_result_tem2 = (*Resolver_read) >> 6;
 	rvdt_result_tem3 = (*Resolver_read) >> 6;
-	gTest[0] = rvdt_result_tem1;
 	if(rvdt_result_tem1 == rvdt_result_tem2)
 	{
 		rvdt_result = rvdt_result_tem1;
@@ -38,15 +36,12 @@ Uint16 Get_RVDT_Position(Uint16 *Resolver_read)
 
 	if(rvdt_result > 1023)
 	{
-		gTest[3]++;
 		//TODO generate warining
 	}
 	else
 	{
     }
-	gTest[1] = rvdt_result;
 	rvdt_result = rvdt_result * 4;
-	gTest[2] = rvdt_result;
     return rvdt_result;
 #endif
 }

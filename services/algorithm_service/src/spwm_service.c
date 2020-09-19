@@ -145,7 +145,7 @@ void Calculate_Three_Phase_Duty(SPWM_PARA* spwmPara)
 }
 
 
-int gSwitch = 0;
+//int gSwitch = 0;
 
 void Spwm_Output(SPWM_PARA* spwmPara)
 {
@@ -199,14 +199,14 @@ void Spwm_Output(SPWM_PARA* spwmPara)
         //TODO generate alarm
     }
 
-	if(gSwitch)
-	{
+//	if(gSwitch)
+//	{
 		Calculate_Three_Phase_Duty(spwmPara);
-	}
-	else
-	{
-		Disable_All_Epwms();
-	}
+//	}
+//	else
+//	{
+//		Disable_All_Epwms();
+//	}
 	
 
 
@@ -236,5 +236,5 @@ void Init_Spwm_Service(void)
 	gSpwmPara.ThresholdDutyP = 600;
 	gSpwmPara.ThresholdDutyN = -600;
 
-	gSpwmPara.TargetDuty = 600;
+	gSpwmPara.TargetDuty = 200;
 }

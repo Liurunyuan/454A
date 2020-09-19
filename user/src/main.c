@@ -23,13 +23,6 @@ Uint32 gtArinc429SendWord = 1;
 Uint32 gtArinc429ReadWord = 0;
 
 int gTestcount = 0;
-int gIsOcCnt = 0;
-int gtest = 0;
-Uint16 gP = 0;
-int gIsOC = 0;
-int gNoOC = 0;
-
-
 
 void main(void)
 {
@@ -73,28 +66,10 @@ void main(void)
 	
 	while(1)
 	{
-		
-
-//		gP = Get_RVDT_Position(SDB_RVDT_Read_Addr);
-//		if(gtest == 0){
-//			Disable_All_Epwms();
-//		}
-//		else{
-//			Enable_All_Epwms();
-//		}
-
-		if(IS_OC){
-			gIsOC++;
-		}
-		else{
-			gNoOC++;
-		}
-
 		gTestcount++;
 		if(gTestcount == 1000){
 			if(IS_OC){
 				ENABLE_DRIVE_BOARD_PWM_OUTPUT();
-				gIsOcCnt++;
 				gTestcount = 0;
 			}
 			else{
