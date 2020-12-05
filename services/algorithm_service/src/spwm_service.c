@@ -80,68 +80,65 @@ void Calculate_Three_Phase_Duty(SPWM_PARA* spwmPara)
 
 	FindSinTbl(ct,&pa);
 
-	   ful = (long)pa * (long)spwmPara->Duty;
-	   spwmPara->Phase_Duty_U = (int16)(ful/32000);
+	ful = (long)pa * (long)spwmPara->Duty;
+	spwmPara->Phase_Duty_U = (int16)(ful/32000);
 
-	   if((ct > 113) && (ct < 1934)){
-		    EPMW6_OUTPUT_UP(750, spwmPara->Phase_Duty_U);
-		    openAH();
-		    closeAL();
-	   }
-	   else if((ct > 2161) && (ct < 3982)){
-		   EPMW6_OUTPUT_DOWN(750, spwmPara->Phase_Duty_U);
-		   openAL();
-		   closeAH();
-	   }
-	   else{
-		   closeAH();
-		   closeAL();
-	   }
+	if((ct > 113) && (ct < 1934)){
+		EPMW6_OUTPUT_UP(750, spwmPara->Phase_Duty_U);
+		openAH();
+		closeAL();
+	}
+	else if((ct > 2161) && (ct < 3982)){
+		EPMW6_OUTPUT_DOWN(750, spwmPara->Phase_Duty_U);
+		openAL();
+		closeAH();
+	}
+	else{
+		closeAH();
+		closeAL();
+	}
 
-	   ct += 1365;
-	   if(ct > 4095) ct -= 4096;
-	   FindSinTbl(ct,&pb);
-	   ful = (long)pb * (long)spwmPara->Duty;
-	   spwmPara->Phase_Duty_V = (int16)(ful/32000);
+	ct += 1365;
+	if(ct > 4095) ct -= 4096;
+	FindSinTbl(ct,&pb);
+	ful = (long)pb * (long)spwmPara->Duty;
+	spwmPara->Phase_Duty_V = (int16)(ful/32000);
 
-	   if((ct > 113) && (ct < 1934)){
-		   EPMW3_OUTPUT_UP(750, spwmPara->Phase_Duty_V);
-		   openBH();
-		   closeBL();
-	   }
-	   else if((ct > 2161) && (ct < 3982)){
-		   EPMW3_OUTPUT_DOWN(750, spwmPara->Phase_Duty_V);
-		   openBL();
-		   closeBH();
-	   }
-	   else{
-		   closeBH();
-		   closeBL();
-	   }
+	if((ct > 113) && (ct < 1934)){
+		EPMW3_OUTPUT_UP(750, spwmPara->Phase_Duty_V);
+		openBH();
+		closeBL();
+	}
+	else if((ct > 2161) && (ct < 3982)){
+		EPMW3_OUTPUT_DOWN(750, spwmPara->Phase_Duty_V);
+		openBL();
+		closeBH();
+	}
+	else{
+		closeBH();
+		closeBL();
+	}
 
-	   ct += 1365;
-	   if(ct > 4095) ct -= 4096;
-	   spwmPara->Phase_Duty_W = -(spwmPara->Phase_Duty_U + spwmPara->Phase_Duty_V);
+	ct += 1365;
+	if(ct > 4095) ct -= 4096;
+	spwmPara->Phase_Duty_W = -(spwmPara->Phase_Duty_U + spwmPara->Phase_Duty_V);
 
-	   if((ct > 113) && (ct < 1934)){
-		   EPMW2_OUTPUT_UP(750, spwmPara->Phase_Duty_W);
-		   openCH();
-		   closeCL();
-	   }
-	   else if((ct > 2161) && (ct < 3982)){
-		   EPMW2_OUTPUT_DOWN(750, spwmPara->Phase_Duty_W);
-		   openCL();
-		   closeCH();
-	   }
-	   else{
-		   closeCH();
-		   closeCL();
-	   }
+	if((ct > 113) && (ct < 1934)){
+		EPMW2_OUTPUT_UP(750, spwmPara->Phase_Duty_W);
+		openCH();
+		closeCL();
+	}
+	else if((ct > 2161) && (ct < 3982)){
+		EPMW2_OUTPUT_DOWN(750, spwmPara->Phase_Duty_W);
+		openCL();
+		closeCH();
+	}
+	else{
+		closeCH();
+		closeCL();
+	}
 //	   ful = (long)pa * (long)spwmPara->Duty;
 //	   spwmPara->Phase_Duty_U = (int16)(ful/32000);
-
-
-
 }
 
 Uint16 gPostest = 0;
@@ -226,5 +223,5 @@ void Init_Spwm_Service(void)
 	gSpwmPara.ThresholdDutyP = 300;
 	gSpwmPara.ThresholdDutyN = -300;
 
-	gSpwmPara.TargetDuty = 100;
+	gSpwmPara.TargetDuty = 0;
 }
